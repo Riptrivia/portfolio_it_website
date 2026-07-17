@@ -1,0 +1,3 @@
+document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',()=>{const nav=document.querySelector('.site-header nav');if(nav)nav.removeAttribute('data-open')}));
+const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.animate([{opacity:0,transform:'translateY(22px)'},{opacity:1,transform:'translateY(0)'}],{duration:650,easing:'cubic-bezier(.2,.7,.2,1)',fill:'both'});observer.unobserve(entry.target)}}),{threshold:.08});
+document.querySelectorAll('.role,.cert-card,.about-copy,.education article').forEach(el=>observer.observe(el));

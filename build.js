@@ -1,0 +1,12 @@
+const fs = require('fs');
+const path = require('path');
+const files = ['index.html','certs.html','troubleshooting.html','style.css','extras.css','script.js','Headshot.jpg','og.png'];
+const out = path.join(__dirname, 'dist');
+fs.rmSync(out, { recursive: true, force: true });
+fs.mkdirSync(out, { recursive: true });
+for (const file of files) fs.copyFileSync(path.join(__dirname, file), path.join(out, file));
+fs.mkdirSync(path.join(out, '.openai'), { recursive: true });
+fs.copyFileSync(path.join(__dirname, '.openai', 'hosting.json'), path.join(out, '.openai', 'hosting.json'));
+fs.mkdirSync(path.join(out, 'server'), { recursive: true });
+fs.writeFileSync(path.join(out, 'server', 'index.js'), `export default {\n  async fetch(request, env) {\n    return env.ASSETS.fetch(request);\n  }\n};\n`);
+console.log(`Built ${files.length} site assets.`);
