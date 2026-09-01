@@ -1,0 +1,34 @@
+@media(max-width:680px){
+  body{overflow-x:hidden}
+  .site-header{gap:.6rem!important}
+  .site-header nav{padding-bottom:.2rem!important;scroll-snap-type:x proximity}
+  .site-header nav a{min-height:40px;display:inline-flex;align-items:center;scroll-snap-align:start}
+  .hero{gap:4rem!important}
+  .hero-copy,.about-copy,.role-body{min-width:0}
+  .hero-actions .button,.ops-actions .button{width:100%}
+  .signal-strip{overflow-x:auto!important;justify-content:flex-start!important;padding:0 1rem;scrollbar-width:none}
+  .signal-strip::-webkit-scrollbar{display:none}
+  .section-heading h2,.about h2,.education h2{overflow-wrap:anywhere}
+  .role h3{font-size:1.35rem!important;line-height:1.22}
+  .role-title{gap:.5rem!important}
+  .tags li{font-size:.62rem}
+  .credential-item,.lab-card{padding:1.35rem!important}
+  .page-hero{padding-top:65px!important}
+  .page-hero h1{font-size:clamp(2.8rem,15vw,4.5rem)!important}
+  .assumptions{display:block!important;overflow-x:auto!important;white-space:normal}
+  .assumptions th,.assumptions td{min-width:120px}
+  .formula{overflow-wrap:anywhere}
+}
+
+@media(max-width:440px){
+  .hero-stats{grid-template-columns:1fr!important;width:100%!important;padding:.35rem .9rem!important}
+  .hero-stats div,.hero-stats div:first-child{padding:.7rem .35rem!important;border-left:0!important;border-top:1px solid var(--line)}
+  .hero-stats div:first-child{border-top:0!important}
+  .hero-stats dt{font-size:1.35rem!important}
+  .hero-stats dd{font-size:.67rem!important}
+  .portrait-wrap{max-width:88vw!important}
+  .terminal-card{max-width:205px}
+  .cert-card{min-height:300px!important}
+  .project-card{min-height:0!important}
+  footer{padding-bottom:2rem!important}
+}

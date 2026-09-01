@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Support Note Generator &amp; Capacity Calculator</title>
+    <style>
+        /* CSS Custom Variables for Theme Engine */
+        :root {
+            --bg-color: #f8f9fa;
+            --panel-bg: #ffffff;
+            --text-main: #222222;
+            --text-muted: #555555;
+            --primary: #002244;       /* Deep navy */
+            --accent: #b3a369;        /* Accent gold */
+            --accent-hover: #968653;
+            --border-color: #ced4da;
+            --input-bg: #ffffff;
+            --shadow: rgba(0, 34, 68, 0.06);
+            --focus-ring: rgba(0, 34, 68, 0.25);
+            --badge-bg: #e6ecf2;
+        }
+
+        [data-theme="gold"] {
+            --bg-color: #fdfbf7;
+            --panel-bg: #ffffff;
+            --text-main: #3a3523;
+            --text-muted: #6b6246;
+            --primary: #5c4f2e;
+            --accent: #c5a059;
+            --accent-hover: #a38141;
+            --border-color: #decfa6;
+            --input-bg: #fffdf9;
+            --shadow: rgba(92, 79, 46, 0.08);
+            --focus-ring: rgba(197, 160, 89, 0.3);
+            --badge-bg: #f5eedc;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f4f6f9;
+            --panel-bg: #ffffff;
+            --text-main: #1a1f2c;
+            --text-muted: #5a6578;
+            --primary: #2b384c;
+            --accent: #4a72a6;
+            --accent-hover: #355681;
+            --border-color: #d2d9e4;
+            --input-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.05);
+            --focus-ring: rgba(74, 114, 166, 0.3);
+            --badge-bg: #e1e7f0;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --panel-bg: #1e1e1e;
+            --text-main: #f5f5f5;
+            --text-muted: #b0b0b0;
+            --primary: #38b6ff;
+            --accent: #cf6679;
+            --accent-hover: #b35263;
+            --border-color: #444444;
+            --input-bg: #2d2d2d;
+            --shadow: rgba(0, 0, 0, 0.4);
+            --focus-ring: rgba(56, 182, 255, 0.4);
+            --badge-bg: #2a2a2a;
+        }
+
+        /* Base Resets & Layout */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.2s;
+        }
+        .skip-link:focus { top: 0; }
+
+        /* Corporate Banner */
+        .portfolio-banner {
+            width: 100%;
+            background-color: #002244; 
+            border-bottom: 4px solid #b3a369; 
+            padding: 1.25rem 2.5rem;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            flex-shrink: 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .banner-left {
+            display: flex;
+            flex-direction: column;
+        }
+        .banner-title {
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+        .banner-tagline {
+            color: #b3a369;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* Controls Area */
+        .controls-panel {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .theme-select, .btn-util {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 4px;
+            border: 1px solid var(--accent);
+            background-color: #002244;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        .theme-select:focus, .btn-util:focus {
+            outline: 2px solid #ffffff;
+        }
+
+        /* Custom Theme Builder Modal Style Row */
+        .theme-builder-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        .color-picker-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-color);
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+        .color-picker-group label {
+            margin: 0;
+            font-size: 0.85rem;
+        }
+
+        /* App Structure Layout */
+        .content-container {
+            flex: 1 0 auto;
+            display: flex;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .main-wrapper {
+            max-width: 1600px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            box-sizing: border-box;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (min-width: 1200px) {
+            .main-wrapper {
+                grid-template-columns: 1.2fr 1fr 0.8fr;
+            }
+        }
+
+        .panel {
+            background-color: var(--panel-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px var(--shadow);
+            box-sizing: border-box;
+            width: 100%;
+            border: 1px solid var(--border-color);
+        }
+
+        h2, h3 {
+            margin-top: 0;
+            color: var(--primary); 
+            border-bottom: 2px solid var(--accent); 
+            padding-bottom: 0.75rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        h2 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+        h3 { font-size: 1.3rem; margin-bottom: 1rem; }
+
+        /* Dynamic Form Control Layout */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+        .full-width { grid-column: span 2; }
+
+        label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+
+        /* Micro-Templates Quick Tags */
+        .quick-tags {
+            display: flex;
+            gap: 0.35rem;
+        }
+        .tag-chip {
+            font-size: 0.75rem;
+            background-color: var(--badge-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 1px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: normal;
+        }
+        .tag-chip:hover {
+            border-color: var(--accent);
+            background-color: var(--bg-color);
+        }
+
+        input[type="text"], input[type="number"], textarea, select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            color: var(--text-main);
+            background-color: var(--input-bg);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--focus-ring);
+        }
+
+        textarea { resize: vertical; min-height: 100px; }
+
+        /* Output Panel Styling */
+        .output-panel {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 2rem;
+        }
+        #resultPrompt {
+            background-color: var(--bg-color);
+            border: 2px dashed var(--accent);
+            padding: 1.5rem;
+            border-radius: 6px;
+            min-height: 160px;
+            white-space: pre-wrap;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-main);
+            word-break: break-word;
+            margin-bottom: 0.5rem;
+        }
+
+        .metrics-counter {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: right;
+            margin-bottom: 1rem;
+        }
+
+        .btn-action {
+            background-color: var(--accent); 
+            color: #ffffff;
+            border: none;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color 0.2s;
+        }
+        .btn-action:hover { background-color: var(--accent-hover); }
+
+        .success-msg {
+            color: #2e7d32;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        /* Transparent workflow-impact calculator */
+        .impact-panel { grid-column: 1 / -1; }
+        .impact-intro {
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 980px;
+        }
+        .impact-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .impact-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 1rem;
+        }
+        .impact-result {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent);
+            border-radius: 6px;
+            padding: 1rem;
+        }
+        .impact-result strong {
+            display: block;
+            color: var(--primary);
+            font-size: 1.45rem;
+            margin-bottom: 0.25rem;
+        }
+        .impact-result span { color: var(--text-muted); font-size: 0.9rem; }
+        .impact-note {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            line-height: 1.5;
+            margin: 1rem 0 0;
+        }
+
+        /* Persistent Sticky Notes Feature Workspace */
+        .sticky-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .sticky-composer {
+            background-color: var(--bg-color);
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+        .color-picker {
+            display: flex;
+            gap: 0.5rem;
+            margin: 0.5rem 0 1rem 0;
+        }
+        .color-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        .color-dot:focus, .color-dot.active {
+            border-color: var(--text-main);
+            outline: none;
+        }
+        .note-yellow { background-color: #fff9c4; color: #333; }
+        .note-blue { background-color: #bbdefb; color: #333; }
+        .note-green { background-color: #c8e6c9; color: #333; }
+        .note-pink { background-color: #f8bbd0; color: #333; }
+
+        .notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .sticky-card {
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+        .sticky-card-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            margin: 0 0 1.5rem 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .btn-delete-note {
+            position: absolute;
+            bottom: 0.5rem;
+            right: 0.5rem;
+            background: transparent;
+            border: none;
+            color: #cc0000;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Modals / Onboarding / Custom Theme Builder Overlays */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 1rem;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-box {
+            background-color: var(--panel-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Themed Footer System */
+        .portfolio-footer {
+            flex-shrink: 0;
+            text-align: center;
+            padding: 1.5rem 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent); 
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background-color: var(--panel-bg);
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Layout Adaptations for Windows Scaling / Small Displays */
+        @media (max-width: 768px) {
+            .main-wrapper { grid-template-columns: 1fr; padding: 0 1rem; }
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            .portfolio-banner { flex-direction: column; text-align: center; padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<a href="#mainContent" class="skip-link">Skip to Main Content</a>
+
+<header class="portfolio-banner" role="banner">
+    <div class="banner-left">
+        <div class="banner-title" id="appHeading">SUPPORT TOOLKIT</div>
+        <div class="banner-tagline">Independent local prototype</div>
+    </div>
+    <div class="controls-panel">
+        <label for="themeSelector" style="color: white; margin-bottom: 0; font-size: 0.85rem;">Theme:</label>
+        <select id="themeSelector" class="theme-select" onchange="handleThemeChange(this.value)" aria-label="Switch UI Colors">
+            <option value="city">Navy Theme</option>
+            <option value="gold">Gold Theme</option>
+            <option value="light">Light Theme</option>
+            <option value="dark">Dark Theme</option>
+            <option value="custom" id="customOpt" style="display:none;">Custom Theme</option>
+            <option value="trigger-builder">✨ Custom Theme...</option>
+        </select>
+        <button class="btn-util" onclick="openTutorial()" aria-label="View Interface Tutorial">Help/Tour</button>
+    </div>
+</header>
+
+<main class="content-container" id="mainContent">
+    <div class="main-wrapper">
+        <section class="panel" aria-labelledby="formTitle">
+            <h2 id="formTitle">IT Support Note Generator</h2>
+            <p class="impact-note">Demo only: use sample or sanitized information—never real credentials or sensitive user data.</p>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="callerName">Caller / User</label>
+                    <input type="text" id="callerName" placeholder="e.g. Sample User" oninput="generatePrompt()">
+                </div>
+
+                <div class="form-group">
+                    <label for="contactChannel">Support Channel</label>
+                    <select id="contactChannel" onchange="generatePrompt()">
+                        <option value="">-- Select Channel --</option>
+                        <option value="phone">Phone</option>
+                        <option value="walk-up">Walk-up</option>
+                        <option value="remote session">Remote session</option>
+                        <option value="email">Email</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="requestType">Request Type</label>
+                    <select id="requestType" onchange="generatePrompt()">
+                        <option value="">-- Select Type --</option>
+                        <option value="hardware support">Hardware</option>
+                        <option value="software support">Software</option>
+                        <option value="account access support">Account access</option>
+                        <option value="connectivity support">Connectivity</option>
+                        <option value="mobile-device support">Mobile device</option>
+                        <option value="other support">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="deviceId">Device / Asset</label>
+                    <input type="text" id="deviceId" placeholder="e.g. DEMO-LT-001" oninput="generatePrompt()">
+                </div>
+
+                <div class="form-group">
+                    <label for="technicianInitials">Technician Initials</label>
+                    <input type="text" id="technicianInitials" placeholder="e.g. MP" oninput="generatePrompt()">
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="issueSummary">
+                        <span>Issue Summary</span>
+                        <div class="quick-tags">
+                            <span class="tag-chip" onclick="quickFill('issueSummary', 'unable to sign in')">Sign-in</span>
+                            <span class="tag-chip" onclick="quickFill('issueSummary', 'device performance is degraded')">Performance</span>
+                            <span class="tag-chip" onclick="quickFill('issueSummary', 'corporate phone requires setup')">Phone setup</span>
+                        </div>
+                    </label>
+                    <input type="text" id="issueSummary" placeholder="Briefly describe the reported issue" oninput="generatePrompt()">
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="troubleshooting">
+                        <span>Troubleshooting Performed</span>
+                        <div class="quick-tags">
+                            <span class="tag-chip" onclick="quickFill('troubleshooting', 'confirmed connectivity and reproduced the issue')">Reproduced</span>
+                            <span class="tag-chip" onclick="quickFill('troubleshooting', 'reviewed configuration and completed approved remediation steps')">Configured</span>
+                        </div>
+                    </label>
+                    <textarea id="troubleshooting" placeholder="Record checks and actions in chronological order" oninput="generatePrompt()"></textarea>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="actionTaken">
+                        <span>Action Taken</span>
+                        <div class="quick-tags">
+                            <span class="tag-chip" onclick="quickFill('actionTaken', 'resolved during the initial contact and validated with the user')">Resolved</span>
+                            <span class="tag-chip" onclick="quickFill('actionTaken', 'documented findings and escalated to the appropriate support queue')">Escalated</span>
+                        </div>
+                    </label>
+                    <textarea id="actionTaken" placeholder="Describe the resolution, escalation, or next step" oninput="generatePrompt()"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel output-panel" aria-labelledby="outputTitle">
+            <h2 id="outputTitle">Generated Note</h2>
+            <div id="resultPrompt" role="status" aria-live="polite">[Caller / User] contacted support via [Channel] for [Request Type] on [Device / Asset]. Reported issue: [Issue Summary]. Troubleshooting performed: [Troubleshooting]. Action and outcome: [Action Taken]. Technician: [Initials].</div>
+            <div class="metrics-counter" id="metricsCounter">Characters: 0 | Words: 0</div>
+            <button class="btn-action" onclick="copyToClipboard()">Copy to Clipboard</button>
+            <div class="success-msg" id="successMsg" role="status">✓ Copied successfully!</div>
+        </section>
+
+        <section class="panel" aria-labelledby="stickyTitle">
+            <h2 id="stickyTitle">Quick Scratchpad</h2>
+            <div class="sticky-container">
+                <div class="sticky-composer">
+                    <label for="noteInput">New Note Content</label>
+                    <textarea id="noteInput" placeholder="Type transient reminders, account info, or follow ups..."></textarea>
+                    
+                    <div style="margin-top: 0.5rem; font-weight:600; font-size:0.9rem;">Select Color:</div>
+                    <div class="color-picker" role="radiogroup" aria-label="Note Background Color Choice">
+                        <button class="color-dot note-yellow active" data-color="yellow" onclick="selectColor('yellow')" aria-label="Yellow Theme Color" aria-checked="true" role="radio"></button>
+                        <button class="color-dot note-blue" data-color="blue" onclick="selectColor('blue')" aria-label="Blue Theme Color" aria-checked="false" role="radio"></button>
+                        <button class="color-dot note-green" data-color="green" onclick="selectColor('green')" aria-label="Green Theme Color" aria-checked="false" role="radio"></button>
+                        <button class="color-dot note-pink" data-color="pink" onclick="selectColor('pink')" aria-label="Pink Theme Color" aria-checked="false" role="radio"></button>
+                    </div>
+
+                    <button class="btn-action" style="padding:0.6rem;" onclick="addStickyNote()">Add Note</button>
+                </div>
+                
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+                    <h3>Saved Reminders</h3>
+                    <button class="btn-util" style="background-color:var(--panel-bg); color:var(--text-main); border-color:var(--border-color);" onclick="exportNotes()">Export All (.txt)</button>
+                </div>
+                <div class="notes-list" id="notesList" role="region" aria-live="polite"></div>
+            </div>
+        </section>
+
+        <section class="panel impact-panel" aria-labelledby="impactTitle">
+            <h2 id="impactTitle">Time-to-Capacity Calculator</h2>
+            <p class="impact-intro">Adjust the assumptions to estimate how standardized notes can convert documentation time into support capacity. The default example uses a $25 hourly labor rate and treats the dollar figure as the value of time reclaimed—not guaranteed payroll reduction.</p>
+            <div class="impact-inputs">
+                <div class="form-group"><label for="callsPerDay">Calls per day</label><input type="number" id="callsPerDay" min="0" step="1" value="20" oninput="calculateImpact()"></div>
+                <div class="form-group"><label for="manualMinutes">Manual note minutes</label><input type="number" id="manualMinutes" min="0" step="0.5" value="5" oninput="calculateImpact()"></div>
+                <div class="form-group"><label for="generatedMinutes">Generator minutes</label><input type="number" id="generatedMinutes" min="0" step="0.5" value="2" oninput="calculateImpact()"></div>
+                <div class="form-group"><label for="workDays">Workdays per month</label><input type="number" id="workDays" min="0" step="1" value="20" oninput="calculateImpact()"></div>
+                <div class="form-group"><label for="hourlyRate">Hourly rate ($)</label><input type="number" id="hourlyRate" min="0" step="1" value="25" oninput="calculateImpact()"></div>
+                <div class="form-group"><label for="averageCallMinutes">Average call minutes</label><input type="number" id="averageCallMinutes" min="1" step="1" value="15" oninput="calculateImpact()"></div>
+            </div>
+            <div class="impact-results" role="status" aria-live="polite">
+                <div class="impact-result"><strong id="savedPerNote">3 min</strong><span>saved per completed note</span></div>
+                <div class="impact-result"><strong id="monthlyHours">20 hrs</strong><span>monthly support capacity reclaimed</span></div>
+                <div class="impact-result"><strong id="monthlyValue">$500</strong><span>monthly time-value equivalent</span></div>
+                <div class="impact-result"><strong id="annualValue">$6,000</strong><span>annual time-value equivalent</span></div>
+                <div class="impact-result"><strong id="additionalCalls">4.0</strong><span>potential additional calls per day</span></div>
+            </div>
+            <p class="impact-note" id="impactFormula">Example: (5 − 2 minutes) × 20 calls × 20 days = 20 reclaimed hours per month. Actual results depend on call mix, documentation requirements, adoption, and average handle time.</p>
+        </section>
+    </div>
+</main>
+
+<div class="modal-overlay" id="customThemeModal" role="dialog" aria-labelledby="builderTitle" aria-modal="true">
+    <div class="modal-box">
+        <h2 id="builderTitle" style="margin-bottom:1rem;">Theme Customization Engine</h2>
+        <div style="margin-bottom: 1rem;">
+            <label for="customThemeName" style="font-size:0.9rem;">Give Your Theme a Name:</label>
+            <input type="text" id="customThemeName" placeholder="e.g., Midnight Quartz" style="padding: 0.5rem 0.75rem;">
+        </div>
+        <div class="theme-builder-row">
+            <div class="color-picker-group">
+                <label for="cpBg">App Canvas</label>
+                <input type="color" id="cpBg" value="#f4f6f9">
+            </div>
+            <div class="color-picker-group">
+                <label for="cpPanel">Panel Spaces</label>
+                <input type="color" id="cpPanel" value="#ffffff">
+            </div>
+            <div class="color-picker-group">
+                <label for="cpText">Primary Text</label>
+                <input type="color" id="cpText" value="#1a1f2c">
+            </div>
+            <div class="color-picker-group">
+                <label for="cpPrimary">Header Accent</label>
+                <input type="color" id="cpPrimary" value="#2b384c">
+            </div>
+            <div class="color-picker-group" style="grid-column: span 2;">
+                <label for="cpAccent">Main Buttons/Rules</label>
+                <input type="color" id="cpAccent" value="#4a72a6">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-util" style="background:none; border:1px solid var(--border-color); color:var(--text-main);" onclick="closeThemeBuilder()">Cancel</button>
+            <button class="btn-action" style="width:auto; padding:0.5rem 1.5rem;" onclick="saveCustomTheme()">Save & Apply</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="tourModal" role="dialog" aria-labelledby="tourTitle" aria-modal="true">
+    <div class="modal-box">
+        <h2 id="tourTitle" style="margin-bottom:1rem;">Welcome to Note Generator</h2>
+        <p style="line-height:1.6; margin-bottom:1rem;">Let's get you set up to maximize your workspace efficiency:</p>
+        <ul style="padding-left:1.25rem; line-height:1.6; display:flex; flex-direction:column; gap:0.5rem;">
+            <li><strong>Dynamic Scaling Layout:</strong> The UI automatically wraps and sizes cleanly to accommodate any screen resolution or browser scaling profile.</li>
+            <li><strong>Custom Theme Engine:</strong> Create and name your own palette using color pickers. Your preferences persist automatically across refreshes!</li>
+            <li><strong>Quick Fill Chips:</strong> Tap the mini tags above text boxes to insert routine templates instantly without manual repetitive drafting.</li>
+            <li><strong>Persistent Scratchpad:</strong> Save, update, color-coordinate, and export ad-hoc sticky logs securely preserved in cache.</li>
+            <li><strong>Capacity Calculator:</strong> Adjust call volume, note time, labor rate, and handle time to see the assumptions behind the workflow-impact estimate.</li>
+        </ul>
+        <div class="modal-footer">
+            <button class="btn-action" style="width:auto; padding:0.6rem 2rem;" onclick="closeTutorial()">Let's Begin</button>
+        </div>
+    </div>
+</div>
+
+<footer class="portfolio-footer" role="contentinfo">
+    Independent Prototype &bull; Marcielo Pestcoe
+</footer>
+
+<script>
+let currentSelectedColor = 'yellow';
+let stickyNotesDataArray = [];
+let customThemeConfig = null;
+
+window.addEventListener('DOMContentLoaded', () => {
+    loadNotesFromCache();
+    loadPersistentThemeConfig();
+    checkFirstTimeUserTourStatus();
+    updateMetrics(document.getElementById('resultPrompt').innerText);
+    calculateImpact();
+});
+
+function checkFirstTimeUserTourStatus() {
+    const executedBefore = localStorage.getItem('portfolio_app_visited_previously');
+    if (!executedBefore) {
+        openTutorial();
+    }
+}
+
+function openTutorial() {
+    const modal = document.getElementById('tourModal');
+    modal.classList.add('active');
+    modal.querySelector('button').focus();
+}
+
+function closeTutorial() {
+    document.getElementById('tourModal').classList.remove('active');
+    localStorage.setItem('portfolio_app_visited_previously', 'true');
+}
+
+/* Theme Processing Engine & Persistence Strategy */
+function handleThemeChange(val) {
+    if (val === 'trigger-builder') {
+        openThemeBuilder();
+        // Revert select view value to currently working theme temporarily
+        const currentActiveTheme = document.documentElement.getAttribute('data-theme') || 'city';
+        document.getElementById('themeSelector').value = localStorage.getItem('portfolio_selected_theme_profile') || 'city';
+        return;
+    }
+    applyThemeStyleScope(val);
+}
+
+function applyThemeStyleScope(themeKey) {
+    if (themeKey === 'custom' && customThemeConfig) {
+        const root = document.documentElement;
+        root.setAttribute('data-theme', 'custom');
+        root.style.setProperty('--bg-color', customThemeConfig.bg);
+        root.style.setProperty('--panel-bg', customThemeConfig.panel);
+        root.style.setProperty('--text-main', customThemeConfig.text);
+        root.style.setProperty('--primary', customThemeConfig.primary);
+        root.style.setProperty('--accent', customThemeConfig.accent);
+        root.style.setProperty('--accent-hover', customThemeConfig.accent);
+        root.style.setProperty('--border-color', customThemeConfig.text + '33');
+        root.style.setProperty('--input-bg', customThemeConfig.panel);
+        root.style.setProperty('--badge-bg', customThemeConfig.bg);
+    } else {
+        document.documentElement.setAttribute('data-theme', themeKey);
+        // Clean overrides to let standard predefined definitions flow naturally
+        ['--bg-color','--panel-bg','--text-main','--primary','--accent','--accent-hover','--border-color','--input-bg','--badge-bg'].forEach(prop => {
+            document.documentElement.style.removeProperty(prop);
+        });
+    }
+    localStorage.setItem('portfolio_selected_theme_profile', themeKey);
+    document.getElementById('themeSelector').value = themeKey;
+}
+
+function openThemeBuilder() {
+    document.getElementById('customThemeModal').classList.add('active');
+}
+
+function closeThemeBuilder() {
+    document.getElementById('customThemeModal').classList.remove('active');
+}
+
+function saveCustomTheme() {
+    const themeName = document.getElementById('customThemeName').value.trim() || 'Custom Theme';
+    
+    customThemeConfig = {
+        name: themeName,
+        bg: document.getElementById('cpBg').value,
+        panel: document.getElementById('cpPanel').value,
+        text: document.getElementById('cpText').value,
+        primary: document.getElementById('cpPrimary').value,
+        accent: document.getElementById('cpAccent').value
+    };
+
+    localStorage.setItem('portfolio_custom_user_theme_object', JSON.stringify(customThemeConfig));
+    
+    // Inject custom option view representation into UI element
+    const opt = document.getElementById('customOpt');
+    opt.innerText = themeName;
+    opt.style.display = 'block';
+
+    closeThemeBuilder();
+    applyThemeStyleScope('custom');
+}
+
+function loadPersistentThemeConfig() {
+    // 1. Recover saved theme object structure if present
+    const customStoredData = localStorage.getItem('portfolio_custom_user_theme_object');
+    if (customStoredData) {
+        try {
+            customThemeConfig = JSON.parse(customStoredData);
+            const opt = document.getElementById('customOpt');
+            opt.innerText = customThemeConfig.name;
+            opt.style.display = 'block';
+        } catch(e) { console.error("Corrupted layout object configuration dropped."); }
+    }
+
+    // 2. Discover default base preference profile index fallback
+    const preferredActiveProfile = localStorage.getItem('portfolio_selected_theme_profile') || 'city';
+    applyThemeStyleScope(preferredActiveProfile);
+}
+
+function selectColor(colorStr) {
+    currentSelectedColor = colorStr;
+    document.querySelectorAll('.color-dot').forEach(dot => {
+        dot.classList.remove('active');
+        dot.setAttribute('aria-checked', 'false');
+    });
+    const targetDot = document.querySelector(`.color-dot.note-${colorStr}`);
+    targetDot.classList.add('active');
+    targetDot.setAttribute('aria-checked', 'true');
+}
+
+function quickFill(elementId, valueToInsert) {
+    const field = document.getElementById(elementId);
+    field.value = valueToInsert;
+    generatePrompt();
+}
+
+function handleNumberInput(inputElement) {
+    let value = inputElement.value.replace(/\D/g, '');
+    if (value) {
+        inputElement.value = Number(value).toLocaleString('en-US');
+    } else {
+        inputElement.value = '';
+    }
+    generatePrompt();
+}
+
+function updateMetrics(textStr) {
+    const charCount = textStr.length;
+    const wordCount = textStr.trim() === "" ? 0 : textStr.trim().split(/\s+/).length;
+    document.getElementById('metricsCounter').innerText = `Characters: ${charCount} | Words: ${wordCount}`;
+}
+
+function generatePrompt() {
+    const callerName = document.getElementById('callerName').value || '[Caller / User]';
+    const contactChannel = document.getElementById('contactChannel').value || '[Channel]';
+    const requestType = document.getElementById('requestType').value || '[Request Type]';
+    const deviceId = document.getElementById('deviceId').value || '[Device / Asset]';
+    const issueSummary = document.getElementById('issueSummary').value || '[Issue Summary]';
+    const troubleshooting = document.getElementById('troubleshooting').value || '[Troubleshooting]';
+    const actionTaken = document.getElementById('actionTaken').value || '[Action Taken]';
+    const technicianInitials = document.getElementById('technicianInitials').value || '[Initials]';
+
+    const finalizedNote = `${callerName} contacted support via ${contactChannel} for ${requestType} on ${deviceId}. Reported issue: ${issueSummary}. Troubleshooting performed: ${troubleshooting}. Action and outcome: ${actionTaken}. Technician: ${technicianInitials}.`;
+
+    document.getElementById('resultPrompt').innerText = finalizedNote;
+    updateMetrics(finalizedNote);
+}
+
+function getNonNegativeNumber(id) {
+    const value = Number.parseFloat(document.getElementById(id).value);
+    return Number.isFinite(value) && value >= 0 ? value : 0;
+}
+
+function calculateImpact() {
+    const callsPerDay = getNonNegativeNumber('callsPerDay');
+    const manualMinutes = getNonNegativeNumber('manualMinutes');
+    const generatedMinutes = getNonNegativeNumber('generatedMinutes');
+    const workDays = getNonNegativeNumber('workDays');
+    const hourlyRate = getNonNegativeNumber('hourlyRate');
+    const averageCallMinutes = Math.max(getNonNegativeNumber('averageCallMinutes'), 1);
+    const minutesSavedPerNote = Math.max(manualMinutes - generatedMinutes, 0);
+    const minutesSavedPerDay = minutesSavedPerNote * callsPerDay;
+    const reclaimedHoursPerMonth = (minutesSavedPerDay * workDays) / 60;
+    const monthlyTimeValue = reclaimedHoursPerMonth * hourlyRate;
+    const annualTimeValue = monthlyTimeValue * 12;
+    const additionalCallsPerDay = minutesSavedPerDay / averageCallMinutes;
+    const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+
+    document.getElementById('savedPerNote').innerText = `${minutesSavedPerNote.toFixed(1).replace('.0', '')} min`;
+    document.getElementById('monthlyHours').innerText = `${reclaimedHoursPerMonth.toFixed(1).replace('.0', '')} hrs`;
+    document.getElementById('monthlyValue').innerText = currency.format(monthlyTimeValue);
+    document.getElementById('annualValue').innerText = currency.format(annualTimeValue);
+    document.getElementById('additionalCalls').innerText = additionalCallsPerDay.toFixed(1);
+    document.getElementById('impactFormula').innerText = `Current assumptions: (${manualMinutes} − ${generatedMinutes} minutes) × ${callsPerDay} calls × ${workDays} days = ${reclaimedHoursPerMonth.toFixed(1)} reclaimed hours per month. Actual results depend on call mix, documentation requirements, adoption, and average handle time.`;
+}
+
+function copyToClipboard() {
+    const textToCopy = document.getElementById('resultPrompt').innerText;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        const msg = document.getElementById('successMsg');
+        msg.style.display = 'block';
+        setTimeout(() => { msg.style.display = 'none'; }, 2500);
+    }).catch(err => {
+        alert('Action copy aborted natively: ', err);
+    });
+}
+
+function renderStickyNotesList() {
+    const targetContainer = document.getElementById('notesList');
+    targetContainer.innerHTML = '';
+    
+    if (stickyNotesDataArray.length === 0) {
+        targetContainer.innerHTML = '<p style="font-size:0.9rem; font-style:italic; margin:0; color:var(--text-muted);">No scratchpad notes stored.</p>';
+        return;
+    }
+
+    stickyNotesDataArray.forEach((noteItem) => {
+        const cardNode = document.createElement('div');
+        cardNode.className = `sticky-card note-${noteItem.color}`;
+        
+        const txtNode = document.createElement('p');
+        txtNode.className = 'sticky-card-text';
+        txtNode.innerText = noteItem.text;
+        
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn-delete-note';
+        deleteBtn.innerText = 'Delete';
+        deleteBtn.setAttribute('aria-label', `Delete note: ${noteItem.text.substring(0,15)}...`);
+        deleteBtn.onclick = () => removeStickyNoteItem(noteItem.id);
+
+        cardNode.appendChild(txtNode);
+        cardNode.appendChild(deleteBtn);
+        targetContainer.appendChild(cardNode);
+    });
+}
+
+function addStickyNote() {
+    const srcArea = document.getElementById('noteInput');
+    const content = srcArea.value.trim();
+    if (!content) return;
+
+    const newObj = {
+        id: Date.now().toString(),
+        text: content,
+        color: currentSelectedColor
+    };
+
+    stickyNotesDataArray.unshift(newObj);
+    saveNotesToCache();
+    renderStickyNotesList();
+    srcArea.value = '';
+    srcArea.focus();
+}
+
+function removeStickyNoteItem(idString) {
+    stickyNotesDataArray = stickyNotesDataArray.filter(note => note.id !== idString);
+    saveNotesToCache();
+    renderStickyNotesList();
+}
+
+function saveNotesToCache() {
+    localStorage.setItem('portfolio_scratchpad_notes', JSON.stringify(stickyNotesDataArray));
+}
+
+function loadNotesFromCache() {
+    const rawData = localStorage.getItem('portfolio_scratchpad_notes');
+    if (rawData) {
+        try {
+            stickyNotesDataArray = JSON.parse(rawData);
+        } catch(e) {
+            stickyNotesDataArray = [];
+        }
+    }
+    renderStickyNotesList();
+}
+
+function exportNotes() {
+    if (stickyNotesDataArray.length === 0) {
+        alert("Scratchpad is currently blank.");
+        return;
+    }
+    let fileOutputContent = "IT SUPPORT NOTE GENERATOR SCRATCHPAD EXPORT\n";
+    fileOutputContent += `Generated: ${new Date().toLocaleString()}\n`;
+    fileOutputContent += "==================================================\n\n";
+
+    stickyNotesDataArray.forEach((note, index) => {
+        fileOutputContent += `Note #${index + 1} [Color: ${note.color.toUpperCase()}]\n`;
+        fileOutputContent += `${note.text}\n`;
+        fileOutputContent += "--------------------------------------------------\n";
+    });
+
+    const dataBlob = new Blob([fileOutputContent], { type: 'text/plain' });
+    const downloadLink = document.createElement('a');
+    downloadLink.download = `Scratchpad_Notes_Export_${Date.now()}.txt`;
+    downloadLink.href = window.URL.createObjectURL(dataBlob);
+    downloadLink.click();
+    window.URL.revokeObjectURL(downloadLink.href);
+}
+</script>
+
+</body>
+</html>

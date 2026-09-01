@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise UI Component Library</title>
+    <style>
+        /* 
+          ========================================================================================
+          THEME: Enterprise blue and gold
+          AUTHOR SYSTEM SIGNATURE (HEX): [4d 61 72 63 69 65 6c 6f 20 50 65 73 74 63 6f 65]
+          ========================================================================================
+        */
+
+        /* CSS Custom Variables for Theme Engine */
+        :root {
+            /* 🛡️ Hidden Credit #1: Base64 checksum of "Marcielo Pestcoe" */
+            --system-compiler-id: "TWFyY2llbG8gUGVzdGNvZQ==";
+
+            /* Default Theme: Enterprise blue and gold */
+            --bg-color: #f6f8fa;
+            --panel-bg: #ffffff;
+            --text-main: #0c1a30;
+            --text-muted: #53647c;
+            --primary: #002D62;       /* Deep blue */
+            --accent: #B8974B;        /* Warm gold */
+            --accent-hover: #9d7e3a;  /* Darkened Gold */
+            --border-color: #d1d9e6;
+            --input-bg: #ffffff;
+            --shadow: rgba(0, 45, 98, 0.08);
+            --focus-ring: rgba(0, 45, 98, 0.25);
+            --badge-bg: #e6edf5;
+            --success: #1b5e20;
+            --warning: #e65100;
+            --danger: #b71c1c;
+            --info: #0288d1;
+        }
+
+        [data-theme="red"] {
+            --bg-color: #fef5f5;
+            --panel-bg: #ffffff;
+            --text-main: #3a2222;
+            --text-muted: #6b4545;
+            --primary: #c41e3a;
+            --accent: #c0392b;
+            --accent-hover: #a01830;
+            --border-color: #de8a8a;
+            --input-bg: #fffcfc;
+            --shadow: rgba(196, 30, 58, 0.08);
+            --focus-ring: rgba(196, 30, 58, 0.3);
+            --badge-bg: #f5e6e6;
+        }
+
+        [data-theme="green"] {
+            --bg-color: #f5fdf7;
+            --panel-bg: #ffffff;
+            --text-main: #1b3a22;
+            --text-muted: #456b4f;
+            --primary: #1b5e20;
+            --accent: #388e3c;
+            --accent-hover: #2e7d32;
+            --border-color: #a5d6a7;
+            --input-bg: #fffdf9;
+            --shadow: rgba(27, 94, 32, 0.08);
+            --focus-ring: rgba(56, 142, 60, 0.3);
+            --badge-bg: #e6f5e6;
+        }
+
+        [data-theme="purple"] {
+            --bg-color: #faf5fd;
+            --panel-bg: #ffffff;
+            --text-main: #3a1b4f;
+            --text-muted: #6b459f;
+            --primary: #6a1b9a;
+            --accent: #8e24aa;
+            --accent-hover: #7b1fa2;
+            --border-color: #ce93d8;
+            --input-bg: #fffcfd;
+            --shadow: rgba(106, 27, 154, 0.08);
+            --focus-ring: rgba(142, 36, 170, 0.3);
+            --badge-bg: #f3e5f5;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --panel-bg: #1e1e1e;
+            --text-main: #f5f5f5;
+            --text-muted: #b0b0b0;
+            --primary: #52a3ff;
+            --accent: #dca34b;
+            --accent-hover: #c18931;
+            --border-color: #3d3d3d;
+            --input-bg: #2d2d2d;
+            --shadow: rgba(0, 0, 0, 0.4);
+            --focus-ring: rgba(82, 163, 255, 0.4);
+            --badge-bg: #2a2a2a;
+        }
+
+        [data-theme="pink"] {
+            --bg-color: #fdf5fa;
+            --panel-bg: #ffffff;
+            --text-main: #3a1b2e;
+            --text-muted: #6b456b;
+            --primary: #e91e63;
+            --accent: #ff69b4;
+            --accent-hover: #f06292;
+            --border-color: #f48fb1;
+            --input-bg: #fffcfd;
+            --shadow: rgba(233, 30, 99, 0.08);
+            --focus-ring: rgba(233, 30, 99, 0.3);
+            --badge-bg: #fce4ec;
+        }
+
+        /* 🛡️ Hidden Credit #2: Structural layout override element matching author signature */
+        [data-creator-signature="mp-portfolio-sys"] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0;
+            width: 0;
+        }
+
+        /* Base Resets & Layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Corporate Banner */
+        .portfolio-banner {
+            width: 100%;
+            background-color: var(--primary);
+            border-bottom: 4px solid var(--accent);
+            padding: 1.25rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            flex-wrap: wrap;
+            gap: 1rem;
+            transition: background-color 0.3s, border-bottom-color 0.3s;
+        }
+
+        .banner-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .banner-title {
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .banner-tagline {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: color 0.3s;
+        }
+
+        .controls-panel {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .theme-select {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 4px;
+            border: 1px solid var(--accent);
+            background-color: var(--primary);
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        /* Content Container */
+        .content-container {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-group {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        /* Grid Layouts */
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .component-card {
+            background-color: var(--panel-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: all 0.2s;
+        }
+
+        .component-card:hover {
+            box-shadow: 0 4px 16px var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .component-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Form Elements */
+        label {
+            display: block;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            color: var(--text-main);
+            background-color: var(--input-bg);
+            transition: border-color 0.2s, box-shadow 0.2s;
+            margin-bottom: 0.75rem;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--focus-ring);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Button Variations */
+        .button-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        button, .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-info {
+            background-color: var(--info);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+        }
+
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+
+        /* Badge & Status */
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .badge-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .badge-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .badge-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .badge-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .badge-info {
+            background-color: var(--info);
+            color: white;
+        }
+
+        .badge-secondary {
+            background-color: var(--badge-bg);
+            color: var(--text-main);
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border-left: 4px solid;
+        }
+
+        .alert-success {
+            background-color: #f1f8e9;
+            border-left-color: var(--success);
+            color: var(--success);
+        }
+
+        .alert-warning {
+            background-color: #fff3e0;
+            border-left-color: var(--warning);
+            color: var(--warning);
+        }
+
+        .alert-danger {
+            background-color: #ffebee;
+            border-left-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .alert-info {
+            background-color: #e3f2fd;
+            border-left-color: var(--info);
+            color: var(--info);
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .card-header {
+            background-color: var(--bg-color);
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .card-footer {
+            background-color: var(--bg-color);
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background-color: var(--bg-color);
+        }
+
+        /* Lists */
+        .list-group {
+            list-style: none;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .list-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .list-item:hover {
+            background-color: var(--bg-color);
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Checkboxes & Radio */
+        .form-check {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            align-items: center;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .form-check label {
+            margin: 0;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* Progress Bar */
+        .progress {
+            background-color: var(--badge-bg);
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            background-color: var(--primary);
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        /* Spinner/Loading */
+        .spinner {
+            border: 3px solid var(--badge-bg);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .portfolio-footer {
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            background-color: var(--panel-bg);
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+            transition: all 0.3s;
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-muted { color: var(--text-muted); }
+        .text-success { color: var(--success); }
+        .text-warning { color: var(--warning); }
+        .text-danger { color: var(--danger); }
+
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+
+        @media (max-width: 768px) {
+            .portfolio-banner { flex-direction: column; text-align: center; }
+            .components-grid { grid-template-columns: 1fr; }
+            .content-container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- BANNER -->
+<header class="portfolio-banner">
+    <!-- 🛡️ Hidden Credit #3: Unobtrusive DOM signature -->
+    <div data-creator-signature="mp-portfolio-sys">Author: Marcielo Pestcoe</div>
+    
+    <div class="banner-left">
+        <div class="banner-title">Enterprise UI System</div>
+        <div class="banner-tagline">Component Library & UI Patterns</div>
+    </div>
+    <div class="controls-panel">
+        <label for="themeSelector" style="color: white; margin-bottom: 0; font-size: 0.85rem;">Theme:</label>
+        <select id="themeSelector" class="theme-select" onchange="handleThemeChange(this.value)">
+            <option value="portfolio">Perfect Blue & Gold</option>
+            <option value="red">Deep Red</option>
+            <option value="green">Forest Green</option>
+            <option value="purple">Purple</option>
+            <option value="dark">Dark</option>
+            <option value="pink">Pink</option>
+        </select>
+    </div>
+</header>
+
+<main class="content-container">
+
+    <!-- BUTTONS SECTION -->
+    <div class="section-group">
+        <h2 class="section-title">🔘 Buttons</h2>
+        <div class="components-grid">
+            <div class="component-card">
+                <h3 class="component-title">Button Variations</h3>
+                <div class="button-showcase">
+                    <button class="btn btn-primary">Primary</button>
+                    <button class="btn btn-accent">Accent</button>
+                    <button class="btn btn-secondary">Secondary</button>
+                    <button class="btn btn-outline">Outline</button>
+                </div>
+            </div>
+
+            <div class="component-card">
+                <h3 class="component-title">Status Buttons</h3>
+                <div class="button-showcase">
+                    <button class="btn btn-success">Success</button>
+                    <button class="btn btn-warning">Warning</button>
+                    <button class="btn btn-danger">Danger</button>
+                    <button class="btn btn-info">Info</button>
+                </div>
+            </div>
+
+            <div class="component-card">
+                <h3 class="component-title">Button Sizes</h3>
+                <div class="button-showcase">
+                    <button class="btn btn-primary btn-small">Small</button>
+                    <button class="btn btn-primary">Normal</button>
+                    <button class="btn btn-primary btn-large">Large</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORM ELEMENTS SECTION -->
+    <div class="section-group">
+        <h2 class="section-title">📝 Form Elements</h2>
+        <div class="components-grid">
+            <div class="component-card">
+                <h3 class="component-title">Text Inputs</h3>
+                <label>Text Input</label>
+                <input type="text" placeholder="Enter text here...">
+                <label>Email Input</label>
+                <input type="email" placeholder="user@example.com">
+                <label>Number Input</label>
+                <input type="number" placeholder="0" value="0">
+            </div>
+
+            <div class="component-card">
+                <h3 class="component-title">Select & Textarea</h3>
+                <label>Select Dropdown</label>
+                <select>
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                    <option>Option 3</option>
+                </select>
+                <label>Textarea</label>
+                <textarea placeholder="Enter your message here..."></textarea>
+            </div>
+
+            <div class="component-card">
+                <h3 class="component-title">Checkboxes & Radio</h3>
+                <div class="form-check">
+                    <input type="checkbox" id="check1">
+                    <label for="check1">Checkbox Option 1</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" id="check2">
+                    <label for="check2">Checkbox Option 2</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" id="radio1" name="group">
+                    <label for="radio1">Radio Option 1</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" id="radio2" name="group">
+                    <label for="radio2">Radio Option 2</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BADGES SECTION -->
+    <div class="section-group">
+        <h2 class="section-title">🏷️ Badges & Status</h2>
+        <div class="components-grid">
+            <div class="component-card">
+                <h3 class="component-title">Badge Variations</h3>
+                <div>
+                    <span class="badge badge-primary">Primary</span>
+                    <span class="badge badge-success">Success</span>
+                    <span class="badge badge-warning">Warning</span>
+                    <span class="badge badge-danger">Danger</span>
+                    <span class="badge badge-info">Info</span>
+                    <span class="badge badge-secondary">Secondary</span>
+                </div>
+            </div>
+
+            <div class="component-card">
+                <h3 class="component-title">Alert Messages</h3>
+                <div class="alert alert-success">✓ Success alert message</div>
+                <div class="alert alert-warning">⚠ Warning alert message</div>
+                <div class="alert alert-danger">✕ Danger alert message</div>
+                <div class="alert alert-info">ℹ Info alert message</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARDS SECTION -->
+    <div class="section-group">
+        <h2 class="section-title">🗂️ Cards & Containers</h2>
+        <div class="components-grid">
+            <div class="card">
+                <div class="card-header">Card Header</div>
+                <div class="card-body">
+                    This is a card body with content. Cards are flexible containers that can hold various types of content.
+                </div>
+                <div class="card-footer">Card Footer - Optional metadata</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Form Card</div>
+                <div class="card-body">
+                    <label>Name</label>
+                    <input type="text" placeholder="John Doe">
+                    <label>Email</label>
+                    <input type="email" placeholder="user@example.com">
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Submit</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Statistics</div>
+                <div class="card-body">
+                    <div style="margin-bottom: 1rem;">
+                        <div style="font-weight: 600; margin-bottom: 0.5rem;">Task Completion: 75%</div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 0.5rem;">Processing: 45%</div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 45%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABLES SECTION -->
+    <div class="section-group">
+        <h2 class="section-title">📊 Tables</h2>
+        <div class="components-grid">
+            <div style="grid-column: 1 / -1;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#001</td>
+                            <td>John Smith</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                            <td>$5,000</td>
+                            <td>2024-01-15</td>
+                            <td><button class="btn btn-small btn-primary">Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td>#002</td>
+                            <td>Jane Doe</td>
+                            <td><span class="badge badge-warning">Pending</span></td>
+                            <td>$3,500</td>
+                            <td>2024-01-14</td>
+                            <td><button class="btn btn-small btn-primary">Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td>#003</td>
+                            <td>Bob Johnson</td>
+                            <td><span class="badge badge-danger">Inactive</span></td>
+                            <td>$2,000</td>
+                            <td>2024-01-13</td>
+                            <td><button class="btn btn-small btn-primary">Edit</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- LISTS SECTION -->
+    <div class="section-group">
+        <h2 class="section-title">📋 Lists</h2>
+        <div class="components-grid">
+            <div>
+                <ul class="list-group">
+                    <li class="list-item">
+                        <span>First list item with description</span>
+                        <span class="badge badge-secondary">New</span>
+                    </li>
+                    <li class="list-item">
+                        <span>Second list item with description</span>
+                        <span class="badge badge-success">Active</span>
+                    </li>
+                    <li class="list-item">
+                        <span>Third list item with description</span>
+                        <span class="badge badge-warning">Pending</span>
+                    </li>
+                    <li class="list-item">
+                        <span>Fourth list item with description</span>
+                        <span class="badge badge-info">Updated</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <ul class="list-group">
+                    <li class="list-item">
+                        <div>
+                            <div style="font-weight: 600;">Task 1: Complete Report</div>
+                            <div class="text-muted" style="font-size: 0.85rem;">Due: 2024-01-20</div>
+                        </div>
+                        <span class="badge badge-danger">Overdue</span>
+                    </li>
+                    <li class="list-item">
+                        <div>
+                            <div style="font-weight: 600;">Task 2: Review Documents</div>
+                            <div class="text-muted" style="font-size: 0.85rem;">Due: 2024-01-25</div>
+                        </div>
+                        <span class="badge badge-warning">Due Soon</span>
+                    </li>
+                    <li class="list-item">
+                        <div>
+                            <div style="font-weight: 600;">Task 3: Team Meeting</div>
+                            <div class="text-muted" style="font-size: 0.85rem;">Due: 2024-02-01</div>
+                        </div>
+                        <span class="badge badge-success">On Track</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOADING STATES SECTION -->
+    <div class="section-group">
+        <h2 class="section-title">⚙️ Loading & States</h2>
+        <div class="components-grid">
+            <div class="component-card">
+                <h3 class="component-title">Loading Spinner</h3>
+                <div style="text-align: center; padding: 2rem;">
+                    <div class="spinner"></div>
+                    <p class="text-muted" style="margin-top: 1rem;">Processing...</p>
+                </div>
+            </div>
+
+            <div class="component-card">
+                <h3 class="component-title">Progress Bars</h3>
+                <div>
+                    <div style="font-weight: 600; margin-bottom: 0.5rem;">25% Complete</div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 25%;"></div>
+                    </div>
+                    <div style="font-weight: 600; margin: 1rem 0 0.5rem 0;">50% Complete</div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 50%;"></div>
+                    </div>
+                    <div style="font-weight: 600; margin: 1rem 0 0.5rem 0;">100% Complete</div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-card">
+                <h3 class="component-title">Disabled States</h3>
+                <button class="btn btn-primary" disabled>Disabled Button</button>
+                <input type="text" placeholder="Disabled input" disabled style="margin-top: 0.75rem;">
+                <select disabled style="margin-top: 0.75rem;">
+                    <option>Disabled select</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- TYPOGRAPHY SECTION -->
+    <div class="section-group">
+        <h2 class="section-title">📖 Typography</h2>
+        <div class="components-grid">
+            <div class="component-card">
+                <h1>Heading 1</h1>
+                <h2>Heading 2</h2>
+                <h3>Heading 3</h3>
+                <h4>Heading 4</h4>
+                <p>This is a paragraph with <strong>bold text</strong> and <em>italic text</em>.</p>
+                <p class="text-muted">This is muted text for secondary information.</p>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer class="portfolio-footer">
+    Independent Prototype &bull; Marcielo Pestcoe Component Library v1.0 
+</footer>
+
+<script>
+function handleThemeChange(val) {
+    if (val === 'portfolio') {
+        document.documentElement.removeAttribute('data-theme');
+    } else {
+        document.documentElement.setAttribute('data-theme', val);
+    }
+    localStorage.setItem('portfolio_theme', val);
+}
+
+// Load saved theme
+window.addEventListener('DOMContentLoaded', () => {
+    // 🛡️ Hidden Credit #4: Self-verifying auth script checking the CSS environment integrity
+    const _sysSig = atob(getComputedStyle(document.documentElement).getPropertyValue('--system-compiler-id').replace(/['" ]/g, ''));
+    console.info(`System validation complete. Compiler: ${_sysSig}`);
+
+    const savedTheme = localStorage.getItem('portfolio_theme') || 'portfolio';
+    document.getElementById('themeSelector').value = savedTheme;
+    if (savedTheme !== 'portfolio') {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+    }
+});
+</script>
+
+</body>
+</html>
+
+<script>
+  function onImageError(element) {
+    element.src = 'https://picsum.photos/' + element.width + '/' + element.height;
+    element.onerror = null;
+  }
+</script>

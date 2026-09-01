@@ -1,0 +1,946 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Installation Troubleshooting Case Study</title>
+    <style>
+        /* CSS Custom Variables - Enterprise Portfolio Theme */
+        :root {
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --text-main: #002244; 
+            --text-muted: #64748b;
+            --primary: #002244;
+            --accent: #C5A059;
+            --accent-hover: #A88444;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 2px 4px 0 rgba(0, 34, 68, 0.04);
+            --shadow-md: 0 10px 25px -5px rgba(0, 34, 68, 0.08), 0 8px 10px -6px rgba(0, 34, 68, 0.08);
+            --shadow-lg: 0 20px 30px -10px rgba(0, 34, 68, 0.15);
+            --badge-bg: #f1f5f9;
+            --success: #1b4d3e;
+            --warning: #d97706;
+            --error: #dc2626;
+            --info: #0284c7;
+            --radius-md: 12px;
+            --radius-sm: 6px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header Banner */
+        .case-study-banner {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, rgba(0, 34, 68, 0.9) 100%);
+            border-bottom: 4px solid var(--accent);
+            padding: 2rem 2.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .banner-content {
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .banner-title {
+            color: #ffffff;
+            font-size: 2.25rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .banner-subtitle {
+            color: var(--accent);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .banner-meta {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            margin-bottom: 0.25rem;
+        }
+
+        .meta-value {
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        /* Main Content */
+        .case-study-container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 1rem;
+        }
+
+        .section-title::before {
+            content: '▪';
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        /* Problem Statement Card */
+        .problem-card {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.05) 0%, rgba(220, 38, 38, 0.02) 100%);
+            border: 2px solid var(--error);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .problem-card h3 {
+            color: var(--error);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .problem-card p {
+            color: var(--text-main);
+            line-height: 1.8;
+        }
+
+        /* Solution Card */
+        .solution-card {
+            background: linear-gradient(135deg, rgba(27, 77, 62, 0.05) 0%, rgba(27, 77, 62, 0.02) 100%);
+            border: 2px solid var(--success);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .solution-card h3 {
+            color: var(--success);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Timeline Visualization */
+        .timeline {
+            position: relative;
+            padding: 2rem 0 2rem 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--accent), var(--primary));
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -45px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            background: var(--accent);
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Code Block Styling */
+        .code-block {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: var(--radius-sm);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            color: #e2e8f0;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            display: block;
+        }
+
+        .code-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Diagnostic Cards */
+        .diagnostic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .diagnostic-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .diagnostic-card h4 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .diagnostic-item {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .diagnostic-item::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* Root Cause Analysis Table */
+        .root-cause-table {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            margin: 2rem 0;
+        }
+
+        .root-cause-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .root-cause-table th,
+        .root-cause-table td {
+            padding: 1.25rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .root-cause-table th {
+            background: #f8fafc;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            color: var(--primary);
+        }
+
+        .root-cause-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .root-cause-table tr:hover td {
+            background: rgba(248, 250, 252, 0.6);
+        }
+
+        /* Badge Styling */
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0.25rem 0.5rem 0;
+        }
+
+        .badge-error {
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--error);
+        }
+
+        .badge-success {
+            background: rgba(27, 77, 62, 0.1);
+            color: var(--success);
+        }
+
+        .badge-info {
+            background: rgba(2, 132, 199, 0.1);
+            color: var(--info);
+        }
+
+        .badge-warning {
+            background: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+
+        /* Key Findings Box */
+        .key-findings {
+            background: linear-gradient(135deg, rgba(197, 160, 89, 0.05) 0%, rgba(197, 160, 89, 0.02) 100%);
+            border-left: 5px solid var(--accent);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .key-findings h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .key-findings ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .key-findings li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .key-findings li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Recommendations Section */
+        .recommendation-box {
+            background: var(--panel-bg);
+            border: 2px solid var(--accent);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .recommendation-box h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .recommendation-box ol {
+            padding-left: 2rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .recommendation-box li {
+            margin-bottom: 0.75rem;
+        }
+
+        /* Summary Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-box {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-number {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .case-study-footer {
+            margin-top: 4rem;
+            padding: 2rem;
+            background: var(--panel-bg);
+            border-top: 3px solid var(--accent);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            border-bottom: 2px solid var(--accent);
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .case-study-banner { padding: 1.5rem; }
+            .case-study-container { padding: 1.5rem 1rem; }
+            .banner-meta { gap: 1rem; }
+            .diagnostic-grid { grid-template-columns: 1fr; }
+            .banner-title { font-size: 1.75rem; }
+            .section-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="case-study-banner">
+    <div class="banner-content">
+        <div class="banner-title">Java Development Kit Installation Troubleshooting</div>
+        <div class="banner-subtitle">Sanitized Enterprise Case Study — Root Cause Analysis & Resolution</div>
+        <div class="banner-meta">
+            <div class="meta-item">
+                <span class="meta-label">Case Type</span>
+                <span class="meta-value">Software Deployment</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Environment</span>
+                <span class="meta-value">Enterprise Windows</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Author</span>
+                <span class="meta-value">Marcielo Pestcoe</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Duration</span>
+                <span class="meta-value">13 Days | Resolved</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="case-study-container">
+
+    <!-- EXECUTIVE SUMMARY -->
+    <section class="section">
+        <h2 class="section-title">Executive Summary</h2>
+        <div class="problem-card">
+            <h3>📋 Problem Statement</h3>
+            <p>
+                An enterprise user was unable to deploy Oracle Java SE Development Kit Latest (MSI-x64) through System Center Configuration Manager (SCCM). The installation would initiate but become stuck indefinitely in the "installing" phase, eventually timing out and failing after several hours—a pattern that repeated consistently across multiple deployment attempts.
+            </p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-number">13</div>
+                <div class="stat-label">Days to Resolution</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Java Versions Found</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Verified Fix</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Root Issues Identified</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INITIAL TROUBLESHOOTING -->
+    <section class="section">
+        <h2 class="section-title">Initial Troubleshooting Phase</h2>
+        <p style="margin-bottom: 1.5rem; color: var(--text-muted);">
+            Level 1 support initiated standard diagnostic procedures before escalating the case for deeper investigation.
+        </p>
+
+        <div class="diagnostic-grid">
+            <div class="diagnostic-card">
+                <h4>✓ Standard Procedures Attempted</h4>
+                <div class="diagnostic-item">Forced Group Policy Update</div>
+                <div class="diagnostic-item">Cleared CCM Cache</div>
+                <div class="diagnostic-item">Ran Software Policies</div>
+                <div class="diagnostic-item">Ran Machine Policies</div>
+                <div class="diagnostic-item">Executed sfc /scannow</div>
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color); font-size: 0.85rem; color: var(--error); font-weight: 700;">
+                    ✗ Installation Still Failed
+                </div>
+            </div>
+
+            <div class="diagnostic-card">
+                <h4>🔍 Observed Behavior</h4>
+                <div class="diagnostic-item">Installation initiated successfully</div>
+                <div class="diagnostic-item">Process stalled at "installing" phase</div>
+                <div class="diagnostic-item">No error messages displayed</div>
+                <div class="diagnostic-item">Timeout after several hours</div>
+                <div class="diagnostic-item">Pattern repeated consistently</div>
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color); font-size: 0.85rem; color: var(--warning); font-weight: 700;">
+                    ⚠ Escalation Required
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline" style="margin-top: 2rem;">
+            <div class="timeline-item">
+                <div class="timeline-date">July 23, 8:18 AM</div>
+                <div class="timeline-description">User initiates chat support for Java installation failure</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">July 23, 9:09 AM</div>
+                <div class="timeline-description">Remote support session initiated; installation begins but stalls</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">July 23, 9:18 AM</div>
+                <div class="timeline-description">Incident created and escalated for deeper investigation</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">July 24, 10:40 AM</div>
+                <div class="timeline-description">Escalated for deeper investigation</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROOT CAUSE ANALYSIS -->
+    <section class="section">
+        <h2 class="section-title">Root Cause Analysis</h2>
+        
+        <p style="margin-bottom: 1.5rem; color: var(--text-muted);">
+            Deep system analysis via remote access revealed a <strong>critical Java environment conflict</strong> that was directly blocking SCCM deployment validation.
+        </p>
+
+        <div class="key-findings">
+            <h3>🎯 Primary Issue: Java Version Conflict</h3>
+            <ul>
+                <li><strong>System Default:</strong> Java 8 (1.8.0_491) taking PATH priority</li>
+                <li><strong>Deployment Requirement:</strong> Java 17 or later</li>
+                <li><strong>Version Mismatch Consequence:</strong> Deployment validation failed silently, causing installation to hang indefinitely</li>
+                <li><strong>Silent Failure Pattern:</strong> No error message, timeout after several hours</li>
+            </ul>
+        </div>
+
+        <h3 style="margin-top: 2rem; margin-bottom: 1.5rem; color: var(--primary); font-size: 1.15rem;">Java Environment Inventory</h3>
+
+        <div class="root-cause-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Java Version</th>
+                        <th>Installation Location</th>
+                        <th>Status</th>
+                        <th>Issue</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Java 8 (1.8.0_491)</strong></td>
+                        <td>C:\Program Files\Java\JRE8</td>
+                        <td><span class="badge badge-error">Active (Taking Priority)</span></td>
+                        <td>❌ Version too old; blocks SCCM deployment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Java 11</strong></td>
+                        <td>C:\Program Files\AdoptOpenJDK\jre-11.0.11.9-openj9</td>
+                        <td><span class="badge badge-warning">Installed (Ignored)</span></td>
+                        <td>⚠ Below requirement; not prioritized</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Java 23 (64-bit)</strong></td>
+                        <td>C:\Program Files\Java\jdk-23</td>
+                        <td><span class="badge badge-info">Installed (Correct)</span></td>
+                        <td>✓ Meets requirements; not in active PATH</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Java 23 (32-bit)</strong></td>
+                        <td>C:\Program Files (x86)\Java\jdk-23</td>
+                        <td><span class="badge badge-info">Backup Installation</span></td>
+                        <td>✓ Meets requirements; backup only</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="solution-card" style="margin-top: 2rem;">
+            <h3>🔍 Secondary Issue: Salesforce Data Loader Corruption</h3>
+            <p>
+                During investigation, a related <strong>Data Loader installation failure</strong> was discovered:
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: var(--text-muted);">
+                <li><strong>Error:</strong> <code>java.lang.NoClassDefFoundError: org/eclipse/swt/widgets/Layout</code></li>
+                <li><strong>Root Cause:</strong> Missing SWT (Standard Widget Toolkit) libraries in v64.1.0</li>
+                <li><strong>Contributing Factor:</strong> Data Loader installation was corrupted/incomplete</li>
+                <li><strong>Resolution:</strong> Upgraded to v67.0.0 with complete dependencies</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- RESOLUTION STEPS -->
+    <section class="section">
+        <h2 class="section-title">Resolution Methodology</h2>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">Step 1: Java Environment Analysis</div>
+                <div class="timeline-description">
+                    Executed PowerShell diagnostic command to identify all Java installations and their priorities on the system.
+                </div>
+                <div class="code-block">
+                    <div class="code-label">PowerShell Command</div>
+                    <code>Get-ChildItem -Path "C:\" -Filter "jdk*" -Directory -Recurse -ErrorAction SilentlyContinue</code>
+                </div>
+                <div class="timeline-description" style="margin-top: 1rem;">
+                    <strong>Result:</strong> Located Java 23 at C:\Program Files\Java\jdk-23 and identified PATH conflict with Java 8
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">Step 2: Configure Java Environment Variable</div>
+                <div class="timeline-description">
+                    Set system environment variable to explicitly point to Java 23, overriding PATH precedence.
+                </div>
+                <div class="code-block">
+                    <div class="code-label">Environment Variable Configuration</div>
+                    <code>Variable Name: DATALOADER_JAVA_HOME
+Variable Value: C:\Program Files\Java\jdk-23
+Scope: System Environment Variables</code>
+                </div>
+                <div class="timeline-description" style="margin-top: 1rem;">
+                    <strong>Purpose:</strong> Force applications to use Java 23 instead of Java 8 system default
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">Step 3: Data Loader Upgrade & Installation</div>
+                <div class="timeline-description">
+                    Removed corrupted Data Loader v64.1.0 and deployed fresh v67.0.0 with complete dependencies.
+                </div>
+                <div class="code-block">
+                    <div class="code-label">Installation Verification</div>
+                    <code>✓ Verified lib\ folder contains all JAR files
+✓ SWT libraries present and complete
+✓ Installation successful with Java 23.0.1
+✓ GUI components load without errors
+✓ Desktop & Start Menu shortcuts created</code>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">Step 4: System Cleanup</div>
+                <div class="timeline-description">
+                    Removed legacy Java 8 completely to prevent future PATH conflicts and ensure clean system state.
+                </div>
+                <div class="code-block">
+                    <div class="code-label">Uninstall Process</div>
+                    <code>Method: Control Panel → Programs and Features
+Program: Java 8 Update 491 (1.8.0_491)
+Location: C:\Program Files\Java\JRE8
+Status: ✓ Successfully Removed</code>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">Step 5: System Verification</div>
+                <div class="timeline-description">
+                    Verified Java 23 is now system default and all SCCM requirements are met.
+                </div>
+                <div class="code-block">
+                    <div class="code-label">Verification Output</div>
+                    <code>C:\> java -version
+
+java version "23.0.1" 2024-10-15
+Java(TM) SE Runtime Environment (build 23.0.1+11-39)
+Java HotSpot(TM) 64-Bit Server VM (build 23.0.1+11-39, mixed mode, sharing)
+
+✓ Java 8 Removed
+✓ Java 23 Now System Default
+✓ SCCM Requirements Met</code>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KEY FINDINGS -->
+    <section class="section">
+        <h2 class="section-title">Key Technical Findings</h2>
+
+        <div class="key-findings">
+            <h3>Critical Discoveries</h3>
+            <ul>
+                <li>Multiple Java versions on a single system create unpredictable PATH resolution behavior</li>
+                <li>SCCM deployment validation silently fails when Java version requirements aren't met</li>
+                <li>Installation timeout (after several hours) is a symptom of validation failure, not actual installation blocking</li>
+                <li>Environment variables must be explicitly configured at system scope to override PATH priority</li>
+                <li>Legacy Java installations should be completely removed to prevent future conflicts</li>
+                <li>Incomplete software extractions cause cascading dependency failures (SWT library example)</li>
+            </ul>
+        </div>
+
+        <h3 style="margin-top: 2.5rem; margin-bottom: 1.5rem; color: var(--primary); font-size: 1.15rem;">Error Patterns & Resolutions</h3>
+
+        <div class="root-cause-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Error / Symptom</th>
+                        <th>Root Cause</th>
+                        <th>Resolution Applied</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Java installation timeout after hours</td>
+                        <td>Java 8 in PATH priority; version validation failed</td>
+                        <td>Set DATALOADER_JAVA_HOME env var to Java 23</td>
+                    </tr>
+                    <tr>
+                        <td>SCCM deployment blocked silently</td>
+                        <td>Version mismatch (Java 8 vs Java 17+ required)</td>
+                        <td>Removed Java 8; confirmed Java 23 as default</td>
+                    </tr>
+                    <tr>
+                        <td>NoClassDefFoundError: org/eclipse/swt/widgets/Layout</td>
+                        <td>Missing SWT libraries in v64.1.0</td>
+                        <td>Upgraded to v67.0.0 with complete dependencies</td>
+                    </tr>
+                    <tr>
+                        <td>Multiple Java versions causing conflicts</td>
+                        <td>Poor version management; no clear precedence</td>
+                        <td>Removed legacy Java 8 completely</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- RECOMMENDATIONS -->
+    <section class="section">
+        <h2 class="section-title">Preventive Measures & Recommendations</h2>
+
+        <div class="recommendation-box">
+            <h4>🎯 Enterprise-Level Actions</h4>
+            <ol>
+                <li><strong>Standardize Java Version:</strong> Establish Java 23 as the enterprise standard for all deployments and enforce removal of legacy versions (Java 8, 11)</li>
+                <li><strong>SCCM Configuration Update:</strong> Add explicit Java version validation to deployment packages with clear failure messaging</li>
+                <li><strong>System Audit Initiative:</strong> Scan managed workstations for conflicting Java versions and remediate them proactively</li>
+                <li><strong>Environment Variable Policy:</strong> Update deployment guides to include DATALOADER_JAVA_HOME configuration at system scope</li>
+                <li><strong>Monitoring & Alerts:</strong> Implement automated alerts for multiple Java versions detected on single system during deployment</li>
+            </ol>
+        </div>
+
+        <div class="recommendation-box" style="border-color: var(--info);">
+            <h4>📚 Documentation & Knowledge Base</h4>
+            <ol>
+                <li>Create comprehensive KB article: "Managing Multiple Java Versions on Windows Systems"</li>
+                <li>Document environment variable configuration procedures for Java deployment</li>
+                <li>Establish troubleshooting decision tree for Java-related SCCM failures</li>
+                <li>Include this case study as reference for similar PATH resolution issues</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- RESOLUTION SUMMARY -->
+    <section class="section">
+        <h2 class="section-title">Resolution Summary</h2>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-number">13</div>
+                <div class="stat-label">Total Days (July 23 - Aug 5)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Resolution Steps</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Issues Resolved</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Success Rate</div>
+            </div>
+        </div>
+
+        <div class="solution-card" style="margin-top: 2rem;">
+            <h3>✅ Final Outcome</h3>
+            <p style="margin-bottom: 1rem;">
+                <strong>Status:</strong> <span class="badge badge-success">RESOLVED</span> <span class="badge badge-success">VERIFIED</span>
+            </p>
+            <p style="margin-bottom: 1rem;">
+                The user can now successfully:
+            </p>
+            <ul style="margin-left: 1.5rem; color: var(--text-muted); line-height: 1.8;">
+                <li>✓ Deploy Oracle Java SE Development Kit via SCCM without timeout failures</li>
+                <li>✓ Run Salesforce Data Loader v67.0.0 without GUI errors</li>
+                <li>✓ Execute Java applications with Java 23.0.1 as system default</li>
+                <li>✓ Avoid future Java version conflicts through system cleanup</li>
+            </ul>
+        </div>
+
+        <div class="timeline" style="margin-top: 2rem;">
+            <div class="timeline-item">
+                <div class="timeline-date">July 29, 4:32 PM</div>
+                <div class="timeline-description">Java environment analysis complete; Java 23 identified at correct path</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">July 29, 4:43 PM</div>
+                <div class="timeline-description">Java 8 removed; Data Loader v67.0.0 installed successfully</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">July 29, 4:49 PM</div>
+                <div class="timeline-description">User notified of resolution; verification complete</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">August 5, 4:49 PM</div>
+                <div class="timeline-description">Ticket closed and marked as RESOLVED</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNICAL NOTES -->
+    <section class="section">
+        <h2 class="section-title">Technical Reference Notes</h2>
+
+        <div class="diagnostic-grid">
+            <div class="diagnostic-card">
+                <h4>📋 System Configuration</h4>
+                <div class="diagnostic-item">Workstation: ###########</div>
+                <div class="diagnostic-item">Location: 998 - WFH Permanent</div>
+                <div class="diagnostic-item">OS: Windows (64-bit)</div>
+                <div class="diagnostic-item">Assignment: Endpoint support escalation</div>
+            </div>
+
+            <div class="diagnostic-card">
+                <h4>🔧 Tools & Commands Used</h4>
+                <div class="diagnostic-item">PowerShell Get-ChildItem (recursive)</div>
+                <div class="diagnostic-item">System Environment Variables (GUI)</div>
+                <div class="diagnostic-item">Control Panel Programs & Features</div>
+                <div class="diagnostic-item">Command Prompt (java -version)</div>
+            </div>
+
+            <div class="diagnostic-card">
+                <h4>📦 Software Versions</h4>
+                <div class="diagnostic-item">Java SE: 23.0.1+11-39</div>
+                <div class="diagnostic-item">Data Loader: v67.0.0</div>
+                <div class="diagnostic-item">SCCM: Configuration Manager (PRD)</div>
+                <div class="diagnostic-item">ServiceNow: Incident Management</div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="case-study-footer">
+    <div class="footer-text">
+        <strong>Case Study:</strong> Java Development Kit Installation Troubleshooting<br>
+        <strong>Written by:</strong> Marcielo Pestcoe | Sanitized portfolio example<br>
+        <strong>Duration:</strong> 13 Days | <strong>Status:</strong> ✅ Fully Resolved & Documented<br><br>
+        <em>This case study demonstrates advanced troubleshooting methodology, root cause analysis under PATH resolution complexity, and enterprise-level system optimization for infrastructure support teams.</em>
+    </div>
+</footer>
+
+</body>
+</html>
+
+<script>
+  function onImageError(el) {
+    var p = document.createElement('div');
+    p.setAttribute('role', 'img');
+    p.setAttribute('aria-label', 'Image not found');
+    p.style.cssText = 'box-sizing:border-box;width:480px;height:360px;max-width:100%;border-radius:10px;overflow:hidden;border:1px solid #e4e4e7;background:linear-gradient(165deg,#f4f4f5,#dedee2);box-shadow:0 3px 12px rgba(0,0,0,.07),inset 0 1px 0 rgba(255,255,255,.85);font-family:system-ui,sans-serif';
+    p.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;height:100%;box-sizing:border-box"><div style="display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:12px;background:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.9);color:#a1a1aa"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/><path d="M3 3l18 18"/></svg></div><div style="font-size:14px;font-weight:600;color:#18181b;text-align:center">Image not found</div></div>';
+    el.replaceWith(p);
+  }
+</script>
