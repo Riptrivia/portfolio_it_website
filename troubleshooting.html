@@ -1,1 +1,124 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Interactive browser troubleshooting tools by Marcielo Pestcoe."><title>Troubleshooting Lab — Marcielo Pestcoe</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="extras.css"></head><body><header class="site-header"><a class="brand" href="index.html"><span>MP</span><b>Marcielo Pestcoe</b></a><nav><a href="index.html#experience">Experience</a><a href="index.html#projects">Projects</a><a href="index.html#about">About</a><a href="certs.html">Credentials</a><a href="troubleshooting.html">Lab</a></nav><a class="header-cta" href="index.html">← Home</a></header><main><section class="page-hero"><p class="kicker">Troubleshooting / Lab</p><h1>Test. Observe.<br>Isolate.</h1><p>Small browser-native utilities demonstrating the same basic mindset behind support work: capture a signal, validate it, and communicate the result clearly.</p></section><section class="lab-grid"><article class="lab-card"><p class="kicker">Tool 01</p><h2>Keyboard input tester</h2><p>Focus this page and press a key to verify its reported value and hardware code.</p><div id="key-display" class="key-display" tabindex="0">Awaiting input…<br>Press any key</div><ul class="tags" id="history-box" aria-label="Recent keys"></ul></article><article class="lab-card"><p class="kicker">Tool 02</p><h2>IPv4 format validator</h2><p>Check whether an address contains four valid 8-bit octets between 0 and 255.</p><div class="tool-row"><label class="skip-link" for="ip-input">IPv4 address</label><input id="ip-input" class="tool-input" inputmode="decimal" placeholder="192.168.1.254"><button id="validate-ip" class="tool-btn">Validate</button></div><div id="tool-result" class="tool-result" aria-live="polite"></div></article></section></main><footer class="subpage-footer"><a class="brand" href="index.html"><span>MP</span><b>Marcielo Pestcoe</b></a><p>Built in the browser · No data leaves your device</p></footer><script>const history=[];window.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;const value=e.key===' '?'Spacebar':e.key;document.getElementById('key-display').textContent=`Key: ${value} · Code: ${e.code}`;if(!history.includes(value)){history.unshift(value);if(history.length>6)history.pop();document.getElementById('history-box').innerHTML=history.map(x=>`<li>${x.replace(/[<>]/g,'')}</li>`).join('')}});function validate(){const v=document.getElementById('ip-input').value.trim(),out=document.getElementById('tool-result'),ok=/^((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/.test(v);out.textContent=ok?'✓ Valid IPv4 structure':'× Invalid IPv4 structure';out.style.color=ok?'var(--green)':'var(--orange)'}document.getElementById('validate-ip').addEventListener('click',validate);document.getElementById('ip-input').addEventListener('keydown',e=>{if(e.key==='Enter')validate()});</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Interactive networking, storage, and troubleshooting labs by Marcielo Pestcoe.">
+  <title>IT Lab — Marcielo Pestcoe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="extras.css">
+  <link rel="stylesheet" href="lab.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span>MP</span><b>Marcielo Pestcoe</b></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#about">About</a>
+      <a href="certs.html">Credentials</a>
+      <a href="troubleshooting.html">Lab</a>
+    </nav>
+    <a class="header-cta" href="index.html">← Home</a>
+  </header>
+
+  <main id="main">
+    <section class="page-hero lab-hero">
+      <p class="kicker">Networking / Systems / Troubleshooting</p>
+      <h1>Test. Calculate.<br>Understand.</h1>
+      <p>Browser-native utilities built around practical support and infrastructure work. Everything runs locally—nothing entered here leaves your device.</p>
+      <div class="lab-summary" aria-label="Lab summary">
+        <span><b>4</b> interactive tools</span>
+        <span><b>0</b> external data calls</span>
+        <span><b>100%</b> browser based</span>
+      </div>
+    </section>
+
+    <section class="lab-workbench" aria-label="Interactive IT tools">
+      <article class="lab-card subnet-card">
+        <div class="lab-card-heading">
+          <div><p class="kicker">Tool 01 / Networking</p><h2>IPv4 subnet calculator</h2></div>
+          <span class="tool-status">CIDR</span>
+        </div>
+        <p>Enter an IPv4 address and prefix length to calculate the network, broadcast, subnet mask, wildcard, host range, and available capacity.</p>
+        <form id="subnet-form" class="lab-form" novalidate>
+          <label for="subnet-ip">IPv4 address<input id="subnet-ip" class="tool-input" inputmode="decimal" value="192.168.10.42" autocomplete="off"></label>
+          <label for="subnet-cidr">CIDR prefix<input id="subnet-cidr" class="tool-input" type="number" min="0" max="32" value="24"></label>
+          <button class="tool-btn" type="submit">Calculate subnet</button>
+        </form>
+        <p id="subnet-error" class="tool-result error-text" role="alert"></p>
+        <dl id="subnet-results" class="result-grid" aria-live="polite">
+          <div><dt>Network</dt><dd id="network-address">—</dd></div>
+          <div><dt>Broadcast</dt><dd id="broadcast-address">—</dd></div>
+          <div><dt>Subnet mask</dt><dd id="subnet-mask">—</dd></div>
+          <div><dt>Wildcard</dt><dd id="wildcard-mask">—</dd></div>
+          <div><dt>First usable</dt><dd id="first-host">—</dd></div>
+          <div><dt>Last usable</dt><dd id="last-host">—</dd></div>
+          <div><dt>Total addresses</dt><dd id="total-addresses">—</dd></div>
+          <div><dt>Usable hosts</dt><dd id="usable-hosts">—</dd></div>
+          <div><dt>Address type</dt><dd id="address-type">—</dd></div>
+        </dl>
+        <p class="tool-footnote">For /31 point-to-point networks, both addresses are treated as usable. A /32 represents one host route.</p>
+      </article>
+
+      <article class="lab-card">
+        <div class="lab-card-heading">
+          <div><p class="kicker">Tool 02 / Validation</p><h2>IPv4 format validator</h2></div>
+          <span class="tool-status">LOCAL</span>
+        </div>
+        <p>Check whether an address contains exactly four valid 8-bit octets between 0 and 255.</p>
+        <form id="ip-form" class="stacked-form" novalidate>
+          <label for="ip-input">IPv4 address</label>
+          <input id="ip-input" class="tool-input" inputmode="decimal" placeholder="192.168.1.254" autocomplete="off">
+          <button class="tool-btn" type="submit">Validate address</button>
+        </form>
+        <div id="ip-result" class="validation-result" aria-live="polite">Enter an address to begin.</div>
+      </article>
+
+      <article class="lab-card">
+        <div class="lab-card-heading">
+          <div><p class="kicker">Tool 03 / Storage</p><h2>Transfer-time estimator</h2></div>
+          <span class="tool-status">PLAN</span>
+        </div>
+        <p>Estimate how long a file transfer or backup may take after accounting for protocol and network overhead.</p>
+        <form id="transfer-form" class="stacked-form" novalidate>
+          <label for="file-size">File size</label>
+          <div class="input-pair"><input id="file-size" class="tool-input" type="number" min="0" step="any" value="25"><select id="file-unit" class="tool-input" aria-label="File-size unit"><option value="GB">GB</option><option value="MB">MB</option><option value="TB">TB</option></select></div>
+          <label for="link-speed">Link speed in Mbps</label>
+          <input id="link-speed" class="tool-input" type="number" min="0" step="any" value="100">
+          <label for="efficiency">Estimated efficiency</label>
+          <select id="efficiency" class="tool-input"><option value="0.9">90% · clean LAN</option><option value="0.75" selected>75% · typical transfer</option><option value="0.6">60% · busy/VPN link</option></select>
+          <button class="tool-btn" type="submit">Estimate transfer</button>
+        </form>
+        <div id="transfer-result" class="big-result" aria-live="polite"><strong>—</strong><span>estimated duration</span></div>
+      </article>
+
+      <article class="lab-card">
+        <div class="lab-card-heading">
+          <div><p class="kicker">Tool 04 / Hardware</p><h2>Keyboard input tester</h2></div>
+          <span class="tool-status">INPUT</span>
+        </div>
+        <p>Focus the test area and press keys to verify the value and physical code reported by the browser.</p>
+        <div id="key-display" class="key-display" tabindex="0" role="application" aria-label="Keyboard input test area">Awaiting input<br><small>Click here, then press any key</small></div>
+        <ul class="tags key-history" id="history-box" aria-label="Recent keys"></ul>
+        <button id="clear-history" class="text-button" type="button">Clear key history</button>
+      </article>
+    </section>
+
+    <section class="lab-context">
+      <div><p class="kicker">Why these tools</p><h2>Small utilities.<br>Real support thinking.</h2></div>
+      <p>These labs connect directly to my hands-on work with VPN and LAN troubleshooting, device migrations, storage constraints, backups, Linux systems, hardware diagnostics, and repeatable documentation. They turn common support questions into clear, inspectable results.</p>
+    </section>
+  </main>
+
+  <footer class="subpage-footer">
+    <a class="brand" href="index.html"><span>MP</span><b>Marcielo Pestcoe</b></a>
+    <p>Built in the browser · No data leaves your device</p>
+  </footer>
+  <script src="lab.js"></script>
+</body>
+</html>

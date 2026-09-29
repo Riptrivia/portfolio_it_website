@@ -12,9 +12,13 @@ const entries = [
   'role.css',
   'mobile.css',
   'operations.css',
+  'resume.css',
+  'lab.css',
   'script.js',
+  'lab.js',
   'Headshot.jpg',
   'og.png',
+  'Marcielo_Pestcoe_IT_Resume.pdf',
   'projects',
   'server'
 ];

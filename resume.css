@@ -1,0 +1,106 @@
+.resume-section {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 6vw;
+  align-items: start;
+}
+
+.resume-intro {
+  position: sticky;
+  top: 120px;
+}
+
+.resume-intro h2 {
+  margin: 1rem 0 1.6rem;
+  color: var(--ink);
+  font-size: clamp(2.6rem, 5vw, 4.7rem);
+  letter-spacing: -.06em;
+  line-height: 1.02;
+}
+
+.resume-intro > p:not(.kicker) {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.resume-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: 2rem;
+}
+
+.resume-focus {
+  display: grid;
+  gap: 1rem;
+}
+
+.resume-focus article {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 1.2rem;
+  padding: 1.55rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 253, 248, .78);
+  box-shadow: var(--small-shadow);
+}
+
+.resume-focus article:nth-child(even) {
+  background: linear-gradient(145deg, #fffdf8, #f5ead9);
+}
+
+.resume-focus span {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--green);
+  color: #fff;
+  font: 600 .72rem "DM Mono";
+}
+
+.resume-focus h3 {
+  margin: 0 0 .45rem;
+  color: var(--ink);
+  font-size: 1.25rem;
+}
+
+.resume-focus p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .88rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .resume-section {
+    grid-template-columns: 1fr;
+  }
+
+  .resume-intro {
+    position: static;
+  }
+}
+
+@media (max-width: 620px) {
+  .resume-actions {
+    flex-direction: column;
+  }
+
+  .resume-actions .button {
+    width: 100%;
+  }
+
+  .resume-focus article {
+    grid-template-columns: 42px 1fr;
+    gap: .9rem;
+    padding: 1.2rem;
+  }
+
+  .resume-focus span {
+    width: 40px;
+    height: 40px;
+  }
+}

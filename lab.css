@@ -1,0 +1,283 @@
+.lab-hero {
+  padding-bottom: 72px;
+}
+
+.lab-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin-top: 2rem;
+}
+
+.lab-summary span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .45rem;
+  padding: .65rem .85rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 253, 248, .72);
+  color: var(--muted);
+  font-size: .75rem;
+}
+
+.lab-summary b {
+  color: var(--green);
+  font: 600 .9rem "DM Mono";
+}
+
+.lab-workbench {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding-bottom: 100px;
+}
+
+.lab-workbench .lab-card {
+  min-height: 0;
+  padding: 2rem;
+}
+
+.subnet-card {
+  grid-column: 1 / -1;
+}
+
+.lab-card-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.lab-card-heading h2 {
+  margin-top: .35rem;
+}
+
+.tool-status {
+  padding: .38rem .6rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--green);
+  font: 500 .62rem "DM Mono";
+}
+
+.lab-form {
+  display: grid;
+  grid-template-columns: 1fr 150px auto;
+  gap: .75rem;
+  align-items: end;
+  margin-top: 1.5rem;
+}
+
+.lab-form label,
+.stacked-form label {
+  display: grid;
+  gap: .4rem;
+  color: var(--muted);
+  font: 500 .68rem "DM Mono";
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.stacked-form {
+  display: grid;
+  gap: .72rem;
+  margin-top: 1.4rem;
+}
+
+.input-pair {
+  display: grid;
+  grid-template-columns: 1fr 110px;
+  gap: .6rem;
+}
+
+select.tool-input {
+  appearance: none;
+  cursor: pointer;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .75rem;
+  margin: 1.5rem 0 0;
+}
+
+.result-grid div {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg);
+}
+
+.result-grid dt {
+  color: var(--muted);
+  font: 500 .62rem "DM Mono";
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.result-grid dd {
+  margin: .45rem 0 0;
+  color: var(--ink);
+  font: 600 .9rem "DM Mono";
+  overflow-wrap: anywhere;
+}
+
+.error-text {
+  min-height: 1.4rem;
+  margin: .8rem 0 0;
+  color: var(--orange);
+}
+
+.tool-footnote {
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: .72rem;
+}
+
+.validation-result,
+.big-result {
+  margin-top: 1rem;
+  padding: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--bg);
+  color: var(--muted);
+}
+
+.validation-result.valid {
+  border-color: rgba(116, 128, 108, .55);
+  color: var(--sage);
+}
+
+.validation-result.invalid {
+  border-color: rgba(185, 66, 47, .35);
+  color: var(--orange);
+}
+
+.big-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 145px;
+  text-align: center;
+}
+
+.big-result strong {
+  color: var(--green);
+  font: 600 clamp(1.8rem, 4vw, 3rem) "DM Mono";
+}
+
+.big-result span {
+  color: var(--muted);
+  font-size: .75rem;
+}
+
+.key-display {
+  cursor: pointer;
+}
+
+.key-display:focus {
+  outline: 3px solid rgba(79, 136, 157, .2);
+  border-color: var(--sky);
+}
+
+.key-display small {
+  color: var(--muted);
+}
+
+.key-history {
+  min-height: 31px;
+}
+
+.text-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--green);
+  font: 700 .72rem "Manrope";
+  cursor: pointer;
+}
+
+.lab-context {
+  display: grid;
+  grid-template-columns: .85fr 1.15fr;
+  gap: 6vw;
+  max-width: var(--max);
+  margin: 0 auto 100px;
+  padding: 80px 0;
+  border-block: 1px solid var(--line);
+}
+
+.lab-context h2 {
+  margin: .8rem 0 0;
+  color: var(--ink);
+  font-size: clamp(2.4rem, 5vw, 4.3rem);
+  letter-spacing: -.055em;
+  line-height: 1;
+}
+
+.lab-context > p {
+  color: var(--muted);
+  font-size: 1.04rem;
+  line-height: 1.85;
+}
+
+@media (max-width: 900px) {
+  .lab-workbench,
+  .lab-context {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+
+  .lab-workbench,
+  .lab-context {
+    grid-template-columns: 1fr;
+  }
+
+  .subnet-card {
+    grid-column: auto;
+  }
+
+  .lab-form {
+    grid-template-columns: 1fr 130px;
+  }
+
+  .lab-form .tool-btn {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 620px) {
+  .lab-workbench,
+  .lab-context {
+    margin-left: 18px;
+    margin-right: 18px;
+  }
+
+  .lab-form,
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lab-form .tool-btn {
+    grid-column: auto;
+  }
+
+  .lab-workbench .lab-card {
+    padding: 1.35rem;
+  }
+
+  .lab-card-heading {
+    align-items: center;
+  }
+
+  .lab-context {
+    padding: 62px 0;
+  }
+}
