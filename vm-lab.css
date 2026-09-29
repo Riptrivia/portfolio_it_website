@@ -1,0 +1,266 @@
+.vm-main {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding-bottom: 100px;
+}
+
+.vm-intro {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 6vw;
+  align-items: end;
+  padding: 90px 0 58px;
+}
+
+.vm-intro h1 {
+  margin: 1rem 0 1.4rem;
+  color: var(--ink);
+  font-size: clamp(3.4rem, 7vw, 6.4rem);
+  letter-spacing: -.07em;
+  line-height: .94;
+}
+
+.vm-intro h1 em {
+  color: var(--green);
+  font-style: normal;
+}
+
+.vm-intro > div > p:last-child {
+  max-width: 720px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.vm-intro code,
+.prompt-grid code {
+  font-family: "DM Mono";
+}
+
+.vm-credit {
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255, 253, 248, .88);
+  box-shadow: var(--small-shadow);
+}
+
+.vm-credit > span {
+  color: var(--green);
+  font: 500 .65rem "DM Mono";
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.vm-credit strong {
+  display: block;
+  margin: .7rem 0;
+  color: var(--ink);
+}
+
+.vm-credit p {
+  color: var(--muted);
+  font-size: .82rem;
+  line-height: 1.6;
+}
+
+.vm-credit div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: 1rem;
+}
+
+.vm-credit a,
+.vm-toolbar a {
+  color: var(--green);
+  font-size: .75rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.vm-notice {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(234, 242, 244, .72);
+}
+
+.vm-notice strong {
+  color: var(--green);
+}
+
+.vm-notice p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .82rem;
+  line-height: 1.6;
+}
+
+.vm-shell {
+  overflow: hidden;
+  border: 1px solid rgba(24, 31, 28, .35);
+  border-radius: 24px;
+  background: #101614;
+  box-shadow: 0 28px 60px rgba(29, 36, 32, .18);
+}
+
+.vm-toolbar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  min-height: 56px;
+  padding: 0 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, .1);
+  color: #eef4e9;
+}
+
+.vm-toolbar > div {
+  display: flex;
+  gap: .4rem;
+}
+
+.vm-toolbar > div span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ba5137;
+}
+
+.vm-toolbar > div span:nth-child(2) { background: #d8bd96; }
+.vm-toolbar > div span:nth-child(3) { background: #74806c; }
+
+.vm-toolbar h2 {
+  margin: 0;
+  font: 500 .72rem "DM Mono";
+  letter-spacing: .05em;
+}
+
+.vm-toolbar a {
+  justify-self: end;
+  color: #c6d7ce;
+}
+
+#vm-frame {
+  display: block;
+  width: 100%;
+  height: min(76vh, 820px);
+  min-height: 620px;
+  border: 0;
+  background: #000;
+}
+
+.vm-prompts {
+  display: grid;
+  grid-template-columns: .72fr 1.28fr;
+  gap: 5vw;
+  padding: 78px 0 0;
+}
+
+.vm-prompts h2 {
+  margin: .7rem 0;
+  color: var(--ink);
+  font-size: clamp(2.3rem, 4vw, 3.7rem);
+  letter-spacing: -.055em;
+  line-height: 1;
+}
+
+.prompt-grid {
+  display: grid;
+  gap: .8rem;
+}
+
+.prompt-grid article {
+  padding: 1.3rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 253, 248, .8);
+}
+
+.prompt-grid span {
+  color: var(--green);
+  font: 500 .68rem "DM Mono";
+}
+
+.prompt-grid h3 {
+  margin: .55rem 0;
+  color: var(--ink);
+}
+
+.prompt-grid p {
+  color: var(--muted);
+  font-size: .85rem;
+  line-height: 1.6;
+}
+
+.prompt-grid code {
+  display: block;
+  padding: .75rem;
+  border-radius: 10px;
+  background: #1d2924;
+  color: #eef4e9;
+  font-size: .72rem;
+  overflow-wrap: anywhere;
+}
+
+.vm-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 30px 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .75rem;
+}
+
+@media (max-width: 900px) {
+  .vm-main,
+  .vm-footer {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+
+  .vm-intro,
+  .vm-prompts {
+    grid-template-columns: 1fr;
+  }
+
+  .vm-notice {
+    grid-template-columns: 1fr;
+    gap: .35rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .vm-main,
+  .vm-footer {
+    margin-left: 18px;
+    margin-right: 18px;
+  }
+
+  .vm-intro {
+    padding-top: 68px;
+  }
+
+  .vm-toolbar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .vm-toolbar h2 {
+    display: none;
+  }
+
+  #vm-frame {
+    height: 72vh;
+    min-height: 520px;
+  }
+
+  .vm-footer {
+    flex-direction: column;
+  }
+}

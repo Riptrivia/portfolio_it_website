@@ -379,7 +379,7 @@ select.tool-input {
 
 .guide-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
 }
 
@@ -396,6 +396,10 @@ select.tool-input {
 
 .guide-card:nth-child(2) {
   background: linear-gradient(145deg, #fffdf8, #eef2e9);
+}
+
+.guide-card:nth-child(3) {
+  background: linear-gradient(145deg, #fffdf8, #eaf2f4);
 }
 
 .guide-card h3 {
@@ -415,6 +419,25 @@ select.tool-input {
   color: var(--green);
   font-weight: 800;
   text-decoration: none;
+}
+
+.resource-credit {
+  display: grid;
+  gap: .35rem;
+  margin: 1rem 0 1.4rem;
+  padding: .8rem 0;
+  border-block: 1px solid var(--line);
+}
+
+.resource-credit span {
+  color: var(--muted);
+  font: 500 .66rem "DM Mono";
+}
+
+.resource-credit a {
+  margin-top: 0;
+  color: var(--sky);
+  font-size: .72rem;
 }
 
 .lab-context {

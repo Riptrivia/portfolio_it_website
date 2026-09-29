@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Run the credited v86 Arch Linux browser VM inside Marcielo Pestcoe's IT lab.">
+  <title>Arch Linux Browser VM — Marcielo Pestcoe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://copy.sh">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="extras.css">
+  <link rel="stylesheet" href="vm-lab.css">
+</head>
+<body>
+  <a class="skip-link" href="#vm-frame">Skip to virtual machine</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span>MP</span><b>Marcielo Pestcoe</b></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="certs.html">Credentials</a>
+      <a href="troubleshooting.html">Lab</a>
+    </nav>
+    <a class="header-cta" href="troubleshooting.html">← Lab</a>
+  </header>
+
+  <main class="vm-main" id="main">
+    <section class="vm-intro">
+      <div>
+        <p class="kicker">External lab / Browser virtualization</p>
+        <h1>Arch Linux,<br><em>inside the browser.</em></h1>
+        <p>This embedded virtual machine is a hands-on Linux practice resource. The emulator, operating-system image, and runtime data load directly from <code>copy.sh</code>; this portfolio provides the surrounding learning interface.</p>
+      </div>
+      <aside class="vm-credit" aria-label="Project credit">
+        <span>Project credit</span>
+        <strong>v86 by copy.sh / GitHub @copy</strong>
+        <p>x86 PC emulator and x86-to-WebAssembly JIT, distributed under the BSD-2-Clause license.</p>
+        <div><a href="https://github.com/copy/v86" target="_blank" rel="noreferrer">View source and license ↗</a><a href="https://copy.sh/v86/?profile=archlinux" target="_blank" rel="noreferrer">Open original VM ↗</a></div>
+      </aside>
+    </section>
+
+    <section class="vm-notice" aria-label="Lab notice">
+      <strong>Loading from copy.sh</strong>
+      <p>The VM may take time to download and boot. Keyboard input is captured after you click inside the VM. This third-party resource runs under the source project's own availability, privacy, and data-handling practices.</p>
+    </section>
+
+    <section class="vm-shell" aria-labelledby="vm-title">
+      <div class="vm-toolbar">
+        <div><span></span><span></span><span></span></div>
+        <h2 id="vm-title">Arch Linux · v86</h2>
+        <a href="https://copy.sh/v86/?profile=archlinux" target="_blank" rel="noreferrer">Full screen ↗</a>
+      </div>
+      <iframe id="vm-frame" title="Arch Linux virtual machine powered by the v86 project at copy.sh" src="https://copy.sh/v86/?profile=archlinux" loading="eager" allow="fullscreen; clipboard-read; clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </section>
+
+    <section class="vm-prompts" aria-labelledby="practice-title">
+      <div><p class="kicker">Practice prompts</p><h2 id="practice-title">Explore without guessing.</h2></div>
+      <div class="prompt-grid">
+        <article><span>01</span><h3>Identify the system</h3><p>Inspect the kernel, architecture, available memory, storage layout, and mounted filesystems.</p><code>uname -a · free -h · lsblk</code></article>
+        <article><span>02</span><h3>Read permissions</h3><p>Create a test file, inspect its current mode, and compare symbolic permissions with the Lab calculator.</p><code>touch lab.txt · ls -l lab.txt</code></article>
+        <article><span>03</span><h3>Inspect networking</h3><p>Review interfaces, addresses, and the route table without changing the VM configuration.</p><code>ip address · ip route</code></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="vm-footer"><a class="brand" href="index.html"><span>MP</span><b>Marcielo Pestcoe</b></a><p>Embedded resource · v86 credit remains with copy.sh / GitHub @copy</p></footer>
+</body>
+</html>
