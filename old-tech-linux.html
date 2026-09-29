@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="A practical guide to evaluating and reviving older computers with a lightweight Linux distribution.">
+  <title>Old Tech with Linux — Marcielo Pestcoe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="extras.css">
+  <link rel="stylesheet" href="guide.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span>MP</span><b>Marcielo Pestcoe</b></a>
+    <nav aria-label="Primary navigation"><a href="index.html#experience">Experience</a><a href="index.html#projects">Projects</a><a href="certs.html">Credentials</a><a href="troubleshooting.html">Lab</a></nav>
+    <a class="header-cta" href="troubleshooting.html">← Lab</a>
+  </header>
+
+  <main class="guide-main" id="main">
+    <section class="guide-hero">
+      <div class="guide-hero-copy">
+        <p class="kicker">Guidebook / Linux and reuse</p>
+        <h1>Give old tech<br><em>a useful life.</em></h1>
+        <p>A measured path from hardware assessment to a secure, validated Linux system—designed for older laptops and desktops that still have dependable work left in them.</p>
+        <div class="guide-actions"><button class="button button-primary" type="button" onclick="window.print()">Print or save as PDF ↓</button><a class="button button-ghost" href="ewaste-quickstart.html">Read the e-waste guide</a></div>
+      </div>
+      <aside class="guide-meta" aria-label="Guide details"><span>Format <b>7-stage guidebook</b></span><span>Best for <b>Older x86 PCs</b></span><span>Goal <b>Safe, useful reuse</b></span><span>Skill level <b>Beginner friendly</b></span></aside>
+    </section>
+
+    <div class="guide-layout">
+      <nav class="guide-nav" aria-label="Guide contents"><p>On this page</p><a href="#assess">1. Assess</a><a href="#choose">2. Choose Linux</a><a href="#prepare">3. Prepare</a><a href="#install">4. Install</a><a href="#tune">5. Tune</a><a href="#validate">6. Validate</a><a href="#roles">7. Reuse ideas</a></nav>
+      <div class="guide-content">
+        <section class="guide-section" id="assess"><p class="kicker">01 / Assess</p><h2>Decide if the hardware is ready.</h2><p>Linux can reduce software overhead, but it cannot make unstable hardware reliable. Inspect the machine, identify its limits, and fix basic faults before investing time in an installation.</p><div class="step-grid"><article class="step-card"><span>HARDWARE</span><h3>Inventory the basics</h3><p>Record the CPU architecture, RAM, storage type and capacity, graphics, Wi-Fi chipset, Ethernet, ports, battery condition, and firmware mode.</p></article><article class="step-card"><span>HEALTH</span><h3>Check reliability</h3><p>Listen for fan or drive noise, inspect for battery swelling, run memory and storage diagnostics, and confirm stable power and cooling.</p></article><article class="step-card"><span>UPGRADE</span><h3>Target bottlenecks</h3><p>An SSD and additional supported memory often matter more than raw CPU speed. Compare the upgrade cost with the device's intended job.</p></article><article class="step-card"><span>USE CASE</span><h3>Define one purpose</h3><p>Choose a realistic role: web and documents, learning Linux, media playback, network utility, print station, or an offline lab.</p></article></div></section>
+
+        <section class="guide-section" id="choose"><p class="kicker">02 / Distribution</p><h2>Choose for the machine—not the trend.</h2><p>Favor a currently supported distribution with documentation, security updates, and a desktop environment appropriate to the hardware. Test before installing when possible.</p><div class="choice-grid"><article class="choice-card"><span>MODERATE HARDWARE</span><h3>General-purpose desktop</h3><p>A mainstream distribution with a full desktop can suit systems with solid-state storage, adequate memory, and supported graphics.</p></article><article class="choice-card"><span>LOWER RESOURCES</span><h3>Lightweight desktop</h3><p>Consider an edition using Xfce, LXQt, or another lighter environment when memory, graphics, or processor capacity is limited.</p></article><article class="choice-card"><span>SPECIAL PURPOSE</span><h3>Minimal or server install</h3><p>A command-line or minimal environment can fit lab services, file sharing, monitoring, or dedicated network tasks.</p></article><article class="choice-card"><span>COMPATIBILITY</span><h3>Live-session test</h3><p>Boot from USB and verify display, audio, Wi-Fi, Bluetooth, touchpad, sleep, ports, and graphics before changing the disk.</p></article></div></section>
+
+        <section class="guide-section" id="prepare"><p class="kicker">03 / Preparation</p><h2>Make the change reversible.</h2><ul class="checklist"><li>Back up the owner's files and verify the backup can be opened.</li><li>Record account, licensing, recovery, and encryption information the owner is authorized to retain.</li><li>Download the installation image from the distribution's official site.</li><li>Verify the downloaded checksum before writing the image to USB.</li><li>Create installation media with a trusted imaging tool, then safely eject it.</li><li>Keep recovery media or the original drive untouched when rollback matters.</li></ul><div class="callout"><strong>Installation can erase the entire disk.</strong><p>Confirm the target drive and backup before starting. If ownership, encryption, or data-retention requirements are unclear, stop and resolve them first.</p></div></section>
+
+        <section class="guide-section" id="install"><p class="kicker">04 / Installation</p><h2>Install with intent.</h2><div class="step-grid"><article class="step-card"><span>01</span><h3>Boot the live environment</h3><p>Select the USB from the firmware boot menu. Test the hardware again before launching the installer.</p></article><article class="step-card"><span>02</span><h3>Choose the storage plan</h3><p>Use a full-disk install for a dedicated Linux machine, or follow tested dual-boot guidance only when both systems must remain.</p></article><article class="step-card"><span>03</span><h3>Set identity and security</h3><p>Create a non-obvious device name, a unique user password, appropriate encryption, correct locale, and accurate time zone.</p></article><article class="step-card"><span>04</span><h3>Complete first boot</h3><p>Remove the USB when prompted, sign in, confirm networking, and apply system updates before loading personal data.</p></article></div></section>
+
+        <section class="guide-section" id="tune"><p class="kicker">05 / Tune</p><h2>Keep the system lean.</h2><p>Install only what supports the intended role. Avoid random optimization scripts; use the distribution's documented package and update tools.</p><div class="command-list" aria-label="Useful Linux inspection commands"><code>uname -m              # show system architecture</code><code>free -h               # review memory use</code><code>lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS</code><code>lspci -k              # identify PCI hardware and drivers</code><code>systemctl --failed    # review failed services</code></div><div class="callout"><strong>Commands are for inspection, not a universal repair recipe.</strong><p>Package managers and administrative commands vary by distribution. Read the output and use current distribution documentation before changing services, drivers, or storage.</p></div></section>
+
+        <section class="guide-section" id="validate"><p class="kicker">06 / Validation</p><h2>Prove that it is dependable.</h2><ul class="checklist"><li>Install all supported updates and reboot successfully.</li><li>Test cold boot, shutdown, suspend, wake, charging, display brightness, sound, camera, keyboard, and touchpad.</li><li>Test Wi-Fi, Ethernet, Bluetooth, external display, USB, and any role-specific peripheral.</li><li>Review storage health, memory pressure, temperatures, and failed services.</li><li>Confirm browser updates, screen lock, firewall defaults, backups, and automatic update behavior.</li><li>Document the distribution version, install date, owner, purpose, known limitations, and recovery plan.</li></ul></section>
+
+        <section class="guide-section" id="roles"><p class="kicker">07 / Reuse ideas</p><h2>Give the device a clear job.</h2><div class="choice-grid"><article class="choice-card"><span>DAILY USE</span><h3>Focused workstation</h3><p>Web, documents, remote access, study, email, and lightweight productivity with a limited, maintained app set.</p></article><article class="choice-card"><span>LEARNING</span><h3>Linux practice system</h3><p>Shell basics, scripting, permissions, services, networking, backups, and recovery without risking a primary computer.</p></article><article class="choice-card"><span>HOME LAB</span><h3>Small utility node</h3><p>Monitoring, file services, print sharing, media, or a private test environment—only within the device's capacity and security needs.</p></article><article class="choice-card"><span>COMMUNITY</span><h3>Prepared donation</h3><p>A wiped, updated, tested computer with a safe charger, simple instructions, known limitations, and a responsible support handoff.</p></article></div></section>
+      </div>
+    </div>
+  </main>
+  <footer class="guide-footer"><span>Marcielo Pestcoe · IT Support · Systems · Repair</span><span>Use supported software and follow device, distribution, and local safety guidance</span></footer>
+</body>
+</html>

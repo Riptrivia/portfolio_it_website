@@ -8,7 +8,8 @@ A responsive, static portfolio covering enterprise endpoint support, mobile-devi
 - Boeing desktop and enterprise mobile support experience
 - uBreakiFix mobile setup, diagnostics, and component repair
 - Support Note Generator with an adjustable time-and-capacity model
-- Interactive IPv4 subnet calculator, transfer-time estimator, address validator, and keyboard tester
+- Ten browser-native labs spanning subnetting, ports, URL inspection, Linux permissions, encoding, security, storage, hardware input, and number systems
+- Two printable field guides covering responsible e-waste handling and useful Linux redeployment for older computers
 - SHA-256 file verifier, UI component library, and troubleshooting case study
 - Verified CompTIA credential links
 - Downloadable public résumé PDF

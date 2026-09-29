@@ -32,7 +32,7 @@
       <h1>Test. Calculate.<br>Understand.</h1>
       <p>Browser-native utilities built around practical support and infrastructure work. Everything runs locally—nothing entered here leaves your device.</p>
       <div class="lab-summary" aria-label="Lab summary">
-        <span><b>4</b> interactive tools</span>
+        <span><b>10</b> interactive tools</span>
         <span><b>0</b> external data calls</span>
         <span><b>100%</b> browser based</span>
       </div>
@@ -107,11 +107,161 @@
         <ul class="tags key-history" id="history-box" aria-label="Recent keys"></ul>
         <button id="clear-history" class="text-button" type="button">Clear key history</button>
       </article>
+
+      <article class="lab-card">
+        <div class="lab-card-heading">
+          <div><p class="kicker">Tool 05 / Web security</p><h2>URL signal inspector</h2></div>
+          <span class="tool-status">PARSE</span>
+        </div>
+        <p>Break a URL into its components and flag visible signals worth reviewing before opening an unfamiliar link.</p>
+        <form id="url-form" class="stacked-form" novalidate>
+          <label for="url-input">URL or hostname</label>
+          <input id="url-input" class="tool-input" inputmode="url" value="https://example.com:443/support?id=42#results" autocomplete="off">
+          <button class="tool-btn" type="submit">Inspect URL</button>
+        </form>
+        <dl class="result-list" aria-live="polite">
+          <div><dt>Protocol</dt><dd id="url-protocol">—</dd></div>
+          <div><dt>Hostname</dt><dd id="url-host">—</dd></div>
+          <div><dt>Effective port</dt><dd id="url-port">—</dd></div>
+          <div><dt>Path</dt><dd id="url-path">—</dd></div>
+          <div><dt>Query values</dt><dd id="url-query">—</dd></div>
+          <div><dt>Review signals</dt><dd id="url-signals">—</dd></div>
+        </dl>
+        <p class="tool-footnote">This inspects visible URL structure only. It does not visit the destination or declare a site safe.</p>
+      </article>
+
+      <article class="lab-card">
+        <div class="lab-card-heading">
+          <div><p class="kicker">Tool 06 / Networking</p><h2>Port reference lookup</h2></div>
+          <span class="tool-status">TCP/UDP</span>
+        </div>
+        <p>Look up common service associations and identify whether a port is well-known, registered, or dynamic.</p>
+        <form id="port-form" class="stacked-form" novalidate>
+          <label for="port-input">Port number</label>
+          <input id="port-input" class="tool-input" type="number" min="0" max="65535" value="443">
+          <button class="tool-btn" type="submit">Look up port</button>
+        </form>
+        <div class="port-result" aria-live="polite">
+          <strong id="port-service">—</strong>
+          <span id="port-transport">—</span>
+          <p id="port-description">Enter a port from 0 to 65535.</p>
+          <small id="port-range">—</small>
+        </div>
+      </article>
+
+      <article class="lab-card">
+        <div class="lab-card-heading">
+          <div><p class="kicker">Tool 07 / Security</p><h2>Password entropy tester</h2></div>
+          <span class="tool-status">LOCAL</span>
+        </div>
+        <p>Estimate password search space and identify character variety without storing or transmitting the password.</p>
+        <form id="password-form" class="stacked-form" novalidate>
+          <label for="password-input">Test password</label>
+          <input id="password-input" class="tool-input" type="password" autocomplete="new-password" placeholder="Type a sample password">
+          <label class="inline-check"><input id="show-password" type="checkbox"> Show password</label>
+        </form>
+        <div class="strength-track" aria-hidden="true"><span id="strength-fill"></span></div>
+        <div class="strength-result" aria-live="polite"><strong id="strength-label">Awaiting input</strong><span id="entropy-bits">0 estimated bits</span></div>
+        <ul id="password-feedback" class="feedback-list"><li>Use a long, unique password or passphrase.</li></ul>
+        <p class="tool-footnote">A local educational estimate based on length and character range—not a breach check or guarantee of password safety. Test a sample, not a password you actively use.</p>
+      </article>
+
+      <article class="lab-card">
+        <div class="lab-card-heading">
+          <div><p class="kicker">Tool 08 / Data</p><h2>Encoding workbench</h2></div>
+          <span class="tool-status">TEXT</span>
+        </div>
+        <p>Encode or decode text with Base64 and percent-encoding for troubleshooting web requests and configuration values.</p>
+        <form id="codec-form" class="stacked-form" novalidate>
+          <label for="codec-input">Input</label>
+          <textarea id="codec-input" class="tool-input code-area" rows="4">Hello, infrastructure!</textarea>
+          <label for="codec-mode">Operation</label>
+          <select id="codec-mode" class="tool-input">
+            <option value="base64-encode">Base64 encode</option>
+            <option value="base64-decode">Base64 decode</option>
+            <option value="url-encode">URL encode</option>
+            <option value="url-decode">URL decode</option>
+          </select>
+          <button class="tool-btn" type="submit">Transform text</button>
+        </form>
+        <label class="output-label" for="codec-output">Output</label>
+        <textarea id="codec-output" class="tool-input code-area" rows="4" readonly aria-live="polite"></textarea>
+      </article>
+
+      <article class="lab-card">
+        <div class="lab-card-heading">
+          <div><p class="kicker">Tool 09 / Linux</p><h2>Permissions calculator</h2></div>
+          <span class="tool-status">CHMOD</span>
+        </div>
+        <p>Convert an octal permission value into symbolic Linux permissions and a ready-to-read chmod example.</p>
+        <form id="permissions-form" class="stacked-form" novalidate>
+          <label for="permissions-input">Octal permissions</label>
+          <input id="permissions-input" class="tool-input" inputmode="numeric" maxlength="4" value="754" autocomplete="off">
+          <button class="tool-btn" type="submit">Convert permissions</button>
+        </form>
+        <div class="permission-display" aria-live="polite">
+          <strong id="permission-symbolic">rwxr-xr--</strong>
+          <span id="permission-command">chmod 754 filename</span>
+        </div>
+        <dl class="result-list permission-breakdown">
+          <div><dt>Owner</dt><dd id="permission-owner">read, write, execute</dd></div>
+          <div><dt>Group</dt><dd id="permission-group">read, execute</dd></div>
+          <div><dt>Others</dt><dd id="permission-others">read</dd></div>
+        </dl>
+      </article>
+
+      <article class="lab-card">
+        <div class="lab-card-heading">
+          <div><p class="kicker">Tool 10 / Systems</p><h2>Number-base converter</h2></div>
+          <span class="tool-status">BIN/HEX</span>
+        </div>
+        <p>Convert whole numbers between binary, octal, decimal, and hexadecimal representations.</p>
+        <form id="base-form" class="stacked-form" novalidate>
+          <label for="base-input">Value</label>
+          <input id="base-input" class="tool-input" value="255" autocomplete="off">
+          <label for="base-source">Input base</label>
+          <select id="base-source" class="tool-input">
+            <option value="10">Decimal</option>
+            <option value="2">Binary</option>
+            <option value="8">Octal</option>
+            <option value="16">Hexadecimal</option>
+          </select>
+          <button class="tool-btn" type="submit">Convert number</button>
+        </form>
+        <dl class="result-list base-results" aria-live="polite">
+          <div><dt>Binary</dt><dd id="base-binary">11111111</dd></div>
+          <div><dt>Octal</dt><dd id="base-octal">377</dd></div>
+          <div><dt>Decimal</dt><dd id="base-decimal">255</dd></div>
+          <div><dt>Hexadecimal</dt><dd id="base-hex">FF</dd></div>
+        </dl>
+        <p id="base-error" class="tool-result error-text" role="alert"></p>
+      </article>
+    </section>
+
+    <section class="guide-library" aria-labelledby="guide-library-title">
+      <div class="guide-library-heading">
+        <div><p class="kicker">Field guides</p><h2 id="guide-library-title">Repair, reuse,<br>learn.</h2></div>
+        <p>Two practical, browser-friendly guides for making responsible hardware decisions and giving capable older systems a useful second life.</p>
+      </div>
+      <div class="guide-grid">
+        <article class="guide-card">
+          <p class="kicker">Quick-start guide</p>
+          <h3>Responsible e-waste handling</h3>
+          <p>A clear intake-to-disposition checklist covering data protection, batteries, reuse, donation, certified recycling, and basic recordkeeping.</p>
+          <a href="ewaste-quickstart.html">Open the e-waste guide →</a>
+        </article>
+        <article class="guide-card">
+          <p class="kicker">Linux guidebook</p>
+          <h3>Revive old tech with Linux</h3>
+          <p>Evaluate hardware, choose a realistic distribution, create safe installation media, install, tune, and validate an older computer.</p>
+          <a href="old-tech-linux.html">Open the Linux guidebook →</a>
+        </article>
+      </div>
     </section>
 
     <section class="lab-context">
       <div><p class="kicker">Why these tools</p><h2>Small utilities.<br>Real support thinking.</h2></div>
-      <p>These labs connect directly to my hands-on work with VPN and LAN troubleshooting, device migrations, storage constraints, backups, Linux systems, hardware diagnostics, and repeatable documentation. They turn common support questions into clear, inspectable results.</p>
+      <p>These labs and field guides connect directly to my hands-on work with VPN and LAN troubleshooting, device migrations, storage constraints, backups, Linux systems, hardware diagnostics, responsible reuse, and repeatable documentation. They turn common support questions into clear, inspectable results.</p>
     </section>
   </main>
 

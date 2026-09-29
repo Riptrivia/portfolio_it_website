@@ -204,6 +204,219 @@ select.tool-input {
   cursor: pointer;
 }
 
+.result-list {
+  display: grid;
+  gap: .55rem;
+  margin: 1rem 0 0;
+}
+
+.result-list div {
+  display: grid;
+  grid-template-columns: minmax(105px, .72fr) minmax(0, 1.28fr);
+  gap: .8rem;
+  padding: .78rem .9rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg);
+}
+
+.result-list dt {
+  color: var(--muted);
+  font: 500 .62rem "DM Mono";
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.result-list dd {
+  margin: 0;
+  color: var(--ink);
+  font: 500 .76rem "DM Mono";
+  overflow-wrap: anywhere;
+}
+
+.port-result,
+.permission-display {
+  display: grid;
+  gap: .35rem;
+  margin-top: 1rem;
+  padding: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--bg);
+}
+
+.port-result strong,
+.permission-display strong {
+  color: var(--green);
+  font: 600 1.45rem "DM Mono";
+}
+
+.port-result span,
+.permission-display span,
+.port-result small {
+  color: var(--muted);
+  font: 500 .7rem "DM Mono";
+}
+
+.port-result p {
+  margin: .35rem 0;
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+.inline-check {
+  display: flex !important;
+  grid-template-columns: none !important;
+  align-items: center;
+  gap: .55rem !important;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.inline-check input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--green);
+}
+
+.strength-track {
+  height: 9px;
+  margin-top: 1rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(102, 86, 70, .12);
+}
+
+.strength-track span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--orange);
+  transition: width .2s ease, background-color .2s ease;
+}
+
+.strength-result {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: .65rem;
+}
+
+.strength-result strong {
+  color: var(--ink);
+}
+
+.strength-result span,
+.feedback-list {
+  color: var(--muted);
+  font-size: .75rem;
+}
+
+.feedback-list {
+  display: grid;
+  gap: .35rem;
+  padding-left: 1.1rem;
+  line-height: 1.5;
+}
+
+.code-area {
+  min-height: 104px;
+  resize: vertical;
+  font: 500 .78rem/1.55 "DM Mono";
+}
+
+.output-label {
+  display: block;
+  margin: 1rem 0 .4rem;
+  color: var(--muted);
+  font: 500 .68rem "DM Mono";
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.permission-display {
+  text-align: center;
+}
+
+.permission-display strong {
+  letter-spacing: .08em;
+}
+
+.permission-breakdown div,
+.base-results div {
+  grid-template-columns: 90px minmax(0, 1fr);
+}
+
+.base-results dd {
+  text-align: right;
+}
+
+.guide-library {
+  max-width: var(--max);
+  margin: 0 auto 100px;
+}
+
+.guide-library-heading {
+  display: grid;
+  grid-template-columns: .85fr 1.15fr;
+  gap: 6vw;
+  margin-bottom: 2rem;
+}
+
+.guide-library-heading h2 {
+  margin: .8rem 0 0;
+  color: var(--ink);
+  font-size: clamp(2.4rem, 5vw, 4.3rem);
+  letter-spacing: -.055em;
+  line-height: 1;
+}
+
+.guide-library-heading > p {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.guide-card {
+  display: flex;
+  min-height: 270px;
+  flex-direction: column;
+  padding: 2rem;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255, 253, 248, .86);
+  box-shadow: var(--small-shadow);
+}
+
+.guide-card:nth-child(2) {
+  background: linear-gradient(145deg, #fffdf8, #eef2e9);
+}
+
+.guide-card h3 {
+  margin: .7rem 0;
+  color: var(--ink);
+  font-size: 1.55rem;
+}
+
+.guide-card > p:not(.kicker) {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.guide-card a {
+  width: fit-content;
+  margin-top: auto;
+  color: var(--green);
+  font-weight: 800;
+  text-decoration: none;
+}
+
 .lab-context {
   display: grid;
   grid-template-columns: .85fr 1.15fr;
@@ -230,13 +443,16 @@ select.tool-input {
 
 @media (max-width: 900px) {
   .lab-workbench,
-  .lab-context {
+  .lab-context,
+  .guide-library {
     margin-left: 24px;
     margin-right: 24px;
   }
 
   .lab-workbench,
-  .lab-context {
+  .lab-context,
+  .guide-library-heading,
+  .guide-grid {
     grid-template-columns: 1fr;
   }
 
@@ -255,7 +471,8 @@ select.tool-input {
 
 @media (max-width: 620px) {
   .lab-workbench,
-  .lab-context {
+  .lab-context,
+  .guide-library {
     margin-left: 18px;
     margin-right: 18px;
   }
@@ -279,5 +496,25 @@ select.tool-input {
 
   .lab-context {
     padding: 62px 0;
+  }
+
+  .result-list div,
+  .permission-breakdown div,
+  .base-results div {
+    grid-template-columns: 1fr;
+  }
+
+  .base-results dd {
+    text-align: left;
+  }
+
+  .strength-result {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .guide-card {
+    min-height: 0;
+    padding: 1.4rem;
   }
 }
