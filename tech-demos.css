@@ -171,6 +171,8 @@
   text-align: center;
 }
 
+.webgl-error[hidden] { display: none; }
+
 .demo-controls {
   display: flex;
   flex-wrap: wrap;
