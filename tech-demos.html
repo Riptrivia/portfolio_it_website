@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Twenty interactive browser graphics experiments by Marcielo Pestcoe: WebGL 3D rendering, ray tracing, shaders, and classic demoscene effects.">
+  <title>Graphics Tech Demos — Marcielo Pestcoe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="extras.css">
+  <link rel="stylesheet" href="retro-tech.css?v=1">
+  <link rel="stylesheet" href="tech-demos.css?v=1">
+</head>
+<body class="demo-body">
+  <a class="skip-link" href="#demo-stage">Skip to demo stage</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span>MP</span><b>Marcielo Pestcoe</b></a>
+    <nav aria-label="Primary navigation"><a href="index.html#experience">Experience</a><a href="index.html#projects">Projects</a><a href="certs.html">Credentials</a><a href="troubleshooting.html">IT Lab</a><a href="tech-demos.html">Tech Demos</a></nav>
+    <a class="header-cta" href="index.html">← Home</a>
+  </header>
+
+  <main class="demo-main" id="main">
+    <section class="demo-hero">
+      <div>
+        <p class="kicker">WebGL / Canvas / Demoscene</p>
+        <h1>Pixels with<br><em>something to prove.</em></h1>
+        <p>Twenty live graphics experiments built without a framework: ten GPU-driven 3D and ray-rendering scenes, plus ten old-school effects inspired by the home-computer demoscene.</p>
+      </div>
+      <div class="demo-hero-badges" aria-label="Demo summary"><span><b>10</b> WebGL / 3D</span><span><b>10</b> retro effects</span><span><b>0</b> external libraries</span><span><b>1</b> browser GPU</span></div>
+    </section>
+
+    <section class="origin-story" aria-labelledby="origin-title">
+      <div class="origin-window" aria-hidden="true"><span>C:\MEMORIES\FIRST_GPU.EXE</span><div><i></i><i></i><i></i><b>CRYSIS?</b></div></div>
+      <div><p class="kicker">Why graphics?</p><span class="age-callout">AGE 10 · 2013</span><h2 id="origin-title">The benchmark that started it.</h2><p>When I was about 10 years old, my uncle and I picked up the parts at Fry’s Electronics and built my first PC around a GTX 450 for one clear mission: play <em>Crysis</em>. That build turned graphics settings, frame rates, and hardware limits into something I could explore firsthand.</p><p>That same curiosity drives this workbench today—understand the machine, push the pixels, and see what becomes possible.</p></div>
+    </section>
+
+    <section class="demo-console" id="demo-stage" aria-labelledby="active-demo-title">
+      <div class="console-titlebar"><div><i></i><i></i><i></i></div><span>GRAPHICS_WORKBENCH.EXE</span><b id="fps-meter">-- FPS</b></div>
+      <div class="demo-viewport">
+        <canvas id="gl-canvas" width="960" height="540" aria-label="WebGL demonstration canvas"></canvas>
+        <canvas id="retro-canvas" width="640" height="360" aria-label="Retro graphics demonstration canvas" hidden></canvas>
+        <div id="webgl-error" class="webgl-error" hidden>WebGL is unavailable in this browser. The ten Canvas demos still work.</div>
+        <div class="viewport-overlay"><span id="active-demo-number">3D_01</span><strong id="active-demo-title">Ray-traced spheres</strong><small id="active-demo-engine">WEBGL · FRAGMENT SHADER</small></div>
+      </div>
+      <div class="demo-controls" aria-label="Demo controls">
+        <button id="pause-demo" type="button">Pause</button>
+        <button id="restart-demo" type="button">Restart</button>
+        <label for="quality-select">Render scale<select id="quality-select"><option value="0.55">Low</option><option value="0.8" selected>Balanced</option><option value="1">High</option></select></label>
+        <button id="fullscreen-demo" type="button">Fullscreen</button>
+      </div>
+      <p id="active-demo-description" class="active-description">Analytic sphere intersections, hard shadows, specular light, and reflected color rendered per pixel on the GPU.</p>
+    </section>
+
+    <section class="demo-library" aria-labelledby="three-d-title">
+      <div class="demo-section-heading"><div><p class="kicker">01 / GPU experiments</p><h2 id="three-d-title">Ten ways to bend 3D.</h2></div><p>Shader-driven scenes exercise ray intersections, signed distance fields, procedural geometry, lighting, volumetrics, and iterative rendering.</p></div>
+      <div class="demo-grid" id="three-d-grid"></div>
+    </section>
+
+    <section class="demo-library" aria-labelledby="retro-title">
+      <div class="demo-section-heading"><div><p class="kicker">02 / Old-school effects</p><h2 id="retro-title">Ten greetings from the demoscene.</h2></div><p>CPU-rendered Canvas experiments revisit plasma, copper bars, checker warps, bobs, rotozoom, pixel fire, and other classic screen tricks.</p></div>
+      <div class="demo-grid retro-grid" id="retro-grid"></div>
+    </section>
+
+    <section class="demo-notes">
+      <div><p class="kicker">How it works</p><h2>One page.<br>Two render paths.</h2></div>
+      <p>The 3D scenes use a full-screen WebGL fragment shader and switch procedural scene functions on the GPU. The retro set uses Canvas 2D and deliberately low internal resolutions to recreate the character of older home-computer effects. Quality controls change render scale; animation pauses automatically when the tab is hidden.</p>
+    </section>
+  </main>
+
+  <footer class="subpage-footer"><a class="brand" href="index.html"><span>MP</span><b>Marcielo Pestcoe</b></a><p>WebGL · Canvas 2D · No external libraries</p></footer>
+  <script src="tech-demos.js?v=1"></script>
+</body>
+</html>

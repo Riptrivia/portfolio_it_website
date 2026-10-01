@@ -1,5 +1,7 @@
 # Marcielo Pestcoe — IT Portfolio
 
+An Amiga-inspired, pastel retro-computing portfolio with enterprise IT experience, interactive support labs, practical reuse guides, an embedded Arch Linux virtual machine, and a graphics workbench containing 10 WebGL/3D experiments plus 10 classic demoscene effects.
+
 A responsive, static portfolio covering enterprise endpoint support, mobile-device lifecycle work, hardware repair, certifications, and browser-based support tools.
 
 ## Featured content
