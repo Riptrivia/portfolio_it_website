@@ -137,6 +137,8 @@
   image-rendering: pixelated;
 }
 
+.demo-viewport canvas[hidden] { display: none; }
+
 .viewport-overlay {
   position: absolute;
   left: 16px;
