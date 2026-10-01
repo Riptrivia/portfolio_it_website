@@ -35,10 +35,11 @@
   const pauseButton = document.querySelector('#pause-demo');
   const qualitySelect = document.querySelector('#quality-select');
   const errorBox = document.querySelector('#webgl-error');
+  const viewport = document.querySelector('#interactive-viewport');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let active = 0;
-  let paused = reducedMotion;
+  let paused = false;
   let quality = Number(qualitySelect.value);
   let start = performance.now();
   let previous = start;
@@ -47,6 +48,9 @@
   let animationId = 0;
   let stars = [];
   let fire = null;
+  const pointer = { x: .5, y: .5, down: false };
+  let pulse = 0;
+  let hueShift = 0;
 
   function demoCard(demo) {
     const button = document.createElement('button');
@@ -55,7 +59,7 @@
     button.dataset.demo = demo.index;
     button.setAttribute('aria-label', `Run ${demo.title}`);
     button.innerHTML = `<span class="demo-thumb thumb-${demo.index}"><i></i></span><span><small>${demo.group === '3D' ? `3D_${String(demo.index + 1).padStart(2, '0')}` : `FX_${String(demo.index - 9).padStart(2, '0')}`} · ${demo.badge}</small><strong>${demo.title}</strong><em>${demo.description}</em></span><b>RUN →</b>`;
-    button.addEventListener('click', () => selectDemo(demo.index, true));
+    button.addEventListener('click', () => selectDemo(demo.index, false));
     return button;
   }
 
@@ -75,6 +79,8 @@
     precision highp float;
     uniform vec2 u_resolution;
     uniform float u_time;
+    uniform vec2 u_pointer;
+    uniform float u_pulse;
     uniform int u_mode;
     #define PI 3.14159265
 
@@ -157,6 +163,8 @@
 
     void main(){
       vec2 uv=(gl_FragCoord.xy*2.0-u_resolution.xy)/min(u_resolution.x,u_resolution.y);
+      vec2 cursor=(u_pointer-.5)*2.0;
+      uv+=cursor*vec2(.24,-.18);
       vec3 col;
       if(u_mode==2) col=tunnel(uv);
       else if(u_mode==5) col=gridScene(uv);
@@ -168,6 +176,8 @@
         col=march(ro,rd);
       }
       col=pow(max(col,0.0),vec3(.82));
+      float ring=exp(-18.0*abs(length(uv-cursor*.35)-u_pulse*.7));
+      col+=pal(u_time*.08+u_pulse)*ring*u_pulse*.8;
       col*=1.0-.18*dot(uv*.5,uv*.5);
       gl_FragColor=vec4(col,1.0);
     }
@@ -199,7 +209,9 @@
       uniforms = {
         time: gl.getUniformLocation(program, 'u_time'),
         resolution: gl.getUniformLocation(program, 'u_resolution'),
-        mode: gl.getUniformLocation(program, 'u_mode')
+        mode: gl.getUniformLocation(program, 'u_mode'),
+        pointer: gl.getUniformLocation(program, 'u_pointer'),
+        pulse: gl.getUniformLocation(program, 'u_pulse')
       };
       return true;
     } catch (error) {
@@ -216,6 +228,7 @@
     active = index;
     start = performance.now();
     fire = null;
+    pulse = .45;
     document.querySelectorAll('.demo-card').forEach(card => card.classList.toggle('active', Number(card.dataset.demo) === active));
     const demo = demos[active];
     title.textContent = demo.title;
@@ -244,6 +257,8 @@
     gl.uniform1f(uniforms.time, time);
     gl.uniform2f(uniforms.resolution, glCanvas.width, glCanvas.height);
     gl.uniform1i(uniforms.mode, active);
+    gl.uniform2f(uniforms.pointer, pointer.x, pointer.y);
+    gl.uniform1f(uniforms.pulse, pulse);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   }
 
@@ -259,7 +274,9 @@
   const palette = t => `hsl(${(185 + t * 170) % 360} 75% ${48 + Math.sin(t) * 10}%)`;
   function renderRetro(time) {
     const [w, h] = lowRes();
-    const t = time;
+    const t = time + hueShift * .12;
+    const mx = (pointer.x - .5) * w;
+    const my = (pointer.y - .5) * h;
     retro.fillStyle = '#07101f';
     retro.fillRect(0, 0, w, h);
 
@@ -267,11 +284,11 @@
       const image = retro.createImageData(w, h), data = image.data;
       for (let y = 0; y < h; y += 2) for (let x = 0; x < w; x += 2) {
         let v;
-        if (active === 10) v = (Math.sin(x*.055+t*2)+Math.sin(y*.07-t*1.4)+Math.sin((x+y)*.04+t)+Math.sin(Math.hypot(x-w/2,y-h/2)*.065-t*2))*.25;
-        else if (active === 11) { const px=(x-w/2)/(y*.035+4), py=180/(y*.035+4)+t*8; v=((Math.floor(px)+Math.floor(py))&1)*2-1; }
-        else if (active === 15) { const c=Math.cos(t*.65),s=Math.sin(t*.65), nx=(x-w/2)*c-(y-h/2)*s, ny=(x-w/2)*s+(y-h/2)*c; v=((Math.floor(nx/(18+8*Math.sin(t*.3)))^Math.floor(ny/(18+8*Math.sin(t*.3))))&1)*2-1; }
-        else { const d1=Math.hypot(x-w*.42-Math.sin(t)*35,y-h*.5),d2=Math.hypot(x-w*.58-Math.cos(t*.8)*35,y-h*.5); v=Math.sin(d1*.24)+Math.sin(d2*.24); }
-        const hue=(190+v*85+t*18)%360, rgb=hslToRgb(hue/360,.78,.52);
+        if (active === 10) v = (Math.sin((x+mx)*.055+t*2)+Math.sin((y+my)*.07-t*1.4)+Math.sin((x+y)*.04+t)+Math.sin(Math.hypot(x-w/2-mx*.45,y-h/2-my*.45)*.065-t*2))*.25;
+        else if (active === 11) { const px=(x-w/2-mx*.45)/(y*.035+4), py=(180+my*.6)/(y*.035+4)+t*8; v=((Math.floor(px)+Math.floor(py))&1)*2-1; }
+        else if (active === 15) { const c=Math.cos(t*.65+mx*.006),s=Math.sin(t*.65+mx*.006), nx=(x-w/2)*c-(y-h/2)*s, ny=(x-w/2)*s+(y-h/2)*c; v=((Math.floor(nx/(18+8*Math.sin(t*.3)))^Math.floor(ny/(18+8*Math.sin(t*.3))))&1)*2-1; }
+        else { const d1=Math.hypot(x-w*.42-mx*.4-Math.sin(t)*35,y-h*.5-my*.35),d2=Math.hypot(x-w*.58+mx*.4-Math.cos(t*.8)*35,y-h*.5+my*.35); v=Math.sin(d1*.24)+Math.sin(d2*.24); }
+        const hue=(190+v*85+t*18+hueShift*22)%360, rgb=hslToRgb(hue/360,.78,.52);
         for(let oy=0;oy<2;oy++) for(let ox=0;ox<2;ox++){ const i=((y+oy)*w+x+ox)*4; data[i]=rgb[0];data[i+1]=rgb[1];data[i+2]=rgb[2];data[i+3]=255; }
       }
       retro.putImageData(image,0,0);
@@ -279,23 +296,34 @@
       for(let y=0;y<h;y++){ const wave=Math.sin(y*.09+t*2)*.5+.5; retro.fillStyle=`rgb(${60+wave*195},${30+wave*90},${120+wave*110})`; retro.fillRect(0,y,w,1); }
       retro.fillStyle='rgba(255,255,255,.8)'; for(let y=8;y<h;y+=22) retro.fillRect(0,y+Math.sin(t+y*.05)*4,w,2);
     } else if (active === 13) {
-      const floor=h*.76, radius=Math.min(w,h)*.22, cx=w*.5, cy=floor-radius-Math.abs(Math.sin(t*1.8))*h*.35;
+      const floor=h*.76, radius=Math.min(w,h)*(.22+pulse*.05), cx=w*.5+mx*.45, cy=floor-radius-Math.abs(Math.sin(t*1.8))*h*.35+my*.12;
       retro.strokeStyle='#2fc4bd'; for(let y=floor;y<h;y+=12) { retro.globalAlpha=(y-floor)/(h-floor); retro.beginPath();retro.moveTo(0,y);retro.lineTo(w,y);retro.stroke(); }
       retro.globalAlpha=1; retro.save();retro.beginPath();retro.arc(cx,cy,radius,0,PI2);retro.clip();
       const cell=radius/3; for(let yy=-3;yy<3;yy++) for(let xx=-3;xx<3;xx++){ retro.fillStyle=(xx+yy)&1?'#ef577d':'#fff2c7';retro.fillRect(cx+xx*cell,cy+yy*cell,cell+1,cell+1); }
       const g=retro.createRadialGradient(cx-radius*.35,cy-radius*.4,2,cx,cy,radius);g.addColorStop(0,'rgba(255,255,255,.65)');g.addColorStop(.7,'rgba(255,255,255,0)');g.addColorStop(1,'rgba(0,0,40,.45)');retro.fillStyle=g;retro.fillRect(cx-radius,cy-radius,radius*2,radius*2);retro.restore();
     } else if (active === 14) {
       if(stars.length!==150) stars=Array.from({length:150},()=>({x:(Math.random()-.5)*w,y:(Math.random()-.5)*h,z:Math.random()*w+1}));
-      retro.translate(w/2,h/2); for(const star of stars){ star.z-=2.5+quality*4;if(star.z<1)star.z=w;const x=star.x/star.z*w,y=star.y/star.z*w,r=Math.max(.5,(1-star.z/w)*3);retro.fillStyle=palette(star.z*.01+t*.08);retro.fillRect(x,y,r,r); } retro.setTransform(1,0,0,1,0,0);
+      retro.translate(w/2+mx*.4,h/2+my*.4); for(const star of stars){ star.z-=2.5+quality*4+pulse*9;if(star.z<1)star.z=w;const x=star.x/star.z*w,y=star.y/star.z*w,r=Math.max(.5,(1-star.z/w)*3);retro.fillStyle=palette(star.z*.01+t*.08+hueShift);retro.fillRect(x,y,r,r); } retro.setTransform(1,0,0,1,0,0);
     } else if (active === 16) {
       retro.font=`bold ${Math.max(20,w*.075)}px monospace`;retro.textBaseline='middle'; const msg='*** MARCIELO TECH WORKBENCH · WEBGL · LINUX · REPAIR · CREATE · '; const span=retro.measureText(msg).width; const x=w-(t*90)%span;
-      for(let i=-1;i<3;i++){ const xx=x+i*span; for(let c=0;c<msg.length;c++){ const part=msg[c], px=xx+retro.measureText(msg.slice(0,c)).width, py=h*.5+Math.sin(px*.025+t*3)*h*.16;retro.fillStyle=palette(c*.09+t*.12);retro.fillText(part,px,py); } }
+      for(let i=-1;i<3;i++){ const xx=x+i*span; for(let c=0;c<msg.length;c++){ const part=msg[c], px=xx+retro.measureText(msg.slice(0,c)).width, py=h*.5+my*.35+Math.sin(px*(.025+pointer.x*.018)+t*3)*h*(.12+pointer.y*.12);retro.fillStyle=palette(c*.09+t*.12+hueShift);retro.fillText(part,px,py); } }
     } else if (active === 17) {
-      const fw=180,fh=120;if(!fire||fire.length!==fw*fh)fire=new Uint8Array(fw*fh);for(let x=0;x<fw;x++)fire[(fh-1)*fw+x]=Math.random()>.42?255:120;
+      const fw=180,fh=120;if(!fire||fire.length!==fw*fh)fire=new Uint8Array(fw*fh);for(let x=0;x<fw;x++)fire[(fh-1)*fw+x]=Math.random()>.42?255:120;const spark=Math.max(2,Math.floor(pointer.x*fw));for(let x=Math.max(1,spark-7);x<Math.min(fw-1,spark+7);x++)fire[(fh-2)*fw+x]=Math.min(255,210+pulse*90);
       for(let y=0;y<fh-1;y++)for(let x=1;x<fw-1;x++){const below=(y+1)*fw+x;fire[y*fw+x]=Math.max(0,((fire[below]+fire[below-1]+fire[below+1]+fire[Math.min(fh-1,y+2)*fw+x])/4)-(Math.random()*10));}
       const img=retro.createImageData(fw,fh);for(let i=0;i<fire.length;i++){const v=fire[i]/255;img.data[i*4]=Math.min(255,v*440);img.data[i*4+1]=Math.max(0,(v-.25)*320);img.data[i*4+2]=Math.max(0,(v-.72)*500);img.data[i*4+3]=255;} const temp=document.createElement('canvas');temp.width=fw;temp.height=fh;temp.getContext('2d').putImageData(img,0,0);retro.drawImage(temp,0,0,w,h);
     } else if (active === 18) {
-      retro.globalCompositeOperation='lighter';for(let i=0;i<30;i++){const a=t*(.45+i*.007)+i*.72,x=w/2+Math.sin(a*1.7+i)*w*.38,y=h/2+Math.cos(a*1.25-i)*h*.35,r=7+(i%5)*3;retro.fillStyle=palette(i*.11+t*.1);retro.beginPath();retro.arc(x,y,r,0,PI2);retro.fill();}retro.globalCompositeOperation='source-over';
+      retro.globalCompositeOperation='lighter';for(let i=0;i<30;i++){const a=t*(.45+i*.007)+i*.72,x=w/2+mx*.35+Math.sin(a*1.7+i)*w*.38,y=h/2+my*.35+Math.cos(a*1.25-i)*h*.35,r=7+(i%5)*3+pulse*8;retro.fillStyle=palette(i*.11+t*.1+hueShift);retro.beginPath();retro.arc(x,y,r,0,PI2);retro.fill();}retro.globalCompositeOperation='source-over';
+    }
+
+    if (pulse > .02) {
+      retro.save();
+      retro.globalCompositeOperation = 'lighter';
+      retro.strokeStyle = `hsla(${190 + hueShift * 47},90%,70%,${Math.min(.9,pulse)})`;
+      retro.lineWidth = 2 + pulse * 8;
+      retro.beginPath();
+      retro.arc(pointer.x*w, pointer.y*h, 12 + (1-pulse)*90, 0, PI2);
+      retro.stroke();
+      retro.restore();
     }
   }
 
@@ -304,22 +332,45 @@
 
   function frame(now) {
     animationId = requestAnimationFrame(frame);
-    if (paused) return;
+    if (paused || document.hidden) return;
     const elapsed = (now - start) / 1000;
     if (active < 10) renderWebGL(elapsed); else renderRetro(elapsed);
+    pulse = Math.max(0, pulse - .022);
     frames++;
     if (now - fpsStart > 600) { fpsMeter.textContent = `${Math.round(frames * 1000 / (now - fpsStart))} FPS`; frames=0;fpsStart=now; }
     previous = now;
   }
 
+  function updatePointer(event) {
+    const rect = viewport.getBoundingClientRect();
+    pointer.x = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+    pointer.y = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
+  }
+
+  viewport.addEventListener('pointerdown', event => {
+    pointer.down = true;
+    updatePointer(event);
+    pulse = 1;
+    hueShift = (hueShift + .23) % 10;
+    viewport.setPointerCapture?.(event.pointerId);
+  });
+  viewport.addEventListener('pointermove', event => {
+    if (pointer.down || event.pointerType === 'mouse') updatePointer(event);
+  });
+  viewport.addEventListener('pointerup', event => {
+    pointer.down = false;
+    updatePointer(event);
+    if (viewport.hasPointerCapture?.(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+  });
+  viewport.addEventListener('pointercancel', () => { pointer.down = false; });
+
   pauseButton.addEventListener('click', () => { paused=!paused;pauseButton.textContent=paused?'Resume':'Pause';pauseButton.setAttribute('aria-pressed',String(paused));if(!paused){start+=performance.now()-previous;fpsStart=performance.now();frames=0;} });
-  document.querySelector('#restart-demo').addEventListener('click',()=>{start=performance.now();fire=null;stars=[];});
+  document.querySelector('#restart-demo').addEventListener('click',()=>{start=performance.now();fire=null;stars=[];pulse=1;hueShift=0;pointer.x=.5;pointer.y=.5;});
   qualitySelect.addEventListener('change',()=>{quality=Number(qualitySelect.value);fire=null;});
   document.querySelector('#fullscreen-demo').addEventListener('click',()=>{const target=document.querySelector('.demo-viewport');if(document.fullscreenElement)document.exitFullscreen();else target.requestFullscreen?.();});
-  document.addEventListener('visibilitychange',()=>{if(document.hidden&&!paused){paused=true;pauseButton.textContent='Resume';pauseButton.setAttribute('aria-pressed','true');}});
   window.addEventListener('beforeunload',()=>cancelAnimationFrame(animationId));
 
   pauseButton.textContent = paused ? 'Resume' : 'Pause';
-  selectDemo(0, false);
+  selectDemo(webglReady ? 0 : 10, false);
   animationId = requestAnimationFrame(frame);
 })();
