@@ -18,6 +18,37 @@
     return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
   };
 
+  function initDockToggle() {
+    const dock = one("[data-spotvis-dock]");
+    const toggle = one("[data-spotvis-dock-toggle]");
+    if (!dock || !toggle) return;
+
+    const applyState = (collapsed) => {
+      dock.classList.toggle("is-collapsed", collapsed);
+      toggle.setAttribute("aria-expanded", String(!collapsed));
+      toggle.setAttribute("aria-label", collapsed ? "Expand now playing" : "Minimize now playing");
+      toggle.textContent = collapsed ? "+" : "−";
+    };
+
+    let collapsed = false;
+    try {
+      collapsed = window.localStorage.getItem("spotvisDockCollapsed") === "true";
+    } catch {
+      collapsed = false;
+    }
+    applyState(collapsed);
+
+    toggle.addEventListener("click", () => {
+      const next = !dock.classList.contains("is-collapsed");
+      applyState(next);
+      try {
+        window.localStorage.setItem("spotvisDockCollapsed", String(next));
+      } catch {
+        // The control still works when storage is unavailable.
+      }
+    });
+  }
+
   function progressNow() {
     const track = state.payload && state.payload.track;
     if (!track) return 0;
@@ -185,6 +216,7 @@
     renderPage(state.payload);
   }
 
+  initDockToggle();
   refresh();
   state.pollTimer = window.setInterval(refresh, 15000);
   state.timer = window.setInterval(renderTimeline, 500);

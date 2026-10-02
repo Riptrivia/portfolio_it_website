@@ -23,15 +23,18 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <a class="now-playing-dock" href="now-playing.html" data-spotvis-mini aria-label="Open Marcielo's now playing page">
-    <span class="now-playing-dock-art" data-spotvis-mini-art aria-hidden="true"><b>♪</b></span>
-    <span class="now-playing-dock-copy">
-      <small><i data-spotvis-mini-light></i><span data-spotvis-mini-label>SPOTVIS // CONNECTING</span></small>
-      <strong data-spotvis-mini-title>Checking playback…</strong>
-      <span data-spotvis-mini-artist>Spotify now playing</span>
-    </span>
-    <span class="now-playing-dock-arrow" aria-hidden="true">↗</span>
-  </a>
+  <aside class="now-playing-dock" data-spotvis-mini data-spotvis-dock aria-label="Now playing">
+    <a class="now-playing-dock-main" id="now-playing-dock-content" href="now-playing.html" aria-label="Open Marcielo's now playing page">
+      <span class="now-playing-dock-art" data-spotvis-mini-art aria-hidden="true"><b>♪</b></span>
+      <span class="now-playing-dock-copy" aria-live="polite">
+        <small><i data-spotvis-mini-light></i><span data-spotvis-mini-label>SPOTVIS // CONNECTING</span></small>
+        <strong data-spotvis-mini-title>Checking playback…</strong>
+        <span data-spotvis-mini-artist>Spotify now playing</span>
+      </span>
+      <span class="now-playing-dock-arrow" aria-hidden="true">↗</span>
+    </a>
+    <button class="now-playing-dock-toggle" type="button" data-spotvis-dock-toggle aria-controls="now-playing-dock-content" aria-expanded="true" aria-label="Minimize now playing">−</button>
+  </aside>
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Marcielo Pestcoe home"><span>MP</span><b>Marcielo Pestcoe</b></a>
     <nav aria-label="Main navigation">
