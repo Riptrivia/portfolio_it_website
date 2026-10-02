@@ -19,13 +19,23 @@
   <link rel="stylesheet" href="role.css">
   <link rel="stylesheet" href="resume.css">
   <link rel="stylesheet" href="retro-tech.css?v=1">
+  <link rel="stylesheet" href="spotvis.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+  <a class="now-playing-dock" href="now-playing.html" data-spotvis-mini aria-label="Open Marcielo's now playing page">
+    <span class="now-playing-dock-art" data-spotvis-mini-art aria-hidden="true"><b>♪</b></span>
+    <span class="now-playing-dock-copy">
+      <small><i data-spotvis-mini-light></i><span data-spotvis-mini-label>SPOTVIS // CONNECTING</span></small>
+      <strong data-spotvis-mini-title>Checking playback…</strong>
+      <span data-spotvis-mini-artist>Spotify now playing</span>
+    </span>
+    <span class="now-playing-dock-arrow" aria-hidden="true">↗</span>
+  </a>
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Marcielo Pestcoe home"><span>MP</span><b>Marcielo Pestcoe</b></a>
     <nav aria-label="Main navigation">
-      <a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#about">About</a><a href="#credentials">Credentials</a><a href="#resume">Résumé</a><a href="troubleshooting.html">Lab</a><a href="tech-demos.html">Tech Demos</a>
+      <a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#about">About</a><a href="#credentials">Credentials</a><a href="#resume">Résumé</a><a href="troubleshooting.html">Lab</a><a href="tech-demos.html">Tech Demos</a><a href="now-playing.html">Music</a>
     </nav>
     <a class="header-cta" href="https://www.linkedin.com/in/marcielo-pestcoe-0541aa263/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
   </header>
@@ -122,5 +132,7 @@
   </main>
   <footer><a class="brand" href="#top"><span>MP</span><b>Marcielo Pestcoe</b></a><p>IT Support · Systems · Repair</p><p>Built with curiosity and a little Linux. 🐧</p></footer>
   <script src="script.js"></script>
+  <script src="spotvis-config.js"></script>
+  <script src="spotvis.js"></script>
 </body>
 </html>

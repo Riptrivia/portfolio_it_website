@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Marcielo Pestcoe's live Spotify now-playing page, powered by the Spotvis architecture.">
+  <meta name="theme-color" content="#0a0f0d">
+  <title>Now Playing — Marcielo Pestcoe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="extras.css">
+  <link rel="stylesheet" href="spotvis.css">
+</head>
+<body class="music-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span>MP</span><b>Marcielo Pestcoe</b></a>
+    <nav aria-label="Main navigation"><a href="index.html">Portfolio</a><a href="troubleshooting.html">Lab</a><a href="tech-demos.html">Tech Demos</a><a href="now-playing.html" aria-current="page">Music</a></nav>
+    <a class="header-cta" href="index.html">Back home ←</a>
+  </header>
+
+  <main id="main" class="music-shell" data-spotvis-page>
+    <div class="music-heading">
+      <div><p class="kicker">SPOTVIS / LIVE PLAYBACK</p><h1>What I’m<em>listening to.</em></h1></div>
+      <p>A lightweight web adaptation of my Rust Spotvis project. Spotify supplies playback metadata and album artwork; synchronized lyric timing is provided by LRCLIB when available.</p>
+    </div>
+
+    <section class="music-stage" aria-live="polite">
+      <div class="music-track">
+        <div class="music-art" data-spotvis-art aria-label="Album artwork"><b>♪</b></div>
+        <p class="music-status" data-spotvis-status>SPOTVIS // CONNECTING</p>
+        <h2 data-spotvis-title>Checking playback…</h2>
+        <p class="music-artist" data-spotvis-artist>Spotify now playing</p>
+        <p class="music-album" data-spotvis-album>Secure playback data loads here.</p>
+        <div class="music-progress" aria-hidden="true"><span data-spotvis-progress></span></div>
+        <div class="music-time"><span data-spotvis-current>0:00</span><span data-spotvis-duration>0:00</span></div>
+        <a class="spotify-link" data-spotvis-link href="https://open.spotify.com/" target="_blank" rel="noreferrer" hidden>Open on Spotify ↗</a>
+      </div>
+      <div class="music-lyrics">
+        <div class="lyrics-stack" data-spotvis-lyrics><p class="lyrics-message">Lyrics appear here while music is playing.</p></div>
+        <p class="music-credit">Playback metadata and artwork link to <a href="https://open.spotify.com/" target="_blank" rel="noreferrer">Spotify</a>. Lyrics supplied when available by <a href="https://lrclib.net/" target="_blank" rel="noreferrer">LRCLIB</a>. No audio is streamed by this page.</p>
+      </div>
+    </section>
+  </main>
+  <footer><a class="brand" href="index.html"><span>MP</span><b>Marcielo Pestcoe</b></a><p>Spotvis web edition · No visualizer · No audio stream</p><p>Built from the architecture of my Rust terminal app.</p></footer>
+  <script src="spotvis-config.js"></script>
+  <script src="spotvis.js"></script>
+</body>
+</html>

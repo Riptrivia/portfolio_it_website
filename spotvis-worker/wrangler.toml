@@ -1,0 +1,6 @@
+name = "marcielo-spotvis-api"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+[vars]
+ALLOWED_ORIGIN = "https://riptrivia.github.io"

@@ -9,6 +9,7 @@ const entries = [
   'old-tech-linux.html',
   'arch-linux-vm.html',
   'tech-demos.html',
+  'now-playing.html',
   'financial-services-operations.html',
   'style.css',
   'extras.css',
@@ -22,14 +23,19 @@ const entries = [
   'vm-lab.css',
   'retro-tech.css',
   'tech-demos.css',
+  'spotvis.css',
   'script.js',
   'lab.js',
   'tech-demos.js',
+  'spotvis-config.js',
+  'spotvis.js',
   'Headshot.jpg',
   'og.png',
   'Marcielo_Pestcoe_IT_Resume.pdf',
   'projects',
-  'server'
+  'server',
+  'spotvis-worker',
+  'SPOTVIS_SETUP.md'
 ];
 
 const out = path.join(__dirname, 'dist');
