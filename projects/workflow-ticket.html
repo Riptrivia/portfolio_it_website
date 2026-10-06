@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workflow Ticket — Marcielo Pestcoe</title>
+    <style>
+        /* Default Light Theme */
+        :root {
+            --bg-color: #f8f9fa;
+            --panel-bg: #ffffff;
+            --text-main: #002244;
+            --text-muted: #555555;
+            --primary: #002244;
+            --secondary: #ffd700;
+            --accent: #b3a369;
+            --accent-hover: #968653;
+            --border-color: #ced4da;
+            --input-bg: #ffffff;
+            --shadow: rgba(0, 34, 68, 0.06);
+            --focus-ring: rgba(0, 34, 68, 0.25);
+            --banner-primary: #002244;
+            --banner-secondary: #003d82;
+            --banner-accent: #ffd700;
+        }
+
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --bg-color: #0a0f1a;
+            --panel-bg: #131820;
+            --text-main: #e8e8e8;
+            --text-muted: #b0b0b0;
+            --primary: #a0d4ff;
+            --secondary: #ffd700;
+            --accent: #ffd700;
+            --accent-hover: #ffed4e;
+            --border-color: #2a3a4a;
+            --input-bg: #1a2530;
+            --shadow: rgba(0, 0, 0, 0.4);
+            --focus-ring: rgba(160, 212, 255, 0.3);
+            --banner-primary: #0a1428;
+            --banner-secondary: #1a2540;
+            --banner-accent: #ffd700;
+        }
+
+        /* Navy & Silver Light */
+        [data-theme="navy"] {
+            --bg-color: #f0f4f8;
+            --panel-bg: #ffffff;
+            --text-main: #1a3a52;
+            --text-muted: #4a6a82;
+            --primary: #1a3a52;
+            --secondary: #c0c0c0;
+            --accent: #b8860b;
+            --accent-hover: #8b6508;
+            --border-color: #d0d8e0;
+            --input-bg: #ffffff;
+            --shadow: rgba(26, 58, 82, 0.08);
+            --focus-ring: rgba(26, 58, 82, 0.25);
+            --banner-primary: #1a3a52;
+            --banner-secondary: #2a4a6a;
+            --banner-accent: #b8860b;
+        }
+
+        /* Navy & Silver Dark */
+        [data-theme="navy-dark"] {
+            --bg-color: #0a1018;
+            --panel-bg: #131a28;
+            --text-main: #d0e0f0;
+            --text-muted: #a0b0c0;
+            --primary: #80c0ff;
+            --secondary: #e0e0e0;
+            --accent: #daa520;
+            --accent-hover: #ffd700;
+            --border-color: #2a3a4a;
+            --input-bg: #1a2530;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --focus-ring: rgba(128, 192, 255, 0.3);
+            --banner-primary: #0f1a28;
+            --banner-secondary: #1a2a42;
+            --banner-accent: #daa520;
+        }
+
+        /* Forest Green & Gold Light */
+        [data-theme="forest"] {
+            --bg-color: #f5faf5;
+            --panel-bg: #ffffff;
+            --text-main: #1a3a1f;
+            --text-muted: #4a6a52;
+            --primary: #1a3a1f;
+            --secondary: #d4af37;
+            --accent: #d4af37;
+            --accent-hover: #b8941f;
+            --border-color: #d0e0d6;
+            --input-bg: #ffffff;
+            --shadow: rgba(26, 58, 31, 0.08);
+            --focus-ring: rgba(26, 58, 31, 0.25);
+            --banner-primary: #1a3a1f;
+            --banner-secondary: #2a5a2f;
+            --banner-accent: #d4af37;
+        }
+
+        /* Forest Green & Gold Dark */
+        [data-theme="forest-dark"] {
+            --bg-color: #0a1410;
+            --panel-bg: #141d1a;
+            --text-main: #c0e0d0;
+            --text-muted: #90b0a0;
+            --primary: #80d980;
+            --secondary: #ffd700;
+            --accent: #ffd700;
+            --accent-hover: #ffed4e;
+            --border-color: #2a3a32;
+            --input-bg: #1a2a22;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --focus-ring: rgba(128, 217, 128, 0.3);
+            --banner-primary: #0d1812;
+            --banner-secondary: #1a2a23;
+            --banner-accent: #ffd700;
+        }
+
+        /* Burgundy & Gold Light */
+        [data-theme="burgundy"] {
+            --bg-color: #faf5f5;
+            --panel-bg: #ffffff;
+            --text-main: #4d1a1a;
+            --text-muted: #7d4a4a;
+            --primary: #4d1a1a;
+            --secondary: #d4af37;
+            --accent: #d4af37;
+            --accent-hover: #b8941f;
+            --border-color: #f0d8d8;
+            --input-bg: #ffffff;
+            --shadow: rgba(77, 26, 26, 0.08);
+            --focus-ring: rgba(77, 26, 26, 0.25);
+            --banner-primary: #4d1a1a;
+            --banner-secondary: #6a2a2a;
+            --banner-accent: #d4af37;
+        }
+
+        /* Burgundy & Gold Dark */
+        [data-theme="burgundy-dark"] {
+            --bg-color: #1a0a0a;
+            --panel-bg: #231415;
+            --text-main: #f0d0d0;
+            --text-muted: #d0a0a0;
+            --primary: #ff9999;
+            --secondary: #ffd700;
+            --accent: #ffd700;
+            --accent-hover: #ffed4e;
+            --border-color: #3a2a2a;
+            --input-bg: #2a1a1a;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --focus-ring: rgba(255, 153, 153, 0.3);
+            --banner-primary: #280a0a;
+            --banner-secondary: #3d1a1a;
+            --banner-accent: #ffd700;
+        }
+
+        /* Steel Blue & Bronze Light */
+        [data-theme="steel"] {
+            --bg-color: #f5f8fa;
+            --panel-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #5a6f7f;
+            --primary: #2c3e50;
+            --secondary: #b8860b;
+            --accent: #b8860b;
+            --accent-hover: #8b6508;
+            --border-color: #d8e0e8;
+            --input-bg: #ffffff;
+            --shadow: rgba(44, 62, 80, 0.08);
+            --focus-ring: rgba(44, 62, 80, 0.25);
+            --banner-primary: #2c3e50;
+            --banner-secondary: #3d4f61;
+            --banner-accent: #b8860b;
+        }
+
+        /* Steel Blue & Bronze Dark */
+        [data-theme="steel-dark"] {
+            --bg-color: #0a1018;
+            --panel-bg: #131a28;
+            --text-main: #d0e0f0;
+            --text-muted: #a0b0c0;
+            --primary: #80d0ff;
+            --secondary: #daa520;
+            --accent: #daa520;
+            --accent-hover: #ffd700;
+            --border-color: #2a3a4a;
+            --input-bg: #1a2530;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --focus-ring: rgba(128, 208, 255, 0.3);
+            --banner-primary: #0f1518;
+            --banner-secondary: #1a2530;
+            --banner-accent: #daa520;
+        }
+
+        /* Copper Light */
+        [data-theme="copper"] {
+            --bg-color: #f5f7fa;
+            --panel-bg: #ffffff;
+            --text-main: #1a2a3a;
+            --text-muted: #4a6a7a;
+            --primary: #1a2a3a;
+            --secondary: #cc5500;
+            --accent: #cc5500;
+            --accent-hover: #aa4400;
+            --border-color: #d8e0e8;
+            --input-bg: #ffffff;
+            --shadow: rgba(26, 42, 58, 0.08);
+            --focus-ring: rgba(26, 42, 58, 0.25);
+            --banner-primary: #1a2a3a;
+            --banner-secondary: #2a3a4a;
+            --banner-accent: #cc5500;
+        }
+
+        /* Copper Dark */
+        [data-theme="copper-dark"] {
+            --bg-color: #0a1018;
+            --panel-bg: #131a28;
+            --text-main: #d0e8f8;
+            --text-muted: #a0b0c0;
+            --primary: #80d0ff;
+            --secondary: #ff8c42;
+            --accent: #ff8c42;
+            --accent-hover: #ffb380;
+            --border-color: #2a3a4a;
+            --input-bg: #1a2530;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --focus-ring: rgba(128, 208, 255, 0.3);
+            --banner-primary: #0a1218;
+            --banner-secondary: #1a2a3a;
+            --banner-accent: #ff8c42;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .banner {
+            background: linear-gradient(135deg, var(--banner-primary) 0%, var(--banner-secondary) 100%);
+            border-bottom: 4px solid var(--banner-accent);
+            padding: 1rem 1.5rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .banner-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .banner-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            flex: 1;
+        }
+
+        .banner-title {
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .banner-tagline {
+            color: var(--banner-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 0;
+        }
+
+        .settings-btn {
+            background-color: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.4);
+            color: #ffffff;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .settings-btn:hover {
+            background-color: rgba(255,255,255,0.25);
+            border-color: rgba(255,255,255,0.6);
+            box-shadow: 0 0 12px rgba(255,255,255,0.3);
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            background-color: rgba(255,255,255,0.1);
+            color: #ffffff;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+
+        .mode-btn:hover {
+            background-color: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .mode-btn.active {
+            background-color: var(--banner-accent);
+            border-color: var(--banner-accent);
+            color: #000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            overflow-y: auto;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 20px;
+        }
+
+        .modal-content {
+            background-color: var(--panel-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            width: 90%;
+            max-width: 600px;
+            border: 2px solid var(--primary);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--banner-accent);
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            color: var(--primary);
+        }
+
+        .settings-group {
+            margin-bottom: 1.75rem;
+        }
+
+        .settings-label {
+            display: block;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .theme-btn {
+            padding: 0.9rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            background-color: var(--panel-bg);
+            color: var(--text-main);
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--banner-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+
+        .theme-btn.active {
+            border-color: var(--banner-accent);
+            background-color: var(--banner-accent);
+            color: #000;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+
+        .content-container {
+            flex: 1;
+            display: flex;
+            padding: 1.5rem;
+            overflow: hidden;
+            gap: 1.5rem;
+        }
+
+        .main-wrapper {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .panel {
+            background-color: var(--panel-bg);
+            padding: 1.25rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+
+        .panel:hover {
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        .panel.hidden {
+            display: none;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid var(--banner-accent);
+            letter-spacing: -0.3px;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 1rem 0 0.75rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--banner-accent);
+            letter-spacing: -0.2px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 0.65rem 0.85rem;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            transition: all 0.2s;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--focus-ring);
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 85px;
+            display: none;
+        }
+
+        textarea.show {
+            display: block;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            padding: 0.65rem;
+            background-color: var(--input-bg);
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .checkbox-wrapper:hover {
+            border-color: var(--banner-accent);
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--banner-accent);
+            margin-right: 0.6rem;
+            flex-shrink: 0;
+        }
+
+        .checkbox-wrapper label {
+            margin: 0;
+            font-weight: 600;
+            cursor: pointer;
+            flex: 1;
+            font-size: 0.9rem;
+            text-transform: none;
+            color: var(--text-main);
+        }
+
+        .software-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            margin-top: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .software-item {
+            display: flex;
+            align-items: center;
+            padding: 0.6rem;
+            background-color: var(--input-bg);
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .software-item:hover {
+            border-color: var(--banner-accent);
+        }
+
+        .software-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: var(--banner-accent);
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .software-item label {
+            margin: 0;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-transform: none;
+            color: var(--text-main);
+        }
+
+        .hardware-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.6rem;
+            margin-top: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .hardware-item {
+            display: flex;
+            align-items: center;
+            padding: 0.6rem;
+            background-color: var(--input-bg);
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .hardware-item:hover {
+            border-color: var(--banner-accent);
+        }
+
+        .hardware-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: var(--banner-accent);
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .hardware-item label {
+            margin: 0;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-transform: none;
+            color: var(--text-main);
+        }
+
+        .refresh-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.6rem;
+            margin-top: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .refresh-item {
+            display: flex;
+            align-items: center;
+            padding: 0.6rem;
+            background-color: var(--input-bg);
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .refresh-item:hover {
+            border-color: var(--banner-accent);
+        }
+
+        .refresh-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: var(--banner-accent);
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .refresh-item label {
+            margin: 0;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-transform: none;
+            color: var(--text-main);
+        }
+
+        .troubleshoot-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.6rem;
+            margin-top: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .troubleshoot-item {
+            display: flex;
+            align-items: center;
+            padding: 0.6rem;
+            background-color: var(--input-bg);
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .troubleshoot-item:hover {
+            border-color: var(--banner-accent);
+        }
+
+        .troubleshoot-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: var(--banner-accent);
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .troubleshoot-item label {
+            margin: 0;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-transform: none;
+            color: var(--text-main);
+        }
+
+        #resultPrompt {
+            background-color: var(--bg-color);
+            border: 3px dashed var(--banner-accent);
+            padding: 1rem;
+            border-radius: 4px;
+            min-height: 200px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+            overflow-y: auto;
+            max-height: 400px;
+            transition: all 0.3s ease;
+        }
+
+        .metrics-counter {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: right;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .btn-action {
+            background-color: var(--banner-accent);
+            color: #000;
+            border: none;
+            padding: 0.8rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-action:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background-color: var(--panel-bg);
+            color: var(--text-main);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-color);
+            border-color: var(--banner-accent);
+        }
+
+        .btn-full {
+            grid-column: span 2;
+        }
+
+        .success-msg {
+            color: #2e7d32;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 0.6rem;
+            background-color: #d4edda;
+            border-radius: 4px;
+            display: none;
+            transition: all 0.3s ease;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--banner-accent);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            background-color: var(--panel-bg);
+            border-top: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        /* Scrollbar Styling */
+        .panel::-webkit-scrollbar,
+        #resultPrompt::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .panel::-webkit-scrollbar-track,
+        #resultPrompt::-webkit-scrollbar-track {
+            background: var(--bg-color);
+            border-radius: 4px;
+        }
+
+        .panel::-webkit-scrollbar-thumb,
+        #resultPrompt::-webkit-scrollbar-thumb {
+            background: var(--banner-accent);
+            border-radius: 4px;
+        }
+
+        .panel::-webkit-scrollbar-thumb:hover,
+        #resultPrompt::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-hover);
+        }
+
+        @media (max-width: 1024px) {
+            .main-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .banner-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .settings-btn {
+                align-self: flex-start;
+            }
+            .content-container {
+                padding: 1rem;
+                gap: 1rem;
+                flex-direction: column;
+            }
+            .software-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="banner">
+    <div class="banner-header">
+        <div class="banner-left">
+            <div class="banner-title">Workflow Ticket | Multi-Flow Generator</div>
+            <div class="banner-tagline">Unified Workflow Management System</div>
+        </div>
+        <button class="settings-btn" onclick="openSettings()">⚙️ Settings</button>
+    </div>
+    <div class="mode-selector">
+        <button class="mode-btn active" onclick="switchMode('service')">Service Request</button>
+        <button class="mode-btn" onclick="switchMode('refresh')">Refresh Checklist</button>
+        <button class="mode-btn" onclick="switchMode('incident')">Incident Ticket</button>
+    </div>
+</header>
+
+<!-- Settings Modal -->
+<div id="settingsModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Theme Selection</h2>
+            <button class="close-btn" onclick="closeSettings()">&times;</button>
+        </div>
+
+        <div class="settings-group">
+            <label class="settings-label">Available Themes</label>
+            <div class="theme-grid">
+                <button class="theme-btn active" onclick="setTheme('light', this)" data-theme="light">Default Light</button>
+                <button class="theme-btn" onclick="setTheme('dark', this)" data-theme="dark">Default Dark</button>
+                <button class="theme-btn" onclick="setTheme('navy', this)" data-theme="navy">Navy Light</button>
+                <button class="theme-btn" onclick="setTheme('navy-dark', this)" data-theme="navy-dark">Navy Dark</button>
+                <button class="theme-btn" onclick="setTheme('forest', this)" data-theme="forest">Forest Light</button>
+                <button class="theme-btn" onclick="setTheme('forest-dark', this)" data-theme="forest-dark">Forest Dark</button>
+                <button class="theme-btn" onclick="setTheme('burgundy', this)" data-theme="burgundy">Burgundy Light</button>
+                <button class="theme-btn" onclick="setTheme('burgundy-dark', this)" data-theme="burgundy-dark">Burgundy Dark</button>
+                <button class="theme-btn" onclick="setTheme('steel', this)" data-theme="steel">Steel Light</button>
+                <button class="theme-btn" onclick="setTheme('steel-dark', this)" data-theme="steel-dark">Steel Dark</button>
+                <button class="theme-btn" onclick="setTheme('copper', this)" data-theme="copper">Copper Light</button>
+                <button class="theme-btn" onclick="setTheme('copper-dark', this)" data-theme="copper-dark">Copper Dark</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main class="content-container">
+    <div class="main-wrapper">
+        
+        <!-- SERVICE REQUEST MODE -->
+        <section class="panel" id="servicePanel">
+            <h2>Service Request Details</h2>
+            
+            <div class="form-group">
+                <label for="empName">Name of Individual</label>
+                <input type="text" id="empName" placeholder="e.g., John Smith" oninput="generateNote()">
+            </div>
+
+            <div class="form-group">
+                <label for="assetTag">Asset Tag</label>
+                <input type="text" id="assetTag" placeholder="e.g., LAP-2026-001" oninput="generateNote()">
+            </div>
+
+            <h3>Software Installation</h3>
+            
+            <div class="software-grid">
+                <div class="software-item">
+                    <input type="checkbox" id="soft1" onchange="generateNote()">
+                    <label for="soft1">Adobe Pro</label>
+                </div>
+                <div class="software-item">
+                    <input type="checkbox" id="soft2" onchange="generateNote()">
+                    <label for="soft2">Citrix</label>
+                </div>
+                <div class="software-item">
+                    <input type="checkbox" id="soft3" onchange="generateNote()">
+                    <label for="soft3">Teams</label>
+                </div>
+                <div class="software-item">
+                    <input type="checkbox" id="soft4" onchange="generateNote()">
+                    <label for="soft4">Python</label>
+                </div>
+                <div class="software-item">
+                    <input type="checkbox" id="soft5" onchange="generateNote()">
+                    <label for="soft5">VS Code</label>
+                </div>
+            </div>
+
+            <div class="checkbox-wrapper" style="margin-bottom: 0.6rem;">
+                <input type="checkbox" id="chkOtherSoftware" onchange="toggleOtherSoftwareText()">
+                <label for="chkOtherSoftware">Other Software</label>
+            </div>
+            <textarea id="otherSoftwareText" placeholder="Describe other software..." oninput="generateNote()" style="display: none;"></textarea>
+
+            <h3>Hardware Configuration</h3>
+            
+            <div class="hardware-grid">
+                <div class="hardware-item">
+                    <input type="checkbox" id="hw1" onchange="generateNote()">
+                    <label for="hw1">Monitor Setup</label>
+                </div>
+                <div class="hardware-item">
+                    <input type="checkbox" id="hw2" onchange="generateNote()">
+                    <label for="hw2">Docking Station Setup</label>
+                </div>
+                <div class="hardware-item">
+                    <input type="checkbox" id="hw3" onchange="generateNote()">
+                    <label for="hw3">Cable Setup</label>
+                </div>
+                <div class="hardware-item">
+                    <input type="checkbox" id="hw4" onchange="generateNote()">
+                    <label for="hw4">Headset Setup</label>
+                </div>
+                <div class="hardware-item">
+                    <input type="checkbox" id="hw5" onchange="generateNote()">
+                    <label for="hw5">iPhone Setup</label>
+                </div>
+                <div class="hardware-item">
+                    <input type="checkbox" id="hw6" onchange="generateNote()">
+                    <label for="hw6">Camera Setup</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="chkOther" onchange="toggleOtherText()">
+                    <label for="chkOther">Additional Notes</label>
+                </div>
+                <textarea id="otherText" placeholder="Describe additional issues or requirements..." oninput="generateNote()" style="display: none;"></textarea>
+            </div>
+        </section>
+
+        <!-- REFRESH CHECKLIST MODE -->
+        <section class="panel hidden" id="refreshPanel">
+            <h2>Refresh Checklist</h2>
+            
+            <div class="form-group">
+                <label for="refreshName">Name of Individual</label>
+                <input type="text" id="refreshName" placeholder="e.g., John Smith" oninput="generateNote()">
+            </div>
+
+            <div class="form-group">
+                <label for="refreshAssetTag">Asset Tag</label>
+                <input type="text" id="refreshAssetTag" placeholder="e.g., LAP-2026-001" oninput="generateNote()">
+            </div>
+
+            <h3>Setup Verification</h3>
+
+            <div class="refresh-grid">
+                <div class="refresh-item">
+                    <input type="checkbox" id="chk1" onchange="generateNote()">
+                    <label for="chk1">General Setup Completed</label>
+                </div>
+                <div class="refresh-item">
+                    <input type="checkbox" id="chk2" onchange="generateNote()">
+                    <label for="chk2">Drivers Updated</label>
+                </div>
+                <div class="refresh-item">
+                    <input type="checkbox" id="chk3" onchange="generateNote()">
+                    <label for="chk3">Sleep Settings Configured</label>
+                </div>
+                <div class="refresh-item">
+                    <input type="checkbox" id="chk4" onchange="generateNote()">
+                    <label for="chk4">OneNote Setup Completed</label>
+                </div>
+            </div>
+
+            <h3>Additional Software</h3>
+
+            <div class="software-grid">
+                <div class="software-item">
+                    <input type="checkbox" id="soft6" onchange="generateNote()">
+                    <label for="soft6">Citrix</label>
+                </div>
+                <div class="software-item">
+                    <input type="checkbox" id="soft7" onchange="generateNote()">
+                    <label for="soft7">Python</label>
+                </div>
+                <div class="software-item">
+                    <input type="checkbox" id="soft8" onchange="generateNote()">
+                    <label for="soft8">VS Code</label>
+                </div>
+                <div class="software-item">
+                    <input type="checkbox" id="soft9" onchange="generateNote()">
+                    <label for="soft9">Adobe</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="refreshNotes">Completion Notes (Optional)</label>
+                <textarea id="refreshNotes" placeholder="Document any issues or special notes..." oninput="generateNote()"></textarea>
+            </div>
+        </section>
+
+        <!-- INCIDENT TICKET MODE -->
+        <section class="panel hidden" id="incidentPanel">
+            <h2>Incident Ticket</h2>
+            
+            <div class="form-group">
+                <label for="incName">Name of Individual</label>
+                <input type="text" id="incName" placeholder="e.g., John Smith" oninput="generateNote()">
+            </div>
+
+            <div class="form-group">
+                <label for="incAssetTag">Asset Tag</label>
+                <input type="text" id="incAssetTag" placeholder="e.g., LAP-2026-001" oninput="generateNote()">
+            </div>
+
+            <div class="form-group">
+                <label for="incRefTicket">Reference Ticket (Optional)</label>
+                <input type="text" id="incRefTicket" placeholder="e.g., INC0001234567" oninput="generateNote()">
+            </div>
+
+            <div class="form-group">
+                <label for="incNumber">Incident Number (Optional)</label>
+                <input type="text" id="incNumber" placeholder="e.g., INC0001234567" oninput="generateNote()">
+            </div>
+
+            <h3>Quick Troubleshooting</h3>
+
+            <div class="troubleshoot-grid">
+                <div class="troubleshoot-item">
+                    <input type="checkbox" id="ts1" onchange="generateNote()">
+                    <label for="ts1">System Restart Required</label>
+                </div>
+                <div class="troubleshoot-item">
+                    <input type="checkbox" id="ts2" onchange="generateNote()">
+                    <label for="ts2">Network Connectivity Issues</label>
+                </div>
+                <div class="troubleshoot-item">
+                    <input type="checkbox" id="ts3" onchange="generateNote()">
+                    <label for="ts3">Driver Installation Pending</label>
+                </div>
+                <div class="troubleshoot-item">
+                    <input type="checkbox" id="ts4" onchange="generateNote()">
+                    <label for="ts4">Authentication Setup Needed</label>
+                </div>
+                <div class="troubleshoot-item">
+                    <input type="checkbox" id="ts5" onchange="generateNote()">
+                    <label for="ts5">Peripheral Pairing Required</label>
+                </div>
+                <div class="troubleshoot-item">
+                    <input type="checkbox" id="ts6" onchange="generateNote()">
+                    <label for="ts6">Performance Optimization</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="chkIncNotes" onchange="toggleIncNotesText()">
+                    <label for="chkIncNotes">Additional Notes</label>
+                </div>
+                <textarea id="incNotes" placeholder="Describe issue details or resolution steps..." oninput="generateNote()" style="display: none;"></textarea>
+            </div>
+        </section>
+
+        <!-- GENERATED REPORT PANEL -->
+        <section class="panel">
+            <h2>Generated Report</h2>
+            <div id="resultPrompt" role="status" aria-live="polite">Select request type and fill in details to generate report.</div>
+            <div class="metrics-counter" id="metricsCounter">Characters: 0 | Words: 0</div>
+            
+            <div class="button-group" id="buttonGroup">
+                <button class="btn-action" onclick="copyReport()">📋 Copy Report</button>
+                <button class="btn-action btn-secondary" onclick="clearForm()">🗑️ Clear Form</button>
+            </div>
+            
+            <div class="success-msg" id="successMsg">✓ Copied to clipboard</div>
+        </section>
+
+    </div>
+</main>
+
+<footer class="footer">
+    Workflow Ticket | Browser-Based Support Utility
+</footer>
+
+<!-- Settings Modal Script -->
+<script>
+function openSettings() {
+    document.getElementById('settingsModal').classList.add('show');
+}
+
+function closeSettings() {
+    document.getElementById('settingsModal').classList.remove('show');
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('settingsModal');
+    if (event.target === modal) {
+        closeSettings();
+    }
+}
+
+function setTheme(theme, btn) {
+    document.documentElement.setAttribute('data-theme', theme === 'light' ? '' : theme);
+    localStorage.setItem('assist_theme', theme);
+    
+    document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    closeSettings();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('assist_theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme === 'light' ? '' : savedTheme);
+});
+</script>
+
+<!-- Main Application Script -->
+<script>
+
+let currentMode = 'service';
+
+function switchMode(mode) {
+    currentMode = mode;
+    const servicePanel = document.getElementById('servicePanel');
+    const refreshPanel = document.getElementById('refreshPanel');
+    const incidentPanel = document.getElementById('incidentPanel');
+    const buttons = document.querySelectorAll('.mode-btn');
+    
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    servicePanel.classList.add('hidden');
+    refreshPanel.classList.add('hidden');
+    incidentPanel.classList.add('hidden');
+    
+    if (mode === 'service') {
+        servicePanel.classList.remove('hidden');
+        buttons[0].classList.add('active');
+    } else if (mode === 'refresh') {
+        refreshPanel.classList.remove('hidden');
+        buttons[1].classList.add('active');
+    } else if (mode === 'incident') {
+        incidentPanel.classList.remove('hidden');
+        buttons[2].classList.add('active');
+    }
+    
+    clearForm();
+    generateNote();
+}
+
+function toggleOtherSoftwareText() {
+    const otherSoftwareText = document.getElementById('otherSoftwareText');
+    const checkbox = document.getElementById('chkOtherSoftware');
+    if (checkbox.checked) {
+        otherSoftwareText.style.display = 'block';
+        otherSoftwareText.classList.add('show');
+        otherSoftwareText.focus();
+    } else {
+        otherSoftwareText.style.display = 'none';
+        otherSoftwareText.classList.remove('show');
+        otherSoftwareText.value = '';
+    }
+    generateNote();
+}
+
+function toggleOtherText() {
+    const otherText = document.getElementById('otherText');
+    const checkbox = document.getElementById('chkOther');
+    if (checkbox.checked) {
+        otherText.style.display = 'block';
+        otherText.classList.add('show');
+        otherText.focus();
+    } else {
+        otherText.style.display = 'none';
+        otherText.classList.remove('show');
+        otherText.value = '';
+    }
+    generateNote();
+}
+
+function toggleIncNotesText() {
+    const incNotes = document.getElementById('incNotes');
+    const checkbox = document.getElementById('chkIncNotes');
+    if (checkbox.checked) {
+        incNotes.style.display = 'block';
+        incNotes.classList.add('show');
+        incNotes.focus();
+    } else {
+        incNotes.style.display = 'none';
+        incNotes.classList.remove('show');
+        incNotes.value = '';
+    }
+    generateNote();
+}
+
+function generateNote() {
+    let output = '';
+
+    if (currentMode === 'service') {
+        output += 'SERVICE REQUEST\n';
+        output += '═══════════════════════════════════════\n\n';
+        
+        const empName = document.getElementById('empName').value.trim();
+        const assetTag = document.getElementById('assetTag').value.trim();
+
+        if (empName) {
+            output += 'Individual: ' + empName + '\n';
+        }
+
+        if (assetTag) {
+            output += 'Asset Tag: ' + assetTag + '\n';
+        }
+
+        if (empName || assetTag) {
+            output += '\n';
+        }
+
+        let software = [];
+        if (document.getElementById('soft1').checked) software.push('Adobe Pro');
+        if (document.getElementById('soft2').checked) software.push('Citrix');
+        if (document.getElementById('soft3').checked) software.push('Teams');
+        if (document.getElementById('soft4').checked) software.push('Python');
+        if (document.getElementById('soft5').checked) software.push('VS Code');
+
+        const otherSoftwareText = document.getElementById('otherSoftwareText').value.trim();
+        if (document.getElementById('chkOtherSoftware').checked && otherSoftwareText) {
+            software.push('Other: ' + otherSoftwareText);
+        }
+
+        if (software.length > 0) {
+            output += 'SOFTWARE INSTALLATION:\n';
+            software.forEach(item => {
+                output += '  • ' + item + '\n';
+            });
+            output += '\n';
+        }
+
+        let hardware = [];
+        if (document.getElementById('hw1').checked) hardware.push('Monitor Setup');
+        if (document.getElementById('hw2').checked) hardware.push('Docking Station Setup');
+        if (document.getElementById('hw3').checked) hardware.push('Cable Setup');
+        if (document.getElementById('hw4').checked) hardware.push('Headset Setup');
+        if (document.getElementById('hw5').checked) hardware.push('iPhone Setup');
+        if (document.getElementById('hw6').checked) hardware.push('Camera Setup');
+
+        if (hardware.length > 0) {
+            output += 'HARDWARE CONFIGURATION:\n';
+            hardware.forEach(item => {
+                output += '  • ' + item + '\n';
+            });
+            output += '\n';
+        }
+
+        const otherText = document.getElementById('otherText').value.trim();
+        if (document.getElementById('chkOther').checked && otherText) {
+            output += 'ADDITIONAL NOTES:\n' + otherText + '\n\n';
+        }
+
+        const today = new Date();
+        const dateStr = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+        output += 'Date Created: ' + dateStr + '\n';
+        output += 'Status: Pending\n';
+
+    } else if (currentMode === 'refresh') {
+        output += 'COMPUTER REFRESH CHECKLIST\n';
+        output += '═══════════════════════════════════════\n\n';
+        
+        const refreshName = document.getElementById('refreshName').value.trim();
+        const refreshAssetTag = document.getElementById('refreshAssetTag').value.trim();
+
+        if (refreshName) {
+            output += 'Individual: ' + refreshName + '\n';
+        }
+
+        if (refreshAssetTag) {
+            output += 'Asset Tag: ' + refreshAssetTag + '\n';
+        }
+
+        if (refreshName || refreshAssetTag) {
+            output += '\n';
+        }
+
+        let hasContent = false;
+
+        if (document.getElementById('chk1').checked) {
+            output += '✓ General Setup Completed\n';
+            output += '    - Windows 11 verified\n';
+            output += '    - Outlook configured\n';
+            output += '    - Teams functional\n';
+            output += '    - OneDrive syncing\n';
+            output += '    - Bookmarks restored\n';
+            output += '    - VPN verified\n';
+            output += '    - User credentials verified\n';
+            hasContent = true;
+        }
+
+        if (document.getElementById('chk2').checked) {
+            output += '✓ Drivers Updated\n';
+            output += '    - Driver update completed\n';
+            output += '    - All drivers current\n';
+            hasContent = true;
+        }
+
+        if (document.getElementById('chk3').checked) {
+            output += '✓ Sleep Settings Configured\n';
+            output += '    - Sleep timeout: 15 minutes\n';
+            output += '    - Hibernation enabled\n';
+            hasContent = true;
+        }
+
+        if (document.getElementById('chk4').checked) {
+            output += '✓ OneNote Setup Completed\n';
+            output += '    - Notebooks restored\n';
+            output += '    - Sync verified\n';
+            hasContent = true;
+        }
+
+        let software = [];
+        if (document.getElementById('soft6').checked) software.push('Citrix');
+        if (document.getElementById('soft7').checked) software.push('Python');
+        if (document.getElementById('soft8').checked) software.push('VS Code');
+        if (document.getElementById('soft9').checked) software.push('Adobe');
+
+        if (software.length > 0) {
+            output += '\nSoftware Installed:\n';
+            software.forEach(item => {
+                output += '  ✓ ' + item + '\n';
+            });
+            hasContent = true;
+        }
+
+        const notes = document.getElementById('refreshNotes').value.trim();
+        if (notes) {
+            output += '\nCompletion Notes:\n' + notes + '\n';
+            hasContent = true;
+        }
+
+        if (hasContent) {
+            const today = new Date();
+            const dateStr = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+            output += '\nRefresh Date: ' + dateStr + '\n';
+            output += 'Status: Completed\n';
+        } else {
+            output = 'COMPUTER REFRESH CHECKLIST\n';
+            output += '═══════════════════════════════════════\n\n';
+            if (refreshName) output += 'Individual: ' + refreshName + '\n';
+            if (refreshAssetTag) output += 'Asset Tag: ' + refreshAssetTag + '\n\n';
+            output += 'Select items to generate refresh checklist.';
+        }
+
+    } else if (currentMode === 'incident') {
+        output += 'INCIDENT TICKET\n';
+        output += '═══════════════════════════════════════\n\n';
+        
+        const incName = document.getElementById('incName').value.trim();
+        const incAssetTag = document.getElementById('incAssetTag').value.trim();
+        const incRefTicket = document.getElementById('incRefTicket').value.trim();
+        const incNum = document.getElementById('incNumber').value.trim();
+
+        if (incName) {
+            output += 'Individual: ' + incName + '\n';
+        }
+
+        if (incAssetTag) {
+            output += 'Asset Tag: ' + incAssetTag + '\n';
+        }
+
+        if (incRefTicket) {
+            output += 'Reference Ticket: ' + incRefTicket + '\n';
+        }
+
+        if (incNum) {
+            output += 'Incident #: ' + incNum + '\n';
+        }
+
+        if (incName || incAssetTag || incRefTicket || incNum) {
+            output += '\n';
+        }
+
+        let troubleshooting = [];
+        if (document.getElementById('ts1').checked) troubleshooting.push('System Restart Required');
+        if (document.getElementById('ts2').checked) troubleshooting.push('Network Connectivity Issues');
+        if (document.getElementById('ts3').checked) troubleshooting.push('Driver Installation Pending');
+        if (document.getElementById('ts4').checked) troubleshooting.push('Authentication Setup Needed');
+        if (document.getElementById('ts5').checked) troubleshooting.push('Peripheral Pairing Required');
+        if (document.getElementById('ts6').checked) troubleshooting.push('Performance Optimization');
+
+        if (troubleshooting.length > 0) {
+            output += 'QUICK TROUBLESHOOTING:\n';
+            troubleshooting.forEach(item => {
+                output += '  ⚠ ' + item + '\n';
+            });
+            output += '\n';
+        }
+
+        const incNotes = document.getElementById('incNotes').value.trim();
+        if (document.getElementById('chkIncNotes').checked && incNotes) {
+            output += 'NOTES:\n' + incNotes + '\n\n';
+        }
+
+        const today = new Date();
+        const dateStr = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+        output += 'Date Created: ' + dateStr + '\n';
+        output += 'Status: Open\n';
+    }
+
+    document.getElementById('resultPrompt').innerText = output;
+    updateMetrics(output);
+}
+
+function updateMetrics(text) {
+    const chars = text.length;
+    const words = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+    document.getElementById('metricsCounter').innerText = 'Characters: ' + chars + ' | Words: ' + words;
+}
+
+function showMsg(msg) {
+    const el = document.getElementById('successMsg');
+    el.innerText = msg;
+    el.style.display = 'block';
+    setTimeout(function() { 
+        el.style.display = 'none'; 
+    }, 2500);
+}
+
+function copyReport() {
+    const text = document.getElementById('resultPrompt').innerText;
+    if (!text || text.includes('Select request type') || text.includes('Select items to generate')) {
+        showMsg('Please add details first');
+        return;
+    }
+    navigator.clipboard.writeText(text).then(function() {
+        showMsg('Report copied to clipboard!');
+    }).catch(function() {
+        showMsg('Copy failed!');
+    });
+}
+
+function clearForm() {
+    if (currentMode === 'service') {
+        document.getElementById('empName').value = '';
+        document.getElementById('assetTag').value = '';
+        document.getElementById('otherSoftwareText').value = '';
+        document.getElementById('otherText').value = '';
+        
+        document.getElementById('soft1').checked = false;
+        document.getElementById('soft2').checked = false;
+        document.getElementById('soft3').checked = false;
+        document.getElementById('soft4').checked = false;
+        document.getElementById('soft5').checked = false;
+        
+        document.getElementById('hw1').checked = false;
+        document.getElementById('hw2').checked = false;
+        document.getElementById('hw3').checked = false;
+        document.getElementById('hw4').checked = false;
+        document.getElementById('hw5').checked = false;
+        document.getElementById('hw6').checked = false;
+        
+        document.getElementById('chkOtherSoftware').checked = false;
+        document.getElementById('chkOther').checked = false;
+        document.getElementById('otherSoftwareText').style.display = 'none';
+        document.getElementById('otherText').style.display = 'none';
+    } else if (currentMode === 'refresh') {
+        document.getElementById('refreshName').value = '';
+        document.getElementById('refreshAssetTag').value = '';
+        document.getElementById('refreshNotes').value = '';
+        
+        document.getElementById('chk1').checked = false;
+        document.getElementById('chk2').checked = false;
+        document.getElementById('chk3').checked = false;
+        document.getElementById('chk4').checked = false;
+        
+        document.getElementById('soft6').checked = false;
+        document.getElementById('soft7').checked = false;
+        document.getElementById('soft8').checked = false;
+        document.getElementById('soft9').checked = false;
+    } else if (currentMode === 'incident') {
+        document.getElementById('incName').value = '';
+        document.getElementById('incAssetTag').value = '';
+        document.getElementById('incRefTicket').value = '';
+        document.getElementById('incNumber').value = '';
+        document.getElementById('incNotes').value = '';
+        
+        document.getElementById('ts1').checked = false;
+        document.getElementById('ts2').checked = false;
+        document.getElementById('ts3').checked = false;
+        document.getElementById('ts4').checked = false;
+        document.getElementById('ts5').checked = false;
+        document.getElementById('ts6').checked = false;
+        
+        document.getElementById('chkIncNotes').checked = false;
+        document.getElementById('incNotes').style.display = 'none';
+    }
+    generateNote();
+}
+
+window.addEventListener('load', function() {
+    generateNote();
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.key === 'Enter') {
+        copyReport();
+    }
+    if (event.ctrlKey && event.shiftKey && event.code === 'KeyK') {
+        event.preventDefault();
+        clearForm();
+    }
+});
+</script>
+
+</body>
+</html>
