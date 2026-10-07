@@ -6,7 +6,7 @@
   --liquid-ink: #271b32;
   --liquid-plum: #34233f;
   --liquid-plum-deep: #17101f;
-  --liquid-muted: #6f6873;
+  --liquid-muted: #5f5964;
   --liquid-line: rgba(52, 35, 63, .16);
   --liquid-cyan: #18bbb8;
   --liquid-cyan-soft: #a9e8e5;
@@ -79,6 +79,11 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+p,
+li,
+small,
+dd { font-weight: 500; }
+
 body::before {
   opacity: 1;
   z-index: -2;
@@ -130,9 +135,18 @@ footer .brand span,
   border: 1px solid rgba(255,255,255,.45);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.75), 0 8px 22px rgba(19,206,200,.24);
 }
-.site-header nav a { color: rgba(255,255,255,.74); }
+.site-header nav a {
+  color: rgba(255,255,255,.84);
+  font-weight: 750;
+  text-shadow: none;
+}
 .site-header nav a:hover,
-.site-header nav a:focus-visible { color: #fff; background: rgba(19,206,200,.14); }
+.site-header nav a:focus-visible,
+.site-header nav a.active {
+  color: #fff;
+  background: rgba(24,187,184,.17);
+  box-shadow: inset 0 0 0 1px rgba(24,187,184,.26);
+}
 .header-cta {
   color: var(--liquid-plum-deep);
   background: linear-gradient(135deg, var(--liquid-cyan-soft), var(--liquid-cyan));
@@ -159,6 +173,54 @@ footer .brand span,
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* Homepage hierarchy: larger portrait, tighter headline, consistent action grid. */
+.hero {
+  grid-template-columns: minmax(0, 1.04fr) minmax(400px, .96fr);
+  gap: clamp(2.5rem, 4vw, 4rem);
+}
+.hero-copy { min-width: 0; overflow: visible; }
+.hero h1 {
+  max-width: 720px;
+  padding-right: .14em;
+  font-size: clamp(3.7rem, 6.45vw, 6.25rem);
+  line-height: .91;
+  letter-spacing: -.068em;
+  overflow: visible;
+}
+.hero h1 em {
+  padding-right: .12em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.hero-lede {
+  color: var(--liquid-muted) !important;
+  font-weight: 520;
+}
+.hero-actions {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .75rem !important;
+}
+.hero-actions .button {
+  width: 100%;
+  min-height: 64px;
+  justify-content: space-between;
+  padding: .9rem 1rem;
+  border-radius: 18px;
+  line-height: 1.35;
+  text-align: left;
+  box-shadow: 0 7px 0 rgba(52,35,63,.15), inset 0 1px 0 rgba(255,255,255,.82);
+}
+.hero-actions .button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 0 rgba(52,35,63,.13), 0 14px 30px rgba(38,21,50,.1);
+}
+.portrait-wrap {
+  width: 100%;
+  max-width: 500px;
+  justify-self: end;
 }
 
 .button,
@@ -257,6 +319,19 @@ footer .brand span,
 .role-link,
 .credential-item a,
 .section-heading a { color: #087f80; }
+.role-link {
+  width: fit-content;
+  padding: .35rem .1rem;
+  border-bottom: 1px solid rgba(8,127,128,.38) !important;
+  color: #087f80 !important;
+  transition: color .18s ease, border-color .18s ease;
+}
+.role-link:hover,
+.role-link:focus-visible {
+  color: var(--liquid-plum) !important;
+  border-color: var(--liquid-plum) !important;
+  background: transparent !important;
+}
 .tags li,
 .interest-cloud span {
   background: rgba(255,255,255,.52);
@@ -354,6 +429,10 @@ textarea:focus,
 }
 .email-checkout-top,
 .modal-header { background: linear-gradient(135deg, var(--liquid-plum-deep), var(--liquid-plum)); color: #fff; }
+.modal-header { border-bottom-color: var(--liquid-cyan) !important; }
+.modal-header .modal-title { color: #fff !important; text-shadow: none !important; }
+.modal-header .close-btn { color: rgba(255,255,255,.72) !important; }
+.modal-header .close-btn:hover { color: #fff !important; }
 .provider-mark.gmail { background: linear-gradient(145deg, #e76757, #b63030); }
 .provider-mark.outlook { background: linear-gradient(145deg, #2e9df4, #145dc0); }
 .provider-mark.yahoo { background: linear-gradient(145deg, #8d4de4, #542090); }
@@ -512,6 +591,46 @@ body:has(.case-study-banner) {
   box-shadow: 0 16px 42px rgba(38,21,50,.18);
 }
 
+/* Résumé feature block: compact hierarchy with crisp, high-contrast copy. */
+.resume-section {
+  grid-template-columns: minmax(300px, .72fr) minmax(0, 1.28fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+}
+.resume-intro {
+  padding: clamp(1.6rem, 3vw, 2.35rem) !important;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(24,187,184,.2), transparent 13rem),
+    linear-gradient(145deg, var(--liquid-plum-deep), var(--liquid-plum)) !important;
+  border-color: rgba(24,187,184,.34) !important;
+  color: #fff !important;
+  box-shadow: 0 22px 55px rgba(31,16,42,.22), inset 0 1px 0 rgba(255,255,255,.1) !important;
+}
+.resume-intro .kicker { color: var(--liquid-cyan) !important; }
+.resume-intro h2 {
+  max-width: 9ch;
+  margin: .85rem 0 1.25rem;
+  color: #fff !important;
+  font-size: clamp(2.45rem, 3.7vw, 3.65rem) !important;
+  line-height: .98 !important;
+  letter-spacing: -.055em !important;
+  text-shadow: none !important;
+}
+.resume-intro > p:not(.kicker) {
+  color: rgba(255,255,255,.78) !important;
+  font-weight: 520;
+  line-height: 1.72;
+}
+.resume-intro .button-ghost {
+  background: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.28);
+  color: #fff;
+}
+.resume-intro .button-ghost:hover { background: rgba(255,255,255,.16); }
+.resume-focus article p {
+  color: #625b67 !important;
+  font-weight: 520;
+}
+
 /* Workflow Ticket: respect every dark preset instead of forcing light cards. */
 html[data-theme="dark"],
 html[data-theme$="-dark"] {
@@ -536,6 +655,20 @@ html[data-theme$="-dark"] .component-card {
   border-color: var(--border-color) !important;
   box-shadow: 0 18px 45px var(--shadow), inset 0 1px 0 rgba(255,255,255,.045) !important;
 }
+html[data-theme="dark"] .modal-content,
+html[data-theme$="-dark"] .modal-content {
+  background: var(--panel-bg) !important;
+  color: var(--text-main) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 22px 70px rgba(0,0,0,.52) !important;
+}
+html[data-theme="dark"] .modal-header,
+html[data-theme$="-dark"] .modal-header {
+  background: linear-gradient(135deg, var(--banner-primary), var(--banner-secondary)) !important;
+  border-color: var(--accent) !important;
+}
+html[data-theme="dark"] .settings-label,
+html[data-theme$="-dark"] .settings-label { color: var(--text-main) !important; }
 html[data-theme="dark"] .panel h2,
 html[data-theme="dark"] .panel h3,
 html[data-theme="dark"] .section-title,
@@ -640,6 +773,8 @@ html[data-theme$="-dark"] .theme-btn.active {
   .resume-intro h2,
   .cta h2 { font-size: clamp(2.75rem, 9.5vw, 4.15rem) !important; }
   body::after { width: 23rem; height: 23rem; opacity: .12; }
+  .hero-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .portrait-wrap { max-width: 460px; justify-self: center; }
 }
 
 @media (max-width: 680px) {
@@ -709,6 +844,7 @@ html[data-theme$="-dark"] .theme-btn.active {
   .resume-actions,
   .ops-actions,
   .tool-row { flex-direction: column; align-items: stretch; }
+  .hero-actions { grid-template-columns: minmax(0, 1fr) !important; }
   .hero-actions .button,
   .resume-actions .button,
   .ops-actions .button,
@@ -747,7 +883,7 @@ html[data-theme$="-dark"] .theme-btn.active {
   .resume-focus article { grid-template-columns: 40px minmax(0,1fr); gap: .8rem; }
   .role-body { padding-left: 0 !important; border-left: 0 !important; }
   .role-title { display: block; }
-  .portrait-wrap { width: min(82vw, 360px); justify-self: center; margin-top: 2.5rem; }
+  .portrait-wrap { width: min(92vw, 430px); max-width: 430px; justify-self: center; margin-top: 2.5rem; }
   .terminal-card { left: -8px; bottom: -58px; width: min(215px, 72vw); }
   .sticker { right: -8px; width: 72px; height: 72px; }
   .now-playing-dock { max-width: calc(100vw - 24px); right: 12px; }
