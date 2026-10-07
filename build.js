@@ -28,6 +28,7 @@ const entries = [
   'spotvis-player.css',
   'request-support.css',
   'liquid-theme.css',
+  'liquid-motion.js',
   'script.js',
   'lab.js',
   'tech-demos.js',
