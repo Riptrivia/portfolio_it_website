@@ -96,6 +96,46 @@
 .preview-footer b { font-size: .88rem; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
+.email-checkout {
+  width: min(620px, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  padding: 0;
+  border: 2px solid var(--ink);
+  border-radius: 22px;
+  background: #fffdf7;
+  color: var(--ink);
+  box-shadow: 12px 12px 0 var(--ink);
+  overflow: auto;
+}
+.email-checkout::backdrop { background: rgba(43, 39, 35, .62); backdrop-filter: blur(5px); }
+.email-checkout-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 1.2rem 1.3rem; background: var(--ink); color: #fffdf7; }
+.email-checkout-top p { margin: 0 0 .25rem; color: var(--yellow); font: 700 .66rem "DM Mono", monospace; text-transform: uppercase; letter-spacing: .12em; }
+.email-checkout-top h2 { margin: 0; font-size: 1.45rem; }
+.email-checkout-top > button { width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.45); border-radius: 50%; background: transparent; color: #fff; font-size: 1.45rem; cursor: pointer; }
+.email-checkout-copy { margin: 0; padding: 1.1rem 1.3rem 0; color: var(--ink-soft); line-height: 1.55; }
+.provider-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .7rem; padding: 1.1rem 1.3rem; }
+.provider-grid > button { display: grid; grid-template-columns: 40px 1fr; grid-template-rows: auto auto; gap: .1rem .75rem; align-items: center; padding: .8rem; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: var(--ink); text-align: left; cursor: pointer; }
+.provider-grid > button:hover,
+.provider-grid > button:focus-visible { border-color: var(--ink); transform: translateY(-2px); box-shadow: 3px 3px 0 var(--ink); }
+.provider-grid b { align-self: end; }
+.provider-grid small { grid-column: 2; color: var(--ink-soft); }
+.provider-mark { grid-row: 1 / 3; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; color: #fff; font: 800 .9rem "DM Mono", monospace; }
+.provider-mark.gmail { background: #c7473a; }
+.provider-mark.outlook { background: #1473e6; }
+.provider-mark.yahoo { background: #6b2fb9; }
+.provider-mark.icloud { background: #5b98c9; }
+.provider-mark.aol { background: #222; }
+.email-fallbacks { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; padding: 0 1.3rem 1.1rem; }
+.email-fallbacks button,
+.destination-copy button { border: 2px solid var(--ink); border-radius: 10px; background: transparent; color: var(--ink); padding: .75rem; font-weight: 800; cursor: pointer; }
+.email-fallbacks button:first-child { background: var(--teal); }
+.destination-copy { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.3rem; border-top: 1px solid var(--line); background: rgba(216,189,150,.22); }
+.destination-copy span { display: grid; min-width: 0; overflow-wrap: anywhere; }
+.destination-copy small { color: var(--ink-soft); }
+.destination-copy b { font-size: .92rem; }
+.destination-copy button { flex: 0 0 auto; padding: .55rem .75rem; background: #fff; }
+.checkout-status { min-height: 1.35rem; margin: 0; padding: .65rem 1.3rem 1rem; color: #146b68; font-weight: 800; font-size: .85rem; }
+
 @media (max-width: 880px) {
   .support-intro,
   .support-workspace { grid-template-columns: 1fr; }
@@ -113,4 +153,7 @@
   .mode-switch { grid-template-columns: 1fr; }
   #support-form { padding: 1rem; }
   .form-actions .button { width: 100%; justify-content: center; }
+  .provider-grid,
+  .email-fallbacks { grid-template-columns: 1fr; }
+  .destination-copy { align-items: flex-start; flex-direction: column; }
 }

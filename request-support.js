@@ -10,7 +10,11 @@
   const description = document.querySelector("#issue-description");
   const descriptionCount = document.querySelector("[data-description-count]");
   const modeButtons = [...document.querySelectorAll("[data-mode]")];
+  const emailCheckout = document.querySelector("[data-email-checkout]");
+  const checkoutStatus = document.querySelector("[data-checkout-status]");
   let mode = "ticket";
+  let pendingTicket = "";
+  let pendingSubject = "";
 
   const value = (selector) => document.querySelector(selector)?.value.trim() || "";
   const selectedDevice = () => form.querySelector('input[name="device"]:checked')?.value || "Not selected";
@@ -109,6 +113,30 @@
     }
   }
 
+  function webmailUrl(provider) {
+    const to = encodeURIComponent(destination);
+    const subject = encodeURIComponent(pendingSubject);
+    const body = encodeURIComponent(pendingTicket);
+    const urls = {
+      gmail: `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`,
+      outlook: `https://outlook.live.com/mail/0/deeplink/compose?to=${to}&subject=${subject}&body=${body}`,
+      yahoo: `https://compose.mail.yahoo.com/?to=${to}&subject=${subject}&body=${body}`,
+      icloud: "https://www.icloud.com/mail/",
+      aol: "https://mail.aol.com/"
+    };
+    return urls[provider] || "";
+  }
+
+  async function openProvider(provider) {
+    await copyTicket(pendingTicket);
+    const url = webmailUrl(provider);
+    if (!url) return;
+    checkoutStatus.textContent = provider === "icloud" || provider === "aol"
+      ? "Ticket copied. Open a new message and paste it into the email body."
+      : "Opening a prefilled message in a new tab. Review it before sending.";
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
   form.addEventListener("input", updatePreview);
   form.addEventListener("change", updatePreview);
   modeButtons.forEach((button) => button.addEventListener("click", () => setMode(button.dataset.mode)));
@@ -124,17 +152,42 @@
       return;
     }
 
-    const ticket = buildTicket();
-    const copied = await copyTicket(ticket);
+    pendingTicket = buildTicket();
+    const copied = await copyTicket(pendingTicket);
     const device = selectedDevice();
     const summary = cleanLine(value("#issue-summary"));
     const prefix = mode === "appointment" ? "Appointment request" : "Support request";
-    const subject = `${prefix}: ${device} — ${summary}`.slice(0, 160);
+    pendingSubject = `${prefix}: ${device} — ${summary}`.slice(0, 160);
     status.textContent = copied
-      ? "Ticket copied. Opening your email app—review the message before sending."
-      : "Opening your email app. Copy the preview manually if the clipboard is unavailable.";
+      ? "Ticket copied. Choose an email option to continue."
+      : "Choose an email option, then copy the preview manually if needed.";
+    checkoutStatus.textContent = copied ? "Ticket copied to clipboard." : "Choose an email option to continue.";
+    emailCheckout.showModal();
+  });
 
-    window.location.href = `mailto:${destination}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(ticket)}`;
+  document.querySelectorAll("[data-email-provider]").forEach((button) => {
+    button.addEventListener("click", () => openProvider(button.dataset.emailProvider));
+  });
+
+  document.querySelector("[data-default-email]").addEventListener("click", async () => {
+    await copyTicket(pendingTicket);
+    checkoutStatus.textContent = "Opening your default email app. Review the message before sending.";
+    window.location.href = `mailto:${destination}?subject=${encodeURIComponent(pendingSubject)}&body=${encodeURIComponent(pendingTicket)}`;
+  });
+
+  document.querySelector("[data-copy-only]").addEventListener("click", async () => {
+    const copied = await copyTicket(pendingTicket);
+    checkoutStatus.textContent = copied ? "Ticket copied—paste it into any email service." : "Clipboard unavailable. Copy the live preview manually.";
+  });
+
+  document.querySelector("[data-copy-address]").addEventListener("click", async () => {
+    const copied = await copyTicket(destination);
+    checkoutStatus.textContent = copied ? "Email address copied." : `Copy this address: ${destination}`;
+  });
+
+  document.querySelector("[data-close-email]").addEventListener("click", () => emailCheckout.close());
+  emailCheckout.addEventListener("click", (event) => {
+    if (event.target === emailCheckout) emailCheckout.close();
   });
 
   document.querySelector("[data-clear-form]").addEventListener("click", () => {

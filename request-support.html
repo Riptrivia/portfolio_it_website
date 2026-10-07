@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="extras.css">
-  <link rel="stylesheet" href="request-support.css?v=20261006-1">
+  <link rel="stylesheet" href="request-support.css?v=20261006-2">
 </head>
 <body class="support-request-page">
   <a class="skip-link" href="#main">Skip to form</a>
@@ -152,7 +152,31 @@
     </section>
   </main>
 
+  <dialog class="email-checkout" data-email-checkout aria-labelledby="email-checkout-title">
+    <div class="email-checkout-top">
+      <div><p>Final step</p><h2 id="email-checkout-title">Choose your email</h2></div>
+      <button type="button" data-close-email aria-label="Close email choices">×</button>
+    </div>
+    <p class="email-checkout-copy">Your ticket is already copied. Pick a webmail provider to continue, then review the message before sending.</p>
+    <div class="provider-grid">
+      <button type="button" data-email-provider="gmail"><span class="provider-mark gmail">G</span><b>Gmail</b><small>Prefilled web message</small></button>
+      <button type="button" data-email-provider="outlook"><span class="provider-mark outlook">O</span><b>Outlook</b><small>Prefilled web message</small></button>
+      <button type="button" data-email-provider="yahoo"><span class="provider-mark yahoo">Y!</span><b>Yahoo Mail</b><small>Prefilled web message</small></button>
+      <button type="button" data-email-provider="icloud"><span class="provider-mark icloud">☁</span><b>iCloud Mail</b><small>Ticket copied to paste</small></button>
+      <button type="button" data-email-provider="aol"><span class="provider-mark aol">A.</span><b>AOL Mail</b><small>Ticket copied to paste</small></button>
+    </div>
+    <div class="email-fallbacks">
+      <button type="button" data-default-email>Open default email app</button>
+      <button type="button" data-copy-only>Copy ticket only</button>
+    </div>
+    <div class="destination-copy">
+      <span><small>Send the request to</small><b>pestcoe.zfix@gmail.com</b></span>
+      <button type="button" data-copy-address>Copy email</button>
+    </div>
+    <p class="checkout-status" data-checkout-status role="status" aria-live="polite"></p>
+  </dialog>
+
   <footer><a class="brand" href="index.html"><span>MP</span><b>Marcielo Pestcoe</b></a><p>Practical support · Clear communication</p><p>No account or server-side form required.</p></footer>
-  <script src="request-support.js?v=20261006-1"></script>
+  <script src="request-support.js?v=20261006-2"></script>
 </body>
 </html>
