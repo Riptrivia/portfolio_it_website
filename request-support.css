@@ -1,0 +1,116 @@
+.support-request-page {
+  --pink: #a44d32;
+  --yellow: #d8bd96;
+  --teal: #9fc7c5;
+  --ink-soft: #706960;
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(31, 53, 73, .055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 53, 73, .055) 1px, transparent 1px),
+    #fbf2da;
+  background-size: 24px 24px;
+}
+
+.support-shell { padding-top: 0; }
+
+.support-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr);
+  gap: 4rem;
+  align-items: end;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 6.5rem 2rem 3.5rem;
+}
+
+.support-intro h1 { margin: 1rem 0 0; font-size: clamp(3.4rem, 7vw, 6.8rem); line-height: .88; letter-spacing: -.065em; }
+.support-intro h1 em { color: var(--pink); font-style: normal; }
+.support-intro-copy > p { font-size: 1.1rem; line-height: 1.75; color: var(--ink-soft); }
+.support-steps { display: grid; margin-top: 1.5rem; border-top: 2px solid var(--ink); }
+.support-steps span { display: flex; gap: 1rem; padding: .85rem 0; border-bottom: 1px solid rgba(31, 53, 73, .25); font: 700 .78rem/1.4 "DM Mono", monospace; text-transform: uppercase; }
+.support-steps b { color: var(--pink); }
+
+.support-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr);
+  gap: 1.5rem;
+  max-width: 1180px;
+  margin: 0 auto 6rem;
+  padding: 0 2rem;
+  align-items: start;
+}
+
+.support-form-panel,
+.ticket-preview {
+  background: rgba(255, 253, 244, .94);
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  box-shadow: 8px 8px 0 var(--ink);
+}
+
+.mode-switch { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; padding: .8rem; border-bottom: 2px solid var(--ink); background: rgba(42, 184, 181, .12); border-radius: 16px 16px 0 0; }
+.mode-switch button { min-height: 48px; border: 2px solid var(--ink); border-radius: 10px; background: transparent; color: var(--ink); font: 800 .78rem/1 "DM Mono", monospace; text-transform: uppercase; cursor: pointer; }
+.mode-switch button.is-active { background: var(--ink); color: #fffaf0; }
+
+#support-form { padding: 1.5rem; }
+.form-section { padding: 1.4rem 0 1.8rem; border-bottom: 1px solid rgba(31, 53, 73, .25); }
+.form-section:first-child { padding-top: 0; }
+.form-section-heading { display: flex; gap: .9rem; align-items: flex-start; margin-bottom: 1.1rem; }
+.form-section-heading > span { display: grid; place-items: center; width: 35px; height: 35px; flex: 0 0 auto; border: 2px solid var(--ink); border-radius: 9px; background: var(--yellow); font: 800 .78rem "DM Mono", monospace; }
+.form-section-heading h2 { margin: 0; font-size: 1.15rem; }
+.form-section-heading p { margin: .15rem 0 0; color: var(--ink-soft); font-size: .9rem; }
+
+.device-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .65rem; border: 0; padding: 0; margin: 0; }
+.device-grid label { position: relative; display: flex; align-items: center; gap: .65rem; min-height: 58px; padding: .75rem; border: 2px solid rgba(31, 53, 73, .3); border-radius: 10px; cursor: pointer; transition: .18s ease; }
+.device-grid label:has(input:checked) { border-color: var(--ink); background: var(--teal); color: #082c2b; box-shadow: 3px 3px 0 var(--ink); }
+.device-grid input { position: absolute; opacity: 0; }
+.device-grid span { font: 800 1.25rem "DM Mono", monospace; }
+.device-grid b { font-size: .88rem; }
+
+.field-grid { display: grid; gap: .8rem; }
+.two-column { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+#support-form label:not(.device-grid label) { display: grid; gap: .42rem; margin-top: .85rem; font: 800 .76rem/1.3 "DM Mono", monospace; text-transform: uppercase; }
+#support-form label small { font-weight: 500; color: var(--ink-soft); }
+#support-form input,
+#support-form select,
+#support-form textarea { width: 100%; border: 2px solid rgba(31, 53, 73, .42); border-radius: 9px; background: #fffdf7; color: var(--ink); padding: .78rem .85rem; font: 600 .95rem/1.45 Manrope, sans-serif; }
+#support-form textarea { min-height: 145px; resize: vertical; }
+#support-form input:focus,
+#support-form select:focus,
+#support-form textarea:focus { outline: 3px solid rgba(42, 184, 181, .3); border-color: var(--ink); }
+#support-form [aria-invalid="true"] { border-color: #b42318; background: #fff4f1; }
+
+.privacy-note { margin-top: 1.5rem; padding: 1rem; border-left: 5px solid var(--yellow); background: rgba(244, 205, 76, .15); font-size: .9rem; line-height: 1.55; }
+.form-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+.form-status { min-height: 1.5rem; margin: .85rem 0 0; color: #146b68; font-weight: 800; }
+.form-status.is-error { color: #b42318; }
+
+.ticket-preview { position: sticky; top: 6rem; overflow: hidden; }
+.preview-top { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 1.1rem; border-bottom: 2px solid var(--ink); background: var(--ink); color: #fffaf0; }
+.preview-top p,
+.preview-top span { margin: 0; font: 700 .72rem "DM Mono", monospace; text-transform: uppercase; }
+.preview-top span { color: var(--yellow); text-align: right; }
+.ticket-preview pre { min-height: 470px; margin: 0; padding: 1.2rem; white-space: pre-wrap; overflow-wrap: anywhere; font: 500 .78rem/1.7 "DM Mono", monospace; color: var(--ink); }
+.preview-footer { display: grid; gap: .25rem; padding: 1rem 1.1rem; border-top: 2px solid var(--ink); background: rgba(236, 102, 130, .1); overflow-wrap: anywhere; }
+.preview-footer span { font: 700 .68rem "DM Mono", monospace; color: var(--pink); }
+.preview-footer b { font-size: .88rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+@media (max-width: 880px) {
+  .support-intro,
+  .support-workspace { grid-template-columns: 1fr; }
+  .support-intro { gap: 2rem; padding-top: 4rem; }
+  .ticket-preview { position: static; }
+  .ticket-preview pre { min-height: 300px; }
+}
+
+@media (max-width: 620px) {
+  .support-intro,
+  .support-workspace { padding-left: 1rem; padding-right: 1rem; }
+  .support-intro h1 { font-size: clamp(3rem, 17vw, 4.7rem); }
+  .device-grid { grid-template-columns: repeat(2, 1fr); }
+  .two-column { grid-template-columns: 1fr; }
+  .mode-switch { grid-template-columns: 1fr; }
+  #support-form { padding: 1rem; }
+  .form-actions .button { width: 100%; justify-content: center; }
+}

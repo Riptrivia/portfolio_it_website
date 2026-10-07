@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Create a structured technology support request or request an appointment with Marcielo Pestcoe.">
+  <meta name="theme-color" content="#fbf2da">
+  <title>Request Support — Marcielo Pestcoe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="extras.css">
+  <link rel="stylesheet" href="request-support.css?v=20261006-1">
+</head>
+<body class="support-request-page">
+  <a class="skip-link" href="#main">Skip to form</a>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Marcielo Pestcoe home"><span>MP</span><b>Marcielo Pestcoe</b></a>
+    <nav aria-label="Support page navigation">
+      <a href="index.html#projects">Projects</a>
+      <a href="projects/workflow-ticket.html">Workflow Ticket</a>
+      <a href="index.html#resume">Résumé</a>
+    </nav>
+    <a class="header-cta" href="index.html">Home ↗</a>
+  </header>
+
+  <main id="main" class="support-shell">
+    <section class="support-intro">
+      <div>
+        <p class="eyebrow"><span class="pulse"></span> Structured help request</p>
+        <h1>Tell me what<br><em>needs fixing.</em></h1>
+      </div>
+      <div class="support-intro-copy">
+        <p>Turn a rough problem description into a clear support ticket, then open it in your default email app. Your information stays in this browser until you choose to email it.</p>
+        <div class="support-steps" aria-label="How it works">
+          <span><b>01</b> Choose a device</span>
+          <span><b>02</b> Describe the issue</span>
+          <span><b>03</b> Copy and open email</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="support-workspace" data-support-app>
+      <div class="support-form-panel">
+        <div class="mode-switch" role="tablist" aria-label="Request type">
+          <button class="is-active" type="button" role="tab" aria-selected="true" data-mode="ticket">Self-service ticket</button>
+          <button type="button" role="tab" aria-selected="false" data-mode="appointment">Request appointment</button>
+        </div>
+
+        <form id="support-form" novalidate>
+          <div class="form-section">
+            <div class="form-section-heading"><span>01</span><div><h2>Your device</h2><p>Select the closest match.</p></div></div>
+            <fieldset class="device-grid">
+              <legend class="sr-only">Device type</legend>
+              <label><input type="radio" name="device" value="iPhone" required><span aria-hidden="true">◉</span><b>iPhone</b></label>
+              <label><input type="radio" name="device" value="Android phone"><span aria-hidden="true">◈</span><b>Android</b></label>
+              <label><input type="radio" name="device" value="Laptop"><span aria-hidden="true">▱</span><b>Laptop</b></label>
+              <label><input type="radio" name="device" value="Desktop computer"><span aria-hidden="true">▣</span><b>Desktop</b></label>
+              <label><input type="radio" name="device" value="Tablet"><span aria-hidden="true">▤</span><b>Tablet</b></label>
+              <label><input type="radio" name="device" value="Other device"><span aria-hidden="true">＋</span><b>Other</b></label>
+            </fieldset>
+          </div>
+
+          <div class="form-section">
+            <div class="form-section-heading"><span>02</span><div><h2>Issue details</h2><p>Specific symptoms make troubleshooting faster.</p></div></div>
+            <div class="field-grid two-column">
+              <label>Issue category
+                <select id="issue-category" required>
+                  <option value="">Choose a category</option>
+                  <option>Device will not power on</option>
+                  <option>Screen or display</option>
+                  <option>Battery or charging</option>
+                  <option>Slow performance or freezing</option>
+                  <option>Wi-Fi, Bluetooth, or connectivity</option>
+                  <option>Account, password, or sign-in</option>
+                  <option>Software or application</option>
+                  <option>Data transfer or backup</option>
+                  <option>Physical damage or repair</option>
+                  <option>Setup or configuration</option>
+                  <option>Other</option>
+                </select>
+              </label>
+              <label>Urgency
+                <select id="urgency">
+                  <option>Normal — I can still use the device</option>
+                  <option>High — Work or school is affected</option>
+                  <option>Critical — Device is unusable</option>
+                </select>
+              </label>
+            </div>
+            <label>Short summary
+              <input id="issue-summary" type="text" maxlength="100" required placeholder="Example: iPhone stops charging at 20%">
+            </label>
+            <label>What happened?
+              <textarea id="issue-description" maxlength="2000" required placeholder="Describe the symptoms, when they started, any error messages, and what you already tried."></textarea>
+              <small><span data-description-count>0</span>/2000 characters</small>
+            </label>
+          </div>
+
+          <div class="form-section">
+            <div class="form-section-heading"><span>03</span><div><h2>Contact details</h2><p>Used only to respond to this request.</p></div></div>
+            <div class="field-grid two-column">
+              <label>Your name
+                <input id="requester-name" type="text" maxlength="80" required autocomplete="name" placeholder="Name">
+              </label>
+              <label>Your email
+                <input id="requester-email" type="email" maxlength="120" required autocomplete="email" placeholder="name@example.com">
+              </label>
+            </div>
+            <label>Phone number <small>Optional</small>
+              <input id="requester-phone" type="tel" maxlength="30" autocomplete="tel" placeholder="Best number to reach you">
+            </label>
+          </div>
+
+          <div class="form-section appointment-fields" data-appointment-fields hidden>
+            <div class="form-section-heading"><span>04</span><div><h2>Appointment preference</h2><p>Share a preferred time and a backup window.</p></div></div>
+            <div class="field-grid two-column">
+              <label>Preferred date
+                <input id="preferred-date" type="date">
+              </label>
+              <label>Preferred time
+                <input id="preferred-time" type="time">
+              </label>
+            </div>
+            <label>Backup availability
+              <input id="backup-time" type="text" maxlength="120" placeholder="Example: Weekdays after 5 PM">
+            </label>
+            <label>Appointment format
+              <select id="appointment-format">
+                <option>Remote support</option>
+                <option>Phone consultation</option>
+                <option>In-person evaluation</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="privacy-note"><b>Before continuing:</b> the ticket is copied locally and placed into a new message in your default email app. Review it there before sending. Do not include passwords, verification codes, banking details, or other secrets.</div>
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">Copy ticket &amp; open email ↗</button>
+            <button class="button button-ghost" type="button" data-clear-form>Clear form</button>
+          </div>
+          <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <aside class="ticket-preview" aria-label="Ticket preview">
+        <div class="preview-top"><p>Live preview</p><span data-ticket-type>SELF-SERVICE TICKET</span></div>
+        <pre data-ticket-preview>Select a device and describe the issue to build your ticket.</pre>
+        <div class="preview-footer"><span>TO</span><b>pestcoe.zfix@gmail.com</b></div>
+      </aside>
+    </section>
+  </main>
+
+  <footer><a class="brand" href="index.html"><span>MP</span><b>Marcielo Pestcoe</b></a><p>Practical support · Clear communication</p><p>No account or server-side form required.</p></footer>
+  <script src="request-support.js?v=20261006-1"></script>
+</body>
+</html>
