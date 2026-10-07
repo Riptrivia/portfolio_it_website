@@ -27,6 +27,7 @@ const entries = [
   'spotvis.css',
   'spotvis-player.css',
   'request-support.css',
+  'liquid-theme.css',
   'script.js',
   'lab.js',
   'tech-demos.js',
