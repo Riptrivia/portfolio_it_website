@@ -1,20 +1,20 @@
 /* Shared liquid-chrome design system inspired by the supplied visual reference. */
 :root {
-  --liquid-bg: #ded9d6;
-  --liquid-paper: #f4f0ed;
-  --liquid-paper-strong: #fffdfb;
+  --liquid-bg: #e7e3e1;
+  --liquid-paper: #f8f5f3;
+  --liquid-paper-strong: #fffdfc;
   --liquid-ink: #271b32;
   --liquid-plum: #34233f;
   --liquid-plum-deep: #17101f;
-  --liquid-muted: #6b6370;
-  --liquid-line: rgba(52, 35, 63, .18);
-  --liquid-cyan: #13cec8;
-  --liquid-cyan-soft: #a7efeb;
-  --liquid-pink: #f05a9b;
-  --liquid-peach: #ffb285;
-  --liquid-silver: #d8d1d6;
-  --liquid-shadow: 0 24px 70px rgba(38, 21, 50, .14);
-  --liquid-shadow-small: 0 10px 28px rgba(38, 21, 50, .11);
+  --liquid-muted: #6f6873;
+  --liquid-line: rgba(52, 35, 63, .16);
+  --liquid-cyan: #18bbb8;
+  --liquid-cyan-soft: #a9e8e5;
+  --liquid-pink: #e7669e;
+  --liquid-peach: #e9a486;
+  --liquid-silver: #d9d5da;
+  --liquid-shadow: 0 26px 72px rgba(38, 21, 50, .12);
+  --liquid-shadow-small: 0 10px 30px rgba(38, 21, 50, .09);
 
   /* Map the original portfolio variables into the shared palette. */
   --ink: var(--liquid-ink);
@@ -75,6 +75,8 @@ body {
     radial-gradient(circle at 72% 82%, rgba(52, 35, 63, .11), transparent 35rem),
     var(--liquid-bg);
   color: var(--liquid-ink);
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
 }
 
 body::before {
@@ -116,6 +118,8 @@ body::after {
   background: rgba(31, 20, 40, .92);
   border-bottom: 1px solid rgba(255,255,255,.12);
   box-shadow: 0 10px 35px rgba(30, 16, 40, .2);
+  backdrop-filter: blur(20px) saturate(135%);
+  -webkit-backdrop-filter: blur(20px) saturate(135%);
 }
 .site-header .brand { color: #fff; }
 .site-header .brand span,
@@ -228,7 +232,7 @@ footer .brand span,
 .music-stage,
 .demo-console,
 .demo-workspace {
-  background: linear-gradient(145deg, rgba(255,255,255,.9), rgba(239,234,239,.72));
+  background: linear-gradient(145deg, rgba(255,255,255,.94), rgba(244,240,244,.82));
   border: 1px solid rgba(52,35,63,.18);
   box-shadow: var(--liquid-shadow-small), inset 0 1px 0 rgba(255,255,255,.86);
   color: var(--liquid-ink);
@@ -237,9 +241,9 @@ footer .brand span,
 .cert-card.primary,
 .project-card:nth-child(3n+1) {
   background:
-    radial-gradient(circle at 93% 8%, rgba(19,206,200,.22), transparent 13rem),
-    radial-gradient(circle at 8% 100%, rgba(240,90,155,.14), transparent 14rem),
-    linear-gradient(145deg, rgba(255,255,255,.94), rgba(232,225,235,.8));
+    radial-gradient(circle at 93% 8%, rgba(24,187,184,.12), transparent 13rem),
+    radial-gradient(circle at 8% 100%, rgba(231,102,158,.08), transparent 14rem),
+    linear-gradient(145deg, rgba(255,255,255,.96), rgba(241,237,242,.88));
   border-color: rgba(52,35,63,.24);
   color: var(--liquid-ink);
 }
@@ -266,6 +270,31 @@ footer .brand span,
 .outcomes p,
 .values span,
 .earlier-grid article { background: rgba(255,255,255,.48); border-color: var(--liquid-line); }
+
+/* Remove legacy cream/yellow/green fills while retaining subtle card depth. */
+.project-card,
+.project-card:nth-child(3n+1),
+.project-card:nth-child(3n+2),
+.guide-card,
+.guide-card:nth-child(2),
+.guide-card:nth-child(3),
+.resume-focus article,
+.resume-focus article:nth-child(even),
+.role,
+.role.featured,
+.earlier-grid article {
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.96), rgba(243,239,243,.84)) !important;
+  border-color: rgba(52,35,63,.16) !important;
+}
+
+.project-card:hover,
+.guide-card:hover,
+.resume-focus article:hover {
+  background:
+    radial-gradient(circle at 100% 0, rgba(24,187,184,.12), transparent 12rem),
+    linear-gradient(145deg, #fff, #f3eff3) !important;
+}
 
 .cert-card.primary small { color: var(--liquid-muted); }
 .cert-card:hover,
@@ -392,7 +421,7 @@ body:has(.case-study-banner) {
 .recommendation-box,
 .impact-panel,
 .stat-box {
-  background: linear-gradient(145deg, rgba(255,255,255,.92), rgba(239,234,239,.8)) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.96), rgba(243,239,243,.86)) !important;
   border: 1px solid rgba(52,35,63,.18) !important;
   border-radius: 18px !important;
   box-shadow: var(--liquid-shadow-small) !important;
@@ -438,8 +467,201 @@ body:has(.case-study-banner) {
 }
 
 @media (max-width: 900px) {
-  .site-header { height: 72px; }
+  html { scroll-padding-top: 128px; }
+  .site-header {
+    height: auto;
+    min-height: 72px;
+    padding: 10px 20px;
+    gap: .65rem;
+  }
+  .site-header nav {
+    display: flex;
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    gap: .4rem;
+    padding: .35rem 0 .15rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  .site-header nav::-webkit-scrollbar { display: none; }
+  .site-header nav a {
+    flex: 0 0 auto;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    padding: .5rem .72rem;
+    white-space: nowrap;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 999px;
+    background: rgba(255,255,255,.06);
+    scroll-snap-align: start;
+  }
+  .hero,
+  .about,
+  .education,
+  .resume-section,
+  .operations-hero,
+  .support-layout,
+  .vm-layout,
+  .music-stage { grid-template-columns: minmax(0, 1fr) !important; }
+  .hero-copy,
+  .about-copy,
+  .role-body,
+  .resume-intro,
+  .support-form-panel,
+  .ticket-preview { min-width: 0; }
+  .project-grid,
+  .credential-list,
+  .lab-grid,
+  .guide-grid,
+  .step-grid,
+  .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .resume-intro { position: static; }
   body::after { width: 23rem; height: 23rem; opacity: .12; }
+}
+
+@media (max-width: 680px) {
+  :root { --liquid-shadow: 0 18px 45px rgba(38,21,50,.12); }
+  html { font-size: 15px; scroll-padding-top: 130px; }
+  body::after { right: -15rem; top: 34vh; width: 25rem; height: 25rem; }
+  .site-header { padding-inline: 16px; }
+  .site-header .brand b { display: none; }
+  .header-cta { min-height: 42px; padding: .55rem .8rem; }
+
+  .hero,
+  .section,
+  .page-hero,
+  .guide-hero,
+  .operations-hero,
+  .demo-hero,
+  .vm-intro,
+  .support-intro,
+  .credential-list,
+  .lab-grid,
+  .guide-layout,
+  .operations-layout,
+  .support-layout,
+  .demo-shell,
+  .vm-shell,
+  footer,
+  .subpage-footer {
+    width: auto !important;
+    max-width: none !important;
+    margin-left: 16px !important;
+    margin-right: 16px !important;
+  }
+
+  .hero { min-height: auto; padding: 52px 16px 92px !important; }
+  .hero h1,
+  .page-hero h1,
+  .guide-hero h1,
+  .operations-hero h1,
+  .demo-hero h1,
+  .vm-intro h1,
+  .support-intro h1,
+  .resume-intro h2,
+  .cta h2 {
+    font-size: clamp(2.65rem, 13vw, 4.25rem) !important;
+    line-height: .96 !important;
+    letter-spacing: -.065em !important;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .section-heading h2,
+  .about h2,
+  .education h2 { font-size: clamp(2.35rem, 11vw, 3.6rem) !important; }
+  .hero-actions,
+  .resume-actions,
+  .ops-actions,
+  .tool-row { flex-direction: column; align-items: stretch; }
+  .hero-actions .button,
+  .resume-actions .button,
+  .ops-actions .button,
+  .tool-row > * { width: 100%; }
+  .button,
+  .tool-btn,
+  .btn,
+  .btn-action,
+  button,
+  input,
+  select { min-height: 44px; }
+  .project-grid,
+  .credential-list,
+  .lab-grid,
+  .guide-grid,
+  .step-grid,
+  .metric-grid,
+  .resume-focus,
+  .earlier-grid,
+  .values,
+  .outcomes,
+  .choice-grid,
+  .component-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .project-card,
+  .lab-card,
+  .credential-item,
+  .guide-card,
+  .role,
+  .resume-intro,
+  .resume-focus article,
+  .support-form-panel,
+  .ticket-preview,
+  .panel,
+  .card,
+  .component-card { min-width: 0; min-height: 0 !important; padding: 1.25rem !important; border-radius: 18px !important; }
+  .resume-focus article { grid-template-columns: 40px minmax(0,1fr); gap: .8rem; }
+  .role-body { padding-left: 0 !important; border-left: 0 !important; }
+  .role-title { display: block; }
+  .portrait-wrap { width: min(82vw, 360px); justify-self: center; margin-top: 2.5rem; }
+  .terminal-card { left: -8px; bottom: -58px; width: min(215px, 72vw); }
+  .sticker { right: -8px; width: 72px; height: 72px; }
+  .now-playing-dock { max-width: calc(100vw - 24px); right: 12px; }
+  .email-checkout,
+  .modal-content,
+  .modal-box { width: calc(100vw - 28px) !important; max-height: calc(100dvh - 28px); overflow-y: auto; box-shadow: 7px 7px 0 var(--liquid-plum), var(--liquid-shadow); }
+  table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  pre,
+  code,
+  .code-block,
+  .hash-output,
+  #resultPrompt { max-width: 100%; overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+  img,
+  canvas,
+  iframe,
+  video { max-width: 100%; }
+  .demo-workspace,
+  .demo-console,
+  .scene-picker,
+  .vm-shell { min-width: 0; }
+  .scene-picker { position: static !important; max-height: none !important; }
+  .demo-viewport canvas { touch-action: none; }
+}
+
+@media (max-width: 420px) {
+  .site-header { padding-inline: 12px; }
+  .hero,
+  .page-hero,
+  .guide-hero,
+  .operations-hero,
+  .demo-hero,
+  .vm-intro,
+  .support-intro { margin-inline: 12px !important; padding-left: 0 !important; padding-right: 0 !important; }
+  .hero h1,
+  .page-hero h1,
+  .guide-hero h1,
+  .operations-hero h1,
+  .demo-hero h1,
+  .vm-intro h1,
+  .support-intro h1,
+  .resume-intro h2 { font-size: clamp(2.35rem, 12.5vw, 3.35rem) !important; }
+  .hero-stats { grid-template-columns: 1fr !important; }
+  .hero-stats div { border-left: 0 !important; border-top: 1px solid var(--liquid-line); }
+  .hero-stats div:first-child { border-top: 0; }
+  .tags { gap: .4rem; }
+  .tags li { font-size: .61rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
