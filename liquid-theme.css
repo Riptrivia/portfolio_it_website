@@ -32,7 +32,10 @@
   --small-shadow: var(--liquid-shadow-small);
 }
 
-html:not([data-theme]) {
+html:not([data-theme]),
+html[data-theme=""],
+html[data-theme="light"],
+html[data-theme="default"] {
   --bg-color: var(--liquid-bg);
   --panel-bg: rgba(255, 253, 251, .9);
   --text-main: var(--liquid-ink);
@@ -49,6 +52,18 @@ html:not([data-theme]) {
   --banner-primary: var(--liquid-plum-deep);
   --banner-secondary: var(--liquid-plum);
   --banner-accent: var(--liquid-cyan);
+}
+
+.support-request-page {
+  --pink: var(--liquid-pink);
+  --yellow: var(--liquid-silver);
+  --teal: var(--liquid-cyan-soft);
+  --ink-soft: var(--liquid-muted);
+  background:
+    radial-gradient(circle at 8% 8%, rgba(19, 206, 200, .18), transparent 25rem),
+    radial-gradient(circle at 90% 14%, rgba(240, 90, 155, .16), transparent 28rem),
+    radial-gradient(circle at 72% 82%, rgba(52, 35, 63, .11), transparent 35rem),
+    var(--liquid-bg) !important;
 }
 
 html { color-scheme: light; }
