@@ -108,16 +108,17 @@
 
   $('[data-customer-lookup]').addEventListener("submit", async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const data = new FormData(form);
     const message = $('[data-customer-message]');
-    const submit = $('button[type="submit"]', event.currentTarget);
+    const submit = $('button[type="submit"]', form);
     submit.disabled = true;
     setMessage(message, "Verifying private access…");
     try {
       const result = await api("/api/customer/login", { method: "POST", body: JSON.stringify({ ticketId: clean(data.get("ticketId")), accessCode: clean(data.get("accessCode")) }) });
       customerSession = result.session;
       sessionStorage.setItem(customerSessionKey, customerSession);
-      event.currentTarget.elements.accessCode.value = "";
+      form.elements.accessCode.value = "";
       setMessage(message, "Private ticket access confirmed.");
       await loadCustomerTicket();
     } catch (error) { setMessage(message, error.message, true); }
@@ -195,14 +196,15 @@
 
   $('[data-totp-form]').addEventListener("submit", async (event) => {
     event.preventDefault();
+    const form = event.currentTarget;
     const message = $('[data-totp-message]');
-    const code = clean(new FormData(event.currentTarget).get("code"));
+    const code = clean(new FormData(form).get("code"));
     setMessage(message, "Verifying Authenticator code…");
     try {
       const result = await api("/api/admin/totp/verify", { method: "POST", body: JSON.stringify({ challenge: adminChallenge, code }) });
       adminSession = result.session;
       sessionStorage.setItem(adminSessionKey, adminSession);
-      event.currentTarget.reset();
+      form.reset();
       await openAdminWorkspace();
     } catch (error) { setMessage(message, error.message, true); }
   });
