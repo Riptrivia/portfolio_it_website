@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Secure customer and administrator support-ticket portal for Marcielo Pestcoe.">
+  <meta name="theme-color" content="#1f3549">
+  <title>Support Ticket Portal — Marcielo Pestcoe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="extras.css">
+  <link rel="stylesheet" href="liquid-theme.css?v=20261006-1">
+  <link rel="stylesheet" href="ticket-portal.css?v=20261008-1">
+  <script src="liquid-motion.js?v=20261006-1" defer></script>
+</head>
+<body class="ticket-portal-page">
+  <a class="skip-link" href="#portal-main">Skip to ticket portal</a>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Marcielo Pestcoe home"><span>MP</span><b>Marcielo Pestcoe</b></a>
+    <nav aria-label="Ticket portal navigation">
+      <a href="request-support.html">Request Support</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#resume">Résumé</a>
+    </nav>
+    <a class="header-cta" href="index.html">Home ↗</a>
+  </header>
+
+  <main id="portal-main" class="portal-shell">
+    <section class="portal-hero">
+      <div>
+        <p class="eyebrow"><span class="pulse"></span> Secure support workspace</p>
+        <h1>Support that stays<br><em>easy to follow.</em></h1>
+      </div>
+      <div class="portal-hero-copy">
+        <p>Follow a support request, review estimates, approve work, or securely manage the technician queue.</p>
+        <div class="prototype-notice"><b>Privacy first</b><span>Ticket information is loaded only after the Worker verifies a private customer code or administrator two-step authentication.</span></div>
+      </div>
+    </section>
+
+    <section class="portal-app" data-ticket-portal>
+      <div class="portal-switcher" role="tablist" aria-label="Choose a portal">
+        <button type="button" class="is-active" role="tab" aria-selected="true" data-portal-tab="customer"><span>01</span><b>Customer portal</b><small>Check a request</small></button>
+        <button type="button" role="tab" aria-selected="false" data-portal-tab="admin"><span>02</span><b>Admin portal</b><small>Manage requests</small></button>
+        <button type="button" role="tab" aria-selected="false" data-portal-tab="architecture"><span>03</span><b>System plan</b><small>See the future flow</small></button>
+      </div>
+
+      <section class="portal-panel is-active" data-portal-panel="customer" aria-labelledby="customer-heading">
+        <div class="panel-heading">
+          <div><p>Customer access</p><h2 id="customer-heading">Track your support request</h2></div>
+          <span class="secure-badge">Private lookup</span>
+        </div>
+        <div class="customer-grid">
+          <form class="lookup-card" data-customer-lookup novalidate>
+            <label>Ticket number
+              <input name="ticketId" autocomplete="off" spellcheck="false" placeholder="ZFIX-1001" required>
+            </label>
+            <label>Private access code
+              <div class="secret-input"><input name="accessCode" type="password" autocomplete="off" spellcheck="false" placeholder="Enter your access code" required><button type="button" data-toggle-secret aria-label="Show access code">Show</button></div>
+            </label>
+            <button class="portal-button primary" type="submit">View ticket status →</button>
+            <p class="portal-message" data-customer-message role="status" aria-live="polite"></p>
+            <p class="session-note">Customer sessions expire after 30 minutes. The private access code is never stored in this browser.</p>
+          </form>
+
+          <article class="ticket-result is-empty" data-ticket-result>
+            <div class="empty-state">
+              <span>◎</span>
+              <h3>Your ticket timeline will appear here.</h3>
+              <p>Use the ticket number and private code from the confirmation message.</p>
+            </div>
+            <div class="ticket-content" hidden>
+              <div class="ticket-result-top"><div><p data-result-id>ZFIX-0000</p><h3 data-result-summary>Support request</h3></div><span data-result-status>Received</span></div>
+              <dl class="ticket-meta"><div><dt>Device</dt><dd data-result-device>—</dd></div><div><dt>Last updated</dt><dd data-result-updated>—</dd></div><div><dt>Assigned to</dt><dd>Marcielo</dd></div></dl>
+              <div class="ticket-timeline" data-result-timeline></div>
+              <section class="quote-card" data-customer-quote hidden>
+                <div class="quote-card-top"><div><p>Estimate approval</p><h3 data-quote-service>Service estimate</h3></div><span data-quote-decision>Pending</span></div>
+                <dl><div><dt>Price</dt><dd data-quote-price>—</dd></div><div><dt>Expires</dt><dd data-quote-expires>—</dd></div></dl>
+                <p data-quote-terms></p>
+                <label class="quote-consent"><input type="checkbox" data-quote-consent> <span>I reviewed the service, price, and terms shown above.</span></label>
+                <label>Optional response
+                  <textarea data-quote-note maxlength="500" placeholder="Add a scheduling note or question"></textarea>
+                </label>
+                <div class="quote-actions"><button class="portal-button primary" type="button" data-quote-accept disabled>Approve estimate</button><button class="portal-button" type="button" data-quote-decline>Decline</button></div>
+                <p class="portal-message" data-quote-message role="status" aria-live="polite"></p>
+              </section>
+              <div class="customer-safety"><b>Keep your access code private.</b> Support will never ask for your password, MFA code, or banking information.</div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="portal-panel" data-portal-panel="admin" aria-labelledby="admin-heading" hidden>
+        <div class="panel-heading">
+          <div><p>Technician workspace</p><h2 id="admin-heading">Support queue</h2></div>
+          <span class="secure-badge warning">Two-step verification</span>
+        </div>
+
+        <div class="admin-gate" data-admin-gate>
+          <div class="gate-icon">⌁</div>
+          <h3>Administrator verification</h3>
+          <p>Sign in with the approved Google account, then enter the current six-digit code from Google Authenticator.</p>
+          <div class="google-signin" data-google-signin></div>
+          <p class="portal-message" data-google-message role="status" aria-live="polite"></p>
+          <form class="totp-form" data-totp-form hidden>
+            <div class="totp-enrollment" data-totp-enrollment hidden><b>Add ZFix to Google Authenticator</b><p>Choose <em>Enter a setup key</em>, use account name <strong>Marcielo ZFix Admin</strong>, and enter this one-time key:</p><code data-totp-key></code><button type="button" data-copy-totp>Copy setup key</button></div>
+            <label>Authenticator code<input name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="000000" required></label>
+            <button class="portal-button primary" type="submit">Verify &amp; open queue →</button>
+            <p class="portal-message" data-totp-message role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <div class="admin-workspace" data-admin-workspace hidden>
+          <div class="queue-toolbar">
+            <div><span>Live support queue</span><b><i data-open-count>0</i> open requests</b></div>
+            <div class="toolbar-actions"><button type="button" data-refresh-queue>Refresh</button><button type="button" data-admin-logout>Sign out</button></div>
+          </div>
+          <div class="admin-grid">
+            <aside class="ticket-queue" aria-label="Ticket queue"><div data-ticket-list></div></aside>
+            <form class="ticket-editor" data-ticket-editor>
+              <div class="editor-empty" data-editor-empty><span>←</span><p>Select a ticket to review it.</p></div>
+              <div data-editor-content hidden>
+                <div class="editor-title"><div><p data-editor-id>—</p><h3 data-editor-summary>—</h3></div><span data-editor-urgency>Normal</span></div>
+                <div class="requester-card"><span data-editor-initials>MP</span><div><b data-editor-name>—</b><a data-editor-email href="#">—</a></div></div>
+                <dl class="editor-meta"><div><dt>Device</dt><dd data-editor-device>—</dd></div><div><dt>Category</dt><dd data-editor-category>—</dd></div><div><dt>Received</dt><dd data-editor-created>—</dd></div></dl>
+                <div class="issue-description"><p>Customer description</p><blockquote data-editor-description>—</blockquote></div>
+                <label>Status
+                  <select data-editor-status>
+                    <option>Received</option><option>Under review</option><option>Approval pending</option><option>Approved</option><option>Declined</option><option>Scheduled</option><option>In progress</option><option>Completed</option><option>Closed</option>
+                  </select>
+                </label>
+                <label>Customer-visible update
+                  <textarea data-editor-update maxlength="500" placeholder="Example: I reviewed your request and will contact you to schedule a remote session."></textarea>
+                </label>
+                <label class="private-note-label">Private technician note
+                  <textarea data-editor-private maxlength="500" placeholder="Visible only in the admin portal."></textarea>
+                </label>
+                <div class="editor-actions"><button class="portal-button primary" type="submit">Save update &amp; queue email</button><button class="portal-button" type="button" data-refresh-ticket>Refresh ticket</button></div>
+                <p class="portal-message" data-admin-message role="status" aria-live="polite"></p>
+                <fieldset class="quote-editor">
+                  <legend>Send an estimate for approval</legend>
+                  <label>Service description<textarea data-admin-quote-service maxlength="800" placeholder="Describe the work covered by this estimate"></textarea></label>
+                  <div class="quote-fields"><label>Rate type<select data-admin-rate-unit><option value="flat">Flat estimate</option><option value="per hour">Hourly rate</option></select></label><label>Rate ($)<input data-admin-rate type="number" min="0" step="0.01" placeholder="25.00"></label></div>
+                  <div class="quote-fields"><label>Minimum total ($)<input data-admin-min type="number" min="0" step="0.01" placeholder="25.00"></label><label>Maximum total ($)<input data-admin-max type="number" min="0" step="0.01" placeholder="50.00"></label></div>
+                  <label>Terms<textarea data-admin-quote-terms maxlength="1000" placeholder="No work begins until approval. Additional work requires a revised estimate."></textarea></label>
+                  <label>Estimate expires<input data-admin-quote-expiry type="date"></label>
+                  <button class="portal-button primary" type="button" data-send-quote>Send estimate for approval</button>
+                  <p class="portal-message" data-quote-admin-message role="status" aria-live="polite"></p>
+                </fieldset>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="portal-panel" data-portal-panel="architecture" aria-labelledby="architecture-heading" hidden>
+        <div class="panel-heading"><div><p>System architecture</p><h2 id="architecture-heading">How the connected system works</h2></div><span class="secure-badge">Live backend</span></div>
+        <div class="system-flow" aria-label="Planned support ticket workflow">
+          <article><span>01</span><b>Request arrives</b><p>The website form or a correctly formatted Gmail message starts a ticket.</p></article>
+          <i>→</i><article><span>02</span><b>Worker validates</b><p>Cloudflare checks the request, generates a ticket ID, and protects the access token.</p></article>
+          <i>→</i><article><span>03</span><b>D1 stores status</b><p>Customer details, public updates, and private notes remain separated.</p></article>
+          <i>→</i><article><span>04</span><b>Customer is notified</b><p>A confirmation email provides the ticket number and private status link.</p></article>
+        </div>
+        <div class="security-grid">
+          <article><span>Admin</span><h3>Google OAuth + TOTP</h3><p>Restricted to one approved Google account, followed by an authenticator code.</p></article>
+          <article><span>Customer</span><h3>Random access token</h3><p>A high-entropy secret is required in addition to the ticket number.</p></article>
+          <article><span>Next hardening step</span><h3>Rate limits + Turnstile</h3><p>These controls will be added before the portal is offered for general public use.</p></article>
+          <article><span>Data</span><h3>Minimum necessary storage</h3><p>No passwords or sensitive financial information, with a defined deletion schedule.</p></article>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer><a class="brand" href="index.html"><span>MP</span><b>Marcielo Pestcoe</b></a><p>Practical support · Clear communication</p><p>Protected by short-lived sessions and two-step admin verification</p></footer>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="ticket-config.js?v=20261008-1"></script>
+  <script src="ticket-portal.js?v=20261008-2"></script>
+</body>
+</html>

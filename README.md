@@ -16,6 +16,7 @@ A responsive, static portfolio covering enterprise endpoint support, mobile-devi
 - SHA-256 file verifier, UI component library, and troubleshooting case study
 - Verified CompTIA credential links
 - Downloadable public résumé PDF
+- Secure support-ticket workflow with Gmail intake, customer status access, estimate approval, Google administrator identity, TOTP verification, Cloudflare Workers, and D1
 
 ## Run locally
 
@@ -32,3 +33,5 @@ The build copies every required page, stylesheet, script, image, project, and se
 ## Privacy
 
 The portfolio identifies Marcielo and approved public employers. Customer data, ticket numbers, private correspondence, unrelated employee names, and internal procedures are intentionally excluded.
+
+The ticket portal stores live support records in Cloudflare D1 rather than the static site. Customer access requires a private code, administrator access requires the approved Google account plus a time-based authenticator code, and deployment secrets remain outside the repository.

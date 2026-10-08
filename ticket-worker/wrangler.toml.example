@@ -1,0 +1,21 @@
+name = "marcielo-ticket-api"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "marcielo-support-tickets"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+[vars]
+ALLOWED_ORIGIN = "https://riptrivia.github.io"
+ADMIN_EMAIL = "pestcoe.zfix@gmail.com"
+GOOGLE_CLIENT_ID = "582527406778-cfbma4qultuhglgsbkie2eh19ebu1q7a.apps.googleusercontent.com"
+CUSTOMER_PORTAL_URL = "https://riptrivia.github.io/portfolio_it_website/ticket-portal.html"
+SUPPORT_EMAIL = "pestcoe.zfix@gmail.com"
+
+# Add these with `wrangler secret put`; never place their values in this file:
+# SESSION_SECRET
+# CUSTOMER_TOKEN_PEPPER
+# GMAIL_WEBHOOK_SECRET
+# TOTP_ENCRYPTION_KEY

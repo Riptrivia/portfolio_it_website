@@ -84,6 +84,11 @@
 .form-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
 .form-status { min-height: 1.5rem; margin: .85rem 0 0; color: #146b68; font-weight: 800; }
 .form-status.is-error { color: #b42318; }
+.portal-preview-link { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1rem; padding: 1rem; border: 1px solid rgba(31,53,73,.25); border-radius: 12px; background: rgba(159,199,197,.18); }
+.portal-preview-link > div { display: grid; gap: .15rem; }
+.portal-preview-link b { font-size: .9rem; }
+.portal-preview-link span { color: var(--ink-soft); font-size: .78rem; line-height: 1.4; }
+.portal-preview-link a { flex: 0 0 auto; color: var(--ink); font-weight: 800; font-size: .82rem; }
 
 .ticket-preview { position: sticky; top: 6rem; overflow: hidden; }
 .preview-top { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 1.1rem; border-bottom: 2px solid var(--ink); background: var(--ink); color: #fffaf0; }
@@ -156,4 +161,5 @@
   .provider-grid,
   .email-fallbacks { grid-template-columns: 1fr; }
   .destination-copy { align-items: flex-start; flex-direction: column; }
+  .portal-preview-link { align-items: flex-start; flex-direction: column; }
 }
