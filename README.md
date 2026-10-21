@@ -12,6 +12,7 @@ A responsive, static portfolio covering enterprise endpoint support, mobile-devi
 - Support Note Generator with an adjustable time-and-capacity model
 - Ten browser-native labs spanning subnetting, ports, URL inspection, Linux permissions, encoding, security, storage, hardware input, and number systems
 - Two printable field guides covering responsible e-waste handling and useful Linux redeployment for older computers
+- A customer-facing e-waste handoff section with a strict customer-keeps-storage policy and frontend-only signed email record
 - Embedded Arch Linux browser lab powered by data from the credited v86 project at copy.sh / GitHub `copy/v86` (BSD-2-Clause)
 - SHA-256 file verifier, UI component library, and troubleshooting case study
 - Verified CompTIA credential links
