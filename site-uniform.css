@@ -1,0 +1,630 @@
+/* Final site-wide visual system. Loaded after all legacy and page styles. */
+:root {
+  --site-bg: #f2eff3;
+  --site-surface: #ffffff;
+  --site-surface-soft: #f8f6f9;
+  --site-surface-tint: #eeeaef;
+  --site-ink: #24192c;
+  --site-muted: #675f6c;
+  --site-line: rgba(45, 31, 54, .16);
+  --site-plum: #352540;
+  --site-plum-deep: #1c1423;
+  --site-teal: #087f80;
+  --site-teal-bright: #20b8b5;
+  --site-pink: #d9518a;
+  --site-radius: 22px;
+  --site-radius-small: 14px;
+  --site-shadow: 0 18px 48px rgba(42, 25, 51, .10);
+  --site-shadow-small: 0 8px 24px rgba(42, 25, 51, .075);
+
+  /* Neutralize the legacy desert/cream token set. */
+  --bg: var(--site-bg);
+  --panel: var(--site-surface);
+  --ink: var(--site-ink);
+  --muted: var(--site-muted);
+  --line: var(--site-line);
+  --cream: var(--site-surface-tint);
+  --sand: #cfc4d0;
+  --retro-yellow: #b7a9ba;
+  --retro-pink: var(--site-pink);
+  --retro-teal: var(--site-teal-bright);
+}
+
+html {
+  background: var(--site-bg);
+  color-scheme: light;
+  scroll-padding-top: 110px;
+}
+
+body {
+  background:
+    radial-gradient(circle at 7% 8%, rgba(32, 184, 181, .13), transparent 25rem),
+    radial-gradient(circle at 94% 14%, rgba(217, 81, 138, .10), transparent 29rem),
+    linear-gradient(rgba(53, 37, 64, .026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(53, 37, 64, .026) 1px, transparent 1px),
+    var(--site-bg) !important;
+  background-size: auto, auto, 36px 36px, 36px 36px, auto !important;
+  color: var(--site-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  opacity: 0 !important;
+}
+
+h1, h2, h3, h4, p, li, label, input, select, textarea, button {
+  text-shadow: none !important;
+}
+
+p, li, dd {
+  color: inherit;
+}
+
+/* One consistent site header on every first-party page. */
+.site-header {
+  min-height: 82px;
+  height: auto;
+  padding: 12px max(24px, calc((100vw - 1180px) / 2));
+  gap: 1.25rem;
+  background: rgba(31, 22, 39, .965) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, .11) !important;
+  box-shadow: 0 10px 30px rgba(27, 17, 35, .16) !important;
+}
+
+.site-header .brand {
+  flex: 0 0 auto;
+}
+
+.site-header .brand span {
+  border-radius: 11px;
+}
+
+.site-header nav {
+  justify-content: center;
+  gap: .25rem !important;
+  min-width: 0;
+}
+
+.site-header nav a {
+  padding: .58rem .7rem !important;
+  border-radius: 10px !important;
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+
+.site-header nav a:hover,
+.site-header nav a:focus-visible,
+.site-header nav a.active {
+  background: rgba(32, 184, 181, .14) !important;
+  box-shadow: inset 0 0 0 1px rgba(32, 184, 181, .20) !important;
+}
+
+.header-cta {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: .7rem 1rem !important;
+  border: 1px solid rgba(255, 255, 255, .34) !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, #9de3df, #24b8b5) !important;
+  color: var(--site-plum-deep) !important;
+  box-shadow: 0 7px 18px rgba(19, 162, 160, .20) !important;
+}
+
+/* Consistent reading widths and vertical rhythm. */
+.hero,
+.section,
+.page-hero,
+.credential-list,
+.lab-grid,
+.guide-main,
+.vm-main,
+.demo-main,
+.music-shell,
+.support-intro,
+.support-workspace,
+.portal-hero,
+.portal-app,
+.operations-main,
+.subpage-footer,
+.guide-footer,
+.vm-footer,
+.operations-footer {
+  width: min(calc(100% - 48px), 1180px);
+  max-width: 1180px;
+  margin-inline: auto;
+}
+
+.operations-main {
+  max-width: 1240px;
+}
+
+.hero,
+.page-hero,
+.guide-hero,
+.vm-intro,
+.demo-hero,
+.support-intro,
+.portal-hero,
+.operations-hero {
+  padding-top: clamp(4rem, 7vw, 6.75rem);
+  padding-bottom: clamp(3.5rem, 6vw, 6rem);
+}
+
+.hero h1,
+.page-hero h1,
+.guide-hero h1,
+.vm-intro h1,
+.demo-hero h1,
+.support-intro h1,
+.portal-hero h1,
+.operations-hero h1 {
+  color: var(--site-plum-deep) !important;
+  text-wrap: balance;
+}
+
+.section-heading,
+.guide-section > :is(h2, p),
+.ops-heading {
+  min-width: 0;
+}
+
+.section-heading h2,
+.about h2,
+.education h2,
+.guide-section h2,
+.ops-heading h2 {
+  color: var(--site-plum-deep);
+  text-wrap: balance;
+}
+
+/* Shared professional surface language. */
+:is(.path-card, .project-card, .role, .cert-card, .credential-item, .lab-card,
+  .guide-meta, .step-card, .choice-card, .check-card, .resume-focus article,
+  .about-copy, .support-form-panel, .ticket-preview, .portal-panel,
+  .recognition-card, .capacity-card, .feature-panel, .vm-shell, .music-stage) {
+  border: 1px solid var(--site-line) !important;
+  border-radius: var(--site-radius) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.97), rgba(247,245,248,.94)) !important;
+  box-shadow: var(--site-shadow-small), inset 0 1px 0 rgba(255,255,255,.92) !important;
+}
+
+:is(.path-card, .project-card, .role, .cert-card, .credential-item, .lab-card,
+  .step-card, .choice-card, .check-card, .resume-focus article):hover {
+  border-color: rgba(8, 127, 128, .38) !important;
+  box-shadow: var(--site-shadow) !important;
+}
+
+.path-card.service-path,
+.role.featured,
+.cert-card.primary,
+.project-card:nth-child(3n+1),
+.project-card:nth-child(3n+2),
+.guide-card:nth-child(2),
+.guide-card:nth-child(3) {
+  background:
+    radial-gradient(circle at 96% 5%, rgba(32, 184, 181, .10), transparent 12rem),
+    linear-gradient(145deg, #fff, #f5f2f6) !important;
+}
+
+.path-card nav a,
+.values span,
+.outcomes p,
+.earlier-grid article,
+.hero-proof > *,
+.metric-grid > *,
+.demo-hero-badges span {
+  background: rgba(255,255,255,.78) !important;
+  border-color: var(--site-line) !important;
+}
+
+.path-card nav a:hover,
+.path-card nav a:focus-visible {
+  background: #fff !important;
+  border-color: rgba(8, 127, 128, .4) !important;
+}
+
+.button,
+.tool-btn,
+.btn,
+.btn-action,
+.portal-button,
+.mode-btn,
+.settings-btn {
+  min-height: 44px;
+  border-radius: 12px !important;
+  box-shadow: none;
+}
+
+.button:hover,
+.tool-btn:hover,
+.btn:hover,
+.btn-action:hover,
+.portal-button:hover,
+.mode-btn:hover,
+.settings-btn:hover {
+  transform: translateY(-2px);
+}
+
+.button-primary,
+.tool-btn,
+.btn-primary,
+.btn-action:not(.btn-secondary),
+.portal-button.primary {
+  background: linear-gradient(135deg, #9de3df, #24b8b5) !important;
+  border-color: #149b9a !important;
+  color: var(--site-plum-deep) !important;
+}
+
+.button-ghost,
+.portal-button:not(.primary) {
+  background: rgba(255,255,255,.86) !important;
+  border-color: rgba(53,37,64,.25) !important;
+  color: var(--site-plum) !important;
+}
+
+input,
+select,
+textarea,
+.tool-input {
+  background: #fff !important;
+  border-color: rgba(53,37,64,.25) !important;
+  color: var(--site-ink) !important;
+  box-shadow: inset 0 1px 2px rgba(42,25,51,.035);
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.tool-input:focus {
+  border-color: var(--site-teal-bright) !important;
+  box-shadow: 0 0 0 4px rgba(32,184,181,.14) !important;
+}
+
+/* Guides and the signed e-waste handoff. */
+.guide-section {
+  scroll-margin-top: 110px;
+}
+
+.guide-nav {
+  border-radius: 18px !important;
+  box-shadow: 0 12px 30px rgba(28,20,35,.13);
+}
+
+.handoff-choice-grid label,
+.handoff-form,
+.handoff-preview,
+.handoff-signature,
+.handoff-legal,
+.handoff-preview > p,
+.handoff-destination {
+  background: rgba(255,255,255,.82) !important;
+  border-color: var(--site-line) !important;
+}
+
+.handoff-signature,
+.handoff-form,
+.handoff-preview {
+  border-radius: var(--site-radius-small) !important;
+}
+
+.handoff-legal {
+  border-left-color: var(--site-pink) !important;
+}
+
+/* Request support: remove the remaining warm paper fields. */
+.support-request-page {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(32,184,181,.15), transparent 25rem),
+    radial-gradient(circle at 92% 15%, rgba(217,81,138,.11), transparent 29rem),
+    var(--site-bg) !important;
+}
+
+.support-form-panel,
+.ticket-preview,
+#support-form,
+.device-choice,
+.portal-preview-link,
+.email-checkout {
+  background: rgba(255,255,255,.93) !important;
+  border-color: var(--site-line) !important;
+}
+
+.mode-switch {
+  padding: .5rem;
+  border-radius: 16px;
+  background: var(--site-surface-tint) !important;
+}
+
+.mode-switch button.is-active {
+  background: var(--site-plum) !important;
+  color: #fff !important;
+}
+
+.preview-top,
+.email-checkout-top {
+  background: var(--site-plum) !important;
+  color: #fff !important;
+}
+
+.destination-copy {
+  background: var(--site-surface-tint) !important;
+}
+
+/* Ticket portal: its legacy stylesheet loads late, so fully remap it here. */
+.ticket-portal-page {
+  --portal-navy: var(--site-plum);
+  --portal-rust: #9b3f6b;
+  --portal-cream: var(--site-bg);
+  --portal-paper: var(--site-surface);
+  --portal-teal: #bde8e5;
+  --portal-gold: #d8ccd9;
+  --portal-muted: var(--site-muted);
+  background:
+    radial-gradient(circle at 9% 10%, rgba(32,184,181,.14), transparent 25rem),
+    radial-gradient(circle at 91% 28%, rgba(217,81,138,.10), transparent 28rem),
+    var(--site-bg) !important;
+}
+
+.portal-hero {
+  padding-inline: 0 !important;
+}
+
+.portal-app {
+  padding-inline: 0 !important;
+}
+
+.prototype-notice,
+.portal-switcher button,
+.lookup-card,
+.ticket-queue,
+.customer-safety,
+.totp-enrollment,
+.issue-description blockquote,
+.quote-editor,
+.quote-card,
+.quote-card dl div,
+.quote-consent,
+.system-flow article,
+.totp-form,
+.queue-ticket:hover,
+.queue-ticket.is-active,
+.email-preview {
+  background: rgba(255,255,255,.88) !important;
+  border-color: var(--site-line) !important;
+}
+
+.portal-switcher button {
+  border-width: 1px !important;
+  border-radius: 14px !important;
+}
+
+.portal-switcher button.is-active {
+  background: var(--site-plum) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 20px rgba(42,25,51,.16) !important;
+}
+
+.portal-panel {
+  overflow: clip;
+  border-width: 1px !important;
+}
+
+.panel-heading {
+  border-bottom: 1px solid var(--site-line) !important;
+}
+
+.secure-badge,
+.secure-badge.warning,
+.ticket-result-top > span,
+.editor-title > span,
+.quote-card-top > span,
+.requester-card,
+.queue-toolbar {
+  background: var(--site-surface-tint) !important;
+}
+
+.security-grid article,
+.timeline-dot,
+.secret-input button,
+.totp-enrollment code {
+  background: var(--site-plum) !important;
+}
+
+.email-preview {
+  box-shadow: var(--site-shadow) !important;
+}
+
+/* Standalone tools retain their functional themes, but share clean framing. */
+.portfolio-banner,
+.banner,
+.case-study-banner {
+  border-bottom-width: 2px !important;
+  box-shadow: 0 10px 28px rgba(31,16,42,.18) !important;
+}
+
+.content-container,
+.case-study-container {
+  width: min(calc(100% - 48px), 1180px);
+  max-width: 1180px;
+  margin-inline: auto;
+}
+
+.portfolio-footer,
+.footer,
+.case-study-footer {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+/* Keep dark selectable tool themes dark. */
+html[data-theme="dark"],
+html[data-theme$="-dark"] {
+  --site-surface: var(--panel-bg);
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] body,
+html[data-theme$="-dark"] body {
+  background: var(--bg-color) !important;
+}
+
+@media (max-width: 1040px) {
+  .site-header {
+    flex-wrap: wrap;
+    padding-inline: 24px;
+  }
+
+  .site-header nav {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .site-header nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .site-header nav a {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 760px) {
+  html {
+    scroll-padding-top: 132px;
+  }
+
+  .site-header {
+    padding: 10px 16px;
+    gap: .65rem;
+  }
+
+  .site-header .brand b {
+    display: inline;
+    max-width: 132px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .site-header nav a {
+    min-height: 40px;
+    padding: .5rem .7rem !important;
+    border: 1px solid rgba(255,255,255,.10);
+  }
+
+  .header-cta {
+    margin-left: auto;
+  }
+
+  .hero,
+  .section,
+  .page-hero,
+  .credential-list,
+  .lab-grid,
+  .guide-main,
+  .vm-main,
+  .demo-main,
+  .music-shell,
+  .support-intro,
+  .support-workspace,
+  .portal-hero,
+  .portal-app,
+  .operations-main,
+  .subpage-footer,
+  .guide-footer,
+  .vm-footer,
+  .operations-footer,
+  .content-container,
+  .case-study-container {
+    width: min(calc(100% - 32px), 1180px) !important;
+    margin-inline: auto !important;
+  }
+
+  .hero,
+  .page-hero,
+  .guide-hero,
+  .vm-intro,
+  .demo-hero,
+  .support-intro,
+  .portal-hero,
+  .operations-hero {
+    padding-top: 3.5rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .portal-hero,
+  .portal-app {
+    padding-inline: 0 !important;
+  }
+
+  .section-heading,
+  .role-title,
+  .panel-heading,
+  .queue-toolbar,
+  .ticket-result-top,
+  .editor-title {
+    align-items: flex-start !important;
+  }
+
+  :is(.path-card, .project-card, .role, .cert-card, .credential-item, .lab-card,
+    .guide-meta, .step-card, .choice-card, .check-card, .resume-focus article,
+    .support-form-panel, .ticket-preview, .portal-panel) {
+    border-radius: 18px !important;
+  }
+
+  .system-flow,
+  .security-grid,
+  .ticket-meta,
+  .editor-meta {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 460px) {
+  .site-header .brand b {
+    display: none;
+  }
+
+  .header-cta {
+    padding-inline: .75rem !important;
+    font-size: .7rem;
+  }
+
+  .hero,
+  .section,
+  .page-hero,
+  .credential-list,
+  .lab-grid,
+  .guide-main,
+  .vm-main,
+  .demo-main,
+  .music-shell,
+  .support-intro,
+  .support-workspace,
+  .portal-hero,
+  .portal-app,
+  .operations-main,
+  .subpage-footer,
+  .guide-footer,
+  .vm-footer,
+  .operations-footer,
+  .content-container,
+  .case-study-container {
+    width: min(calc(100% - 24px), 1180px) !important;
+  }
+
+  .portal-switcher,
+  .quote-fields,
+  .quote-card dl {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+  }
+}
