@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Build a visual AI workflow and turn it into a structured prompt entirely in the browser.">
+  <meta name="theme-color" content="#1c1423">
+  <title>AI Workflow Builder — Marcielo Pestcoe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../extras.css">
+  <link rel="stylesheet" href="../liquid-theme.css?v=20261006-1">
+  <link rel="stylesheet" href="../site-uniform.css?v=20261021-1">
+  <link rel="stylesheet" href="ai-workflow.css?v=20261119-1">
+  <script src="../liquid-motion.js?v=20261006-1" defer></script>
+  <script src="ai-workflow.js?v=20261119-1" defer></script>
+</head>
+<body class="ai-workflow-page">
+  <a class="skip-link" href="#workflow-app">Skip to workflow builder</a>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><span>MP</span><b>Marcielo Pestcoe</b></a>
+    <nav aria-label="Project navigation">
+      <a href="../index.html#projects">Projects</a>
+      <a href="../troubleshooting.html">IT Lab</a>
+      <a href="workflow-ticket.html">Workflow Ticket</a>
+      <a href="note-generator.html">Note Generator</a>
+    </nav>
+    <a class="header-cta" href="../index.html">Portfolio home</a>
+  </header>
+
+  <main class="workflow-main" id="workflow-app">
+    <section class="workflow-hero">
+      <div>
+        <p class="eyebrow"><span class="pulse"></span> Visual prompt engineering · Browser local</p>
+        <h1>Build the flow.<br><em>Generate the prompt.</em></h1>
+        <p>Arrange a repeatable AI process as connected steps, define what each step should do, and convert the entire workflow into clear text for ChatGPT or another model.</p>
+      </div>
+      <aside class="workflow-hero-note" aria-label="Project privacy and scope">
+        <span>LOCAL TOOL</span>
+        <strong>No API key required</strong>
+        <p>The editor saves to this browser. It generates prompt text but does not send your information to an AI service.</p>
+      </aside>
+    </section>
+
+    <section class="workflow-toolbar" aria-label="Workflow controls">
+      <label for="template-select"><span>Starter template</span>
+        <select id="template-select">
+          <option value="support">Support triage</option>
+          <option value="research">Research brief</option>
+          <option value="content">Content workflow</option>
+          <option value="troubleshoot">Technical troubleshooting</option>
+        </select>
+      </label>
+      <button class="workflow-button secondary" type="button" data-load-template>Load template</button>
+      <button class="workflow-button secondary" type="button" data-new-workflow>New workflow</button>
+      <span class="toolbar-spacer"></span>
+      <button class="workflow-button secondary" type="button" data-export>Export JSON</button>
+      <button class="workflow-button secondary" type="button" data-import>Import JSON</button>
+      <input class="visually-hidden" id="workflow-import" type="file" accept="application/json,.json">
+    </section>
+
+    <section class="workflow-workspace" aria-label="Visual workflow editor">
+      <aside class="node-palette" aria-labelledby="palette-title">
+        <div class="panel-title">
+          <p>Step library</p>
+          <h2 id="palette-title">Add a step</h2>
+        </div>
+        <div class="palette-grid">
+          <button type="button" data-add-node="goal"><span class="node-icon goal">G</span><b>Goal</b><small>Define success</small></button>
+          <button type="button" data-add-node="context"><span class="node-icon context">C</span><b>Context</b><small>Set background</small></button>
+          <button type="button" data-add-node="input"><span class="node-icon input">I</span><b>Input</b><small>Collect data</small></button>
+          <button type="button" data-add-node="analyze"><span class="node-icon analyze">A</span><b>Analyze</b><small>Reason through it</small></button>
+          <button type="button" data-add-node="generate"><span class="node-icon generate">W</span><b>Write</b><small>Create output</small></button>
+          <button type="button" data-add-node="validate"><span class="node-icon validate">V</span><b>Validate</b><small>Check quality</small></button>
+          <button type="button" data-add-node="decision"><span class="node-icon decision">D</span><b>Decision</b><small>Choose a path</small></button>
+          <button type="button" data-add-node="output"><span class="node-icon output">O</span><b>Output</b><small>Set final format</small></button>
+        </div>
+        <p class="palette-help">Add steps, drag them around the canvas, then use the inspector to change their order and instructions.</p>
+      </aside>
+
+      <section class="canvas-panel" aria-labelledby="canvas-title">
+        <div class="canvas-heading">
+          <div><p>Visual sequence</p><h2 id="canvas-title" data-workflow-name>Support triage workflow</h2></div>
+          <span data-node-count>5 steps</span>
+        </div>
+        <div class="workflow-canvas" data-workflow-canvas tabindex="0" aria-label="Workflow canvas. Select a step to edit it.">
+          <svg class="connection-layer" data-connections aria-hidden="true"></svg>
+          <div class="node-layer" data-node-layer></div>
+          <div class="canvas-empty" data-empty-state hidden><b>Your canvas is empty.</b><span>Add a step from the library to begin.</span></div>
+        </div>
+        <p class="canvas-tip">Connections follow the execution order. Dragging changes the layout; the earlier and later controls change the sequence.</p>
+      </section>
+
+      <aside class="node-inspector" aria-labelledby="inspector-title">
+        <div class="panel-title">
+          <p>Step inspector</p>
+          <h2 id="inspector-title">Edit selected step</h2>
+        </div>
+        <form data-inspector-form>
+          <label>Step type<input data-node-type type="text" readonly></label>
+          <label>Step title<input data-node-title type="text" maxlength="70"></label>
+          <label>Instructions<textarea data-node-instructions rows="8" maxlength="900"></textarea></label>
+          <label>Variables or placeholders<textarea data-node-variables rows="4" maxlength="300" placeholder="One per line, such as: device_type"></textarea></label>
+          <div class="inspector-actions">
+            <button class="workflow-button secondary" type="button" data-move-earlier>Move earlier</button>
+            <button class="workflow-button secondary" type="button" data-move-later>Move later</button>
+            <button class="workflow-button danger" type="button" data-delete-node>Delete step</button>
+          </div>
+        </form>
+        <div class="inspector-empty" data-inspector-empty><b>Select a step</b><p>Choose a card on the canvas to edit its name, instructions, variables, or position in the sequence.</p></div>
+      </aside>
+    </section>
+
+    <section class="prompt-output" aria-labelledby="prompt-title">
+      <div class="prompt-heading">
+        <div><p>Visual to text</p><h2 id="prompt-title">Generated workflow prompt</h2></div>
+        <div class="prompt-actions">
+          <button class="workflow-button primary" type="button" data-generate>Generate prompt</button>
+          <button class="workflow-button secondary" type="button" data-copy>Copy prompt</button>
+          <button class="workflow-button secondary" type="button" data-download>Download TXT</button>
+        </div>
+      </div>
+      <textarea class="prompt-text" data-prompt-output aria-label="Generated prompt" spellcheck="false" placeholder="Your generated workflow prompt will appear here."></textarea>
+      <div class="prompt-footer"><span data-prompt-stats>0 steps · 0 words</span><span data-save-status>Saved locally</span></div>
+    </section>
+
+    <section class="workflow-notes" aria-labelledby="notes-title">
+      <div><p class="kicker">How to use it</p><h2 id="notes-title">A visual plan that stays portable.</h2></div>
+      <div class="workflow-note-grid">
+        <article><b>Build</b><h3>Model the process</h3><p>Add only the steps that matter. Each card becomes one explicit instruction in the final prompt.</p></article>
+        <article><b>Refine</b><h3>Make the handoffs clear</h3><p>Use variables for information that changes between runs, such as a device type, audience, source, or output format.</p></article>
+        <article><b>Run</b><h3>Use it with any model</h3><p>Copy the generated text into your preferred AI tool. Review the result and keep human approval for sensitive decisions.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <div class="workflow-toast" role="status" aria-live="polite" data-toast></div>
+  <footer class="subpage-footer"><a class="brand" href="../index.html"><span>MP</span><b>Marcielo Pestcoe</b></a><p>AI Workflow Builder · Visual prompt engineering · Local-first</p></footer>
+</body>
+</html>
