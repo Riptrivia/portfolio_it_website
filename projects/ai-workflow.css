@@ -271,6 +271,9 @@
 
 .canvas-empty { position: absolute; inset: 0; display: grid; place-content: center; gap: .35rem; color: var(--flow-muted); text-align: center; }
 .canvas-empty b { color: var(--flow-plum); font-size: 1.05rem; }
+.canvas-empty[hidden],
+.node-inspector form[hidden],
+.inspector-empty[hidden] { display: none !important; }
 
 .node-inspector { min-width: 0; }
 .node-inspector form { display: grid; gap: .9rem; padding-top: 1rem; }

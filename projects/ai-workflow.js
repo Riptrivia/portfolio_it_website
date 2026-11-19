@@ -388,11 +388,13 @@
   document.querySelector("[data-load-template]").addEventListener("click", () => {
     workflow = makeTemplate(els.template.value);
     selectedId = workflow.nodes[0]?.id || null;
+    els.canvas.scrollTo({ left: 0, top: 0 });
     save(); render(); generatePrompt(); showToast(`${workflow.name} loaded`);
   });
   document.querySelector("[data-new-workflow]").addEventListener("click", () => {
     workflow = { name: "Untitled AI workflow", nodes: [] };
     selectedId = null;
+    els.canvas.scrollTo({ left: 0, top: 0 });
     els.output.value = "";
     save(); render(); updatePromptStats(); showToast("New workflow ready");
   });
